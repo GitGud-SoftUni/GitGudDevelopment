@@ -34,6 +34,45 @@
 		</div>	 
 	</nav>
 	<main>
+		<div class="cust container" data-toggle="collapse">
+			<div class="row">
+				<div class="col-md-12">
+					<!-- Carousel
+					================================================== -->
+					<div id="myCarousel" class="carousel slide">        
+						<div class="carousel-inner">           
+							<div class="item active"> 
+								<div class="caption">
+								  <h4>Title 1</h4>
+									<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>
+									<p><a href="#" class="btn btn-default" role="button">Read more</a></p>
+								</div>
+							</div>
+							<div class="item">
+								<div class="caption">
+								  <h4>Title 2</h4>
+									<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>
+									<p><a href="#" class="btn btn-default" role="button">Read more</a></p>
+								</div>                                                           
+							 </div>  
+							<div class="item">
+								<div class="caption">
+								  <h4>Title 3</h4>
+									<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>
+									<p><a href="#" class="btn btn-default" role="button">Read more</a></p>
+								</div>                        
+							</div>                                                                                   
+						</div>
+						 <!-- Indicators -->
+						  <ol class="carousel-indicators">
+							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+							<li data-target="#myCarousel" data-slide-to="1"></li>
+							<li data-target="#myCarousel" data-slide-to="2"></li>
+						  </ol>                                                                 
+					</div><!-- End Carousel -->  
+				</div>
+			</div>
+		</div>
 		<div class="row">
 		  <div class="col-sm-6 col-md-3">
 			<div class="thumbnail">
@@ -139,6 +178,13 @@
 			<span>GitGud project 2016</span>
 		</div>
 	</footer>
+	<script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script>
+		$('#myCarousel').carousel({
+			interval:   4000
+		});
+	</script>
 	<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.js"></script>
 </body>
 </html>
