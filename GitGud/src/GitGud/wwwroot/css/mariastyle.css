@@ -10,6 +10,12 @@ body{
     background:rgba(80,80,80,0.6);
   }
 
+.wrapper{
+	width:85%;
+	background:rgba(71, 72, 74, 0.8);
+	margin:0 auto;
+}
+
 .container, .thumbnail{
 	
 	margin:0px 10px 10px;
@@ -31,4 +37,23 @@ body{
 			padding:0 10px;
 		}
 
+.carousel-indicators {
+	bottom:-20px;
+	left:0;
+	width:100%;
+	padding: 6px 0px;
+	margin-left:0;
+	margin-bottom:20px;
+}
+
+#myCarousel{
+	margin:10px, auto;
+}
+
+	.cust{
+		width:40%;
+		margin:10px auto 20px;
+		padding:10px;
+		background:transparent;
+	}
 
