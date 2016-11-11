@@ -9,6 +9,8 @@
 	<link href="lib/evento/css/animate.css" rel="stylesheet">	
 	<link href="lib/evento/css/responsive.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/mariastyle1.css" />
+	<link rel="stylesheet" href="css/marquee.css" />
+	<link rel="stylesheet" href="css/example.css" />
 </head>
 <body>
 
@@ -112,6 +114,24 @@
 					
 				</div>
 			</div>
+			<div class="row">
+				<div class="content">
+			<div class="simple-marquee-container">
+				<div class="marquee-sibling">
+					New Songs
+				</div>
+				<div class="marquee">
+					<ul class="marquee-content-items">
+						<li>Something 1</li>
+						<li>Something 2</li>
+						<li>Something 3</li>
+						<li>Something 4</li>
+						<li>Something 5</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+			</div>
 		</div>
 	</main>
 	
@@ -126,5 +146,19 @@
 	<script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="lib/eventojs/main.js"></script>  
+    
+	<script type="text/javascript" src="js/marquee.js"></script>
+
+
+		<script>
+			$(function (){
+
+				$('.simple-marquee-container').SimpleMarquee();
+				
+			});
+
+		</script>
+
+		
 </body>
 </html>
