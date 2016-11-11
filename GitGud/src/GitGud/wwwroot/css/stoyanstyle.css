@@ -1,0 +1,89 @@
+﻿img.bg {
+    /* Set rules to fill background */
+    min-height: 100%;
+    min-width: 1920px;
+    pointer-events: none;
+    /* Set up proportionate scaling */
+    width: 100%;
+    height: auto;
+    /* Set up positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+@media screen and (max-width: 1920px) { /* Specific to this particular image */
+    img.bg {
+        left: 50%;
+        margin-left: -960px; /* 50% */
+    }
+}
+
+img.logo {
+    padding: 3px;
+    height: auto;
+    width: auto;
+    max-width: 90px;
+    max-height: 90px;
+}
+
+.btn-search:hover,
+.btn-search:focus {
+    color: #91170a;
+    text-decoration: underline;
+    background-color: transparent;
+}
+
+.thumbContainer {
+  height: 180px;
+  width: 180px;
+  position: relative;
+}
+
+.thumb {
+  display: block;
+  max-width:180px;
+  max-height:180px;
+  min-height:180px;
+  min-width:180px;
+  border-radius:100%;
+}
+
+.thumbText {
+  z-index: 100;
+  position: absolute;
+  color: #000000;
+  font-size: 24px;
+  font-weight: bold;
+  top: 40%;
+}
+
+#footer {
+   bottom:10px;
+   width:100%;
+   height:10px;   /* Height of the footer */
+}
+
+/* CUSTOMIZE THE CAROUSEL
+    -------------------------------------------------- */
+
+    /* Carousel base class */
+    .carousel {
+      margin-bottom: 60px;
+    }
+
+    .carousel .container {
+      position: relative;
+      z-index: 9;
+    }
+
+    .carousel-control {
+      height: 90px;
+      margin-top: 0;
+      font-size: 120px;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+      background-color: transparent;
+      border: 0;
+      z-index: 10;
+    }
+
