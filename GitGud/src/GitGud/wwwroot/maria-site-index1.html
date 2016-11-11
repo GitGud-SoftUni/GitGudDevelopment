@@ -3,8 +3,8 @@
 <head>
     <title>Breh</title>
     <meta charset="utf-8" />
-    <link href="lib/evento/css/bootstrap.min.css" rel="stylesheet">
-    <link href="lib/evento/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="lib/Font-Awesome/css/font-awesome.min.css" />
 	<link href="lib/evento/css/main.css" rel="stylesheet">
 	<link href="lib/evento/css/animate.css" rel="stylesheet">	
 	<link href="lib/evento/css/responsive.css" rel="stylesheet">
@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <header id="header" role="banner">		
+    <nav id="header" class="clearfix" role="banner">		
 		<div class="navbar main-nav">
 			<div class="container">
 				<div class="header-top">
@@ -36,8 +36,8 @@
 		                <ul class="nav navbar-nav navbar-right">                 
 		                    <li ><a href="maria-site-index1.html">Home</a></li>
 		                    <li><a href="#">Explore</a></li>                         
-		                    <li><a href="#about">About</a></li>                     
-		                    <li><a href="#" >Register</a></li>
+		                    <li><a href="#">About</a></li>                     
+		                    <li><a href="#">Register</a></li>
 		                    <li><a href="#">Login</a></li>       
 		                </ul>
 		            </div>
@@ -49,11 +49,71 @@
 		<!--<div class="search">
 			<a href="#"><i class="fa fa-search"></i> <span>Search</span></a>
 		</div>-->
-    </header>
+		<div class="clearfix" />
+    </nav>
 	<main>
-		
+		<div class="container">
+			<div class="row">
+				<div class="panel-group col-md-8" id="accordion">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+								Your favorite songs</a>
+							</h4>
+						</div>
+						<div id="collapse1" class="panel-collapse collapse in">
+							<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+							  minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+							  commodo consequat.
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+								Your favorite artists</a>
+							</h4>
+						</div>
+						<div id="collapse2" class="panel-collapse collapse">
+							<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+							  minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+							  commodo consequat....... ....fgfffffff fffff ffff ffff ffff ffffff fffffff Lorem
+							  ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+							  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+							  ullamco laboris nisi ut aliquip ex ea commodo consequat....... ....fgfffffff fffff 
+							  ffff ffff ffff ffffff fffffff fffffff ff fffff fffff fffff fffff ffffffff fffff fff 
+							  ffffff fff fffff fffff ffffffff ffffff fff fffffff ff fff fffffff ffffff ff fff fff 
+							  fffkr deww r re w w r tr r ew w w w w er rrrrrrr r r r r    rrrrr rr  rrrrr
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+								Collapsible Group 3</a>
+							</h4>
+						</div>
+						<div id="collapse3" class="panel-collapse collapse">
+							<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+							  minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+							  commodo consequat.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					
+				</div>
+			</div>
+		</div>
 	</main>
-	<div class="clear"></div>
+	
 	<footer class="page-footer">
 		<div class="container">
             <div class="text-center">
@@ -62,15 +122,8 @@
         </div>
     </footer>
 
-	<script type="text/javascript" src="lib/eventojs/jquery.js"></script>
-    <script type="text/javascript" src="lib/eventojs/bootstrap.min.js"></script>
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-  	<script type="text/javascript" src="lib/eventojs/gmaps.js"></script>
-	<script type="text/javascript" src="lib/eventojs/smoothscroll.js"></script>
-    <script type="text/javascript" src="lib/eventojs/jquery.parallax.js"></script>
-    <script type="text/javascript" src="lib/eventojs/coundown-timer.js"></script>
-    <script type="text/javascript" src="lib/eventojs/jquery.scrollTo.js"></script>
-    <script type="text/javascript" src="lib/eventojs/jquery.nav.js"></script>
+	<script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="lib/eventojs/main.js"></script>  
 </body>
 </html>
