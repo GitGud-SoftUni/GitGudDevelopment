@@ -2,7 +2,7 @@
     ViewBag.Title = "Upload";
 }
 
-<div class="container body-content span=8 offset=2">
+@*<div class="container body-content span=8 offset=2">
     <form action="" class="form-horizontal">
         <fieldset>
             <legend>Upload file</legend>
@@ -21,7 +21,7 @@
             </div>
         </fieldset>
     </form>
-</div>
+</div>*@
 
 @*Вариант на страницата за Upload от мен (Жан). Ctrl + K + U /за откоментиране/ ; Ctrl + K + C - /закоментиране/*@
 @*<div class="container body-content span=8 offset=2">
@@ -51,3 +51,44 @@
         </fieldset>
     </form>
 </div>*@
+
+<div class="container upload">
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong>Upload Files</strong></div>
+        <div class="panel-body">
+
+            <!-- Standar Form -->
+            <h4>Select files from your computer</h4>
+            <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <input type="file" name="files[]" id="js-upload-files" accept="audio/*" multiple>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
+                </div>
+            </form>
+
+            <!-- Drop Zone -->
+            <h4>Or drag and drop files below</h4>
+            <div class="upload-drop-zone" id="drop-zone">
+                Just drag and drop files here
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                    <span class="sr-only">60% Complete</span>
+                </div>
+            </div>
+
+            <!-- Upload Finished -->
+            <div class="js-upload-finished">
+                <h3>Processed files</h3>
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>song1.mp3</a>
+                    <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>song2.mp3</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- /container -->
