@@ -49,17 +49,24 @@
         </div>
     </header>
     <main>
-      @RenderBody()
+        @RenderBody()
     </main>
-    <footer id="footer">
-        <div class="container">
-            <div class="col-md-offset-11 col-md-1">
-                <a href="~/App/About/" style="margin:5px"><i class="fa fa-info-circle"></i>About</a>
-            </div>
-        </div>
-    </footer>
+
+    @{
+        if (ViewBag.Title != "About")
+        {
+            <footer id="footer">
+                <div class="container">
+                    <div class="col-md-offset-11 col-md-1">
+                        <a href="~/App/About/" style="margin:5px"><i class="fa fa-info-circle"></i>About</a>
+                    </div>
+                </div>
+            </footer>
+        }
+    }
+    
     <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/js/script.js"></script>
 </body>
 </html>
