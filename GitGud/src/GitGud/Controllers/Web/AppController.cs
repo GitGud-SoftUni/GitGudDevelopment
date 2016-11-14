@@ -4,11 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using GitGud.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace GitGud.Controllers.Web
 {
     public class AppController : Controller
     {
+        private GitGudContext _context;
+        private IConfigurationRoot _config;
+
+        public AppController(IConfigurationRoot config ,GitGudContext context)
+        {
+            _config = config;
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -16,7 +27,9 @@ namespace GitGud.Controllers.Web
 
         public IActionResult Browse()
         {
-            return View();
+            var data = _context.Songs.ToList();
+
+            return View(data);
         }
 
         public IActionResult Charts()
