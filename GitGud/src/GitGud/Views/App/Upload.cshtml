@@ -31,32 +31,65 @@
 
 @*Вариант на страницата за Upload от мен (Жан). Ctrl + K + U /за откоментиране/ ; Ctrl + K + C - /закоментиране/*@
 @*<div class="container body-content span=8 offset=2">
-    <form enctype="multipart/form-data" method="post" action="" class="form-horizontal">
-        <fieldset>
-            <legend>Upload an mp3 File:</legend> <br>
-            <div class="form-group">
-                <label for="inputSongTitle" class="col-sm-4 control-label">Song Title</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="inputSongTitle" placeholder="Song Title">
-                </div>
-            </div>
-
-            <div class="col-md-offset-4 col-md-4">
-                
-                <p style="border: solid gray; border-radius: 10px; padding: 20px;">
-                    <input name="file" type="file" size="80" />
-                </p>
-                
+        <form enctype="multipart/form-data" method="post" action="" class="form-horizontal">
+            <fieldset>
+                <legend>Upload an mp3 File:</legend> <br>
                 <div class="form-group">
-                    <div class="col-lg-10 col-lg-offset-2">
-                        <button type="reset" class="btn btn-default">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Upload</button>
+                    <label for="inputSongTitle" class="col-sm-4 control-label">Song Title</label>
+                    <div class="col-lg-4">
+                        <input type="text" class="form-control" id="inputSongTitle" placeholder="Song Title">
+                    </div>
+                </div>
+
+                <div class="col-md-offset-4 col-md-4">
+
+                    <p style="border: solid gray; border-radius: 10px; padding: 20px;">
+                        <input name="file" type="file" size="80" />
+                    </p>
+
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+        <!-- Standar Form -->
+                <h4>Select files from your computer</h4>
+                <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="file" name="files[]" id="js-upload-files" accept="audio/*" multiple>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
+                    </div>
+                </form>
+                <!-- Drop Zone -->
+                <h4>Or drag and drop files below</h4>
+                <div class="upload-drop-zone" id="drop-zone">
+                    Just drag and drop files here
+                </div>
+                <!-- Progress Bar -->
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                        <span class="sr-only">60% Complete</span>
+                    </div>
+                </div>
+                <!-- Upload Finished -->
+                <div class="js-upload-finished">
+                    <h3>Processed files</h3>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>song1.mp3</a>
+                        <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>song2.mp3</a>
                     </div>
                 </div>
             </div>
-        </fieldset>
-    </form>
-</div>*@
+        </div>
+    </div> <!-- /container -->*@
 
 <div class="container upload">
     <div class="panel panel-default col-md-offset-4 col-md-4">
