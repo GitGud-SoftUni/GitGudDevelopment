@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GitGud.Models;
 using Microsoft.Extensions.Configuration;
+using GitGud.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace GitGud.Controllers.Web
 {
@@ -13,11 +16,13 @@ namespace GitGud.Controllers.Web
     {
         private GitGudContext _context;
         private IConfigurationRoot _config;
+        private IHostingEnvironment _environment;
 
-        public AppController(IConfigurationRoot config ,GitGudContext context)
+        public AppController(IConfigurationRoot config ,GitGudContext context, IHostingEnvironment environment)
         {
             _config = config;
             _context = context;
+            _environment = environment;
         }
 
         public IActionResult Index()
@@ -43,6 +48,12 @@ namespace GitGud.Controllers.Web
         }
 
         public IActionResult Upload()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Upload(UploadViewModel model)
         {
             return View();
         }

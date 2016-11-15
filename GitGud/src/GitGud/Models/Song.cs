@@ -13,7 +13,7 @@ namespace GitGud.Models
         public string SongName { get; set; }
         public string ArtistName { get; set; }
         public DateTime DateUploaded { get; set; }
-        public string Uploader { get; set; }
+        //public User Uploader { get; set; }
 
         public IFormFile MusicFile { get; set; }
 

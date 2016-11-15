@@ -1,5 +1,11 @@
-﻿@{
+﻿@model GitGud.ViewModels.UploadViewModel
+@{
     ViewBag.Title = "Upload";
+}
+
+@section scripts {
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
 
 @*<div class="container body-content span=8 offset=2">
@@ -53,40 +59,54 @@
 </div>*@
 
 <div class="container upload">
-    <div class="panel panel-default">
-        <div class="panel-heading"><strong>Upload Files</strong></div>
+    <div class="panel panel-default col-md-offset-4 col-md-4">
+        <div class="panel-heading"><strong>Upload File</strong></div>
         <div class="panel-body">
 
             <!-- Standar Form -->
-            <h4>Select files from your computer</h4>
-            <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+            <h4>Select a file from your computer</h4>
+            <form method="post" enctype="multipart/form-data" id="js-upload-form">
+                <span asp-validation-summary="ModelOnly"></span>
                 <div class="form-inline">
                     <div class="form-group">
-                        <input type="file" name="files[]" id="js-upload-files" accept="audio/*" multiple>
+                        <label asp-for="MusicFile"></label>
+                        <input asp-for="MusicFile">
+                        <span asp-validation-for="MusicFile"></span>
                     </div>
-                    <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
                 </div>
+
+                <div class="form-group">
+                    <label asp-for="SongName" class="control-label"></label>
+                    <div>
+                        <input asp-for="SongName" class="form-control" />
+                        <span asp-validation-for="SongName"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Artist" class="control-label"></label>
+                    <div>
+                        <input asp-for="Artist" class="form-control"/>
+                        <span asp-validation-for="Artist"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Tags" class="control-label"></label>
+                    <div>
+                        <input asp-for="Tags" class="form-control" />
+                        <span asp-validation-for="Tags"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" value="Upload" class="btn btn-sm btn-primary" id="js-upload-submit">Upload file</button>
+                </div>
+
             </form>
-
-            <!-- Drop Zone -->
-            <h4>Or drag and drop files below</h4>
-            <div class="upload-drop-zone" id="drop-zone">
-                Just drag and drop files here
-            </div>
-
             <!-- Progress Bar -->
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
                     <span class="sr-only">60% Complete</span>
-                </div>
-            </div>
-
-            <!-- Upload Finished -->
-            <div class="js-upload-finished">
-                <h3>Processed files</h3>
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>song1.mp3</a>
-                    <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>song2.mp3</a>
                 </div>
             </div>
         </div>
