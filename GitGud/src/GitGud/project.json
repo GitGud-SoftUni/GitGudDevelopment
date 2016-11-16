@@ -14,10 +14,14 @@
     "Microsoft.EntityFrameworkCore": "1.0.1",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
+<<<<<<< HEAD
     "Microsoft.EntityFrameworkCore.Tools": {
       "version": "1.0.0-preview2-final",
       "type": "build"
     }
+=======
+    "Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.1"
+>>>>>>> b31129709ba00469dbe555a22505ecbcee2100c4
   },
 
   "tools": {

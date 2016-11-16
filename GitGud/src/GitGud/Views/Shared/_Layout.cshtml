@@ -13,21 +13,21 @@
         <div class="navbar navbar-default navbar-static-top text-uppercase">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="~/App/Index" class="navbar-left"><img src="~/images/GitGudLogo4.png" class="logo" /></a>
+                    <a asp-controller="App" asp-action="Index" class="navbar-left"><img src="~/images/GitGudLogo4.png" class="logo" /></a>
                     <button type="button" class="navbar-toggle" style="margin-top:10px" data-toggle="collapse" data-target=".navbar-collapse">
                         <span><i class="fa fa-navicon"></i></span>
                     </button>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-left">
-                        <li><a href="~/App/Browse/" style="padding:20px"><i class="fa fa-music"></i><strong> Browse</strong></a></li>
+                        <li><a asp-controller="App" asp-action="Browse" style="padding:20px"><i class="fa fa-music"></i><strong> Browse</strong></a></li>
                         <li><a href="#" style="padding:20px"><i class="fa fa-line-chart"></i><strong> Charts</strong></a></li>
                         <li><a href="#" style="padding:20px"><i class="fa fa-fire"></i><strong> Hot tracks</strong></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="~/App/Upload/" style="padding:20px"><i class="fa fa-cloud-upload"></i><strong> Upload</strong></a></li>
-                        <li><a href="~/App/Login/" style="padding:20px"><i class="fa fa-user"></i><strong> Login</strong></a></li>
-                        <li><a href="~/App/Register/" style="padding:20px"><i class="fa fa-user-plus"></i><strong> Register</strong></a></li>
+                        <li><a asp-controller="App" asp-action="Upload" style="padding:20px"><i class="fa fa-cloud-upload"></i><strong> Upload</strong></a></li>
+                        <li><a asp-controller="App" asp-action="Login" style="padding:20px"><i class="fa fa-user"></i><strong> Login</strong></a></li>
+                        <li><a asp-controller="App" asp-action="Register" style="padding:20px"><i class="fa fa-user-plus"></i><strong> Register</strong></a></li>
                         <li>
                             <div class="btn-group">
                                 <a href="#" class="btn btn-search dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="margin:4px;color:#000000; margin-left:10px"><i class="fa fa-search fa-2x"></i></a>
@@ -58,7 +58,7 @@
             <footer id="footer">
                 <div class="container">
                     <div class="col-md-offset-11 col-md-1">
-                        <a href="~/App/About/" style="margin:5px"><i class="fa fa-info-circle"></i>About</a>
+                        <a asp-controller="App" asp-action="About" style="margin:5px"><i class="fa fa-info-circle"></i>About</a>
                     </div>
                 </div>
             </footer>
@@ -66,6 +66,7 @@
     }
     
     <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    @RenderSection("scripts", false)
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/js/script.js"></script>
 </body>
