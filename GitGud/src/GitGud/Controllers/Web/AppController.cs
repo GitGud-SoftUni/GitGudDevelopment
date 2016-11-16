@@ -18,11 +18,7 @@ namespace GitGud.Controllers.Web
         private IConfigurationRoot _config;
         private IHostingEnvironment _environment;
 
-<<<<<<< HEAD
-        public AppController(IConfigurationRoot config, GitGudContext context)
-=======
         public AppController(IConfigurationRoot config ,GitGudContext context, IHostingEnvironment environment)
->>>>>>> b31129709ba00469dbe555a22505ecbcee2100c4
         {
             _config = config;
             _context = context;
