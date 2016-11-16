@@ -4,14 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace GitGud.Models
 {
     public class GitGudContext : DbContext
     {
-        public GitGudContext()
-        {
+        private IConfigurationRoot _config;
 
+        public GitGudContext(IConfigurationRoot config, DbContextOptions options) : base(options)
+        {
+            _config = config;
         }
 
         public DbSet<Song> Songs { get; set; }
@@ -21,7 +24,7 @@ namespace GitGud.Models
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseSqlServer("");//TODO
+            optionsBuilder.UseSqlServer(_config["ConnectionStrings:GitGudContextConnection"]);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace GitGud.Controllers.Web
         private GitGudContext _context;
         private IConfigurationRoot _config;
 
-        public AppController(IConfigurationRoot config ,GitGudContext context)
+        public AppController(IConfigurationRoot config, GitGudContext context)
         {
             _config = config;
             _context = context;

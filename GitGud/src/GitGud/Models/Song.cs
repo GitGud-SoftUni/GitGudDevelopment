@@ -12,10 +12,17 @@ namespace GitGud.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string ArtistName { get; set; }
-        public DateTime DateUploaded { get; set; }
+
+        public DateTime DateUploaded
+        {
+            get
+            {
+                return DateTime.Now;
+            }
+        }
         public string UploaderName { get; set; }
 
-        public IFormFile MusicFile { get; set; }
+        //public IFormFile MusicFile { get; set; }
 
         public ICollection<Tag> Tags { get; set; }
 
