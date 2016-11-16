@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using GitGud.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using GitGud.Services;
 
 namespace GitGud.Controllers.Web
 {
@@ -17,12 +18,14 @@ namespace GitGud.Controllers.Web
         private GitGudContext _context;
         private IConfigurationRoot _config;
         private IHostingEnvironment _environment;
+        private IUploadService _uploadService;
 
-        public AppController(IConfigurationRoot config ,GitGudContext context, IHostingEnvironment environment)
+        public AppController(IConfigurationRoot config ,GitGudContext context, IHostingEnvironment environment, IUploadService uploadService)
         {
             _config = config;
             _context = context;
             _environment = environment;
+            _uploadService = uploadService;
         }
 
         public IActionResult Index()
@@ -55,6 +58,7 @@ namespace GitGud.Controllers.Web
         [HttpPost]
         public IActionResult Upload(UploadViewModel model)
         {
+            _uploadService.UploadSong(model.MusicFile, model.SongName, model.Artist, model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToArray());
             return View();
         }
 

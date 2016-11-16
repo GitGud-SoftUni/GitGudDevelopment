@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using GitGud.Models;
 using Microsoft.Extensions.Configuration;
+using GitGud.Services;
 
 namespace GitGud
 {
@@ -33,6 +34,8 @@ namespace GitGud
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUploadService, DebugUploadService>();
+
             services.AddSingleton(_config);
 
             services.AddDbContext<GitGudContext>();
