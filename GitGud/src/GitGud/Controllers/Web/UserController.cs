@@ -10,15 +10,13 @@ namespace GitGud.Controllers.Web
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
-        private RoleManager<User> _roleManager;
 
 
         //user manager - for creating user, sign in manager - for log in and log out user
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<User> roleManager )
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager = roleManager;
         }
 
         [HttpGet]
