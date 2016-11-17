@@ -1,0 +1,19 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GitGud.ViewModels
+{
+    public class RegisterUserViewModel
+    {
+        [Required, DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [Required, MinLength(3), MaxLength(64)]
+        public string FullName { get; set; }
+
+        [Required, MinLength(6), DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [Required, DataType(DataType.Password),Compare(nameof(Password))]
+        public string RepeatedPassword { get; set; }
+    }
+}

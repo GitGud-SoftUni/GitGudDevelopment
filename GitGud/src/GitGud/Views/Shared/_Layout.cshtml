@@ -26,8 +26,20 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a asp-controller="App" asp-action="Upload" style="padding:20px"><i class="fa fa-cloud-upload"></i><strong> Upload</strong></a></li>
-                        <li><a asp-controller="App" asp-action="Login" style="padding:20px"><i class="fa fa-user"></i><strong> Login</strong></a></li>
-                        <li><a asp-controller="App" asp-action="Register" style="padding:20px"><i class="fa fa-user-plus"></i><strong> Register</strong></a></li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <span style="padding-right: 5px">Hello, @User.Identity.Name</span>
+                                <a asp-controller="User" asp-action="Logout" style="padding: 20px">
+                                    <i class="fa fa-user"></i><strong> Logout</strong>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a asp-controller="User" asp-action="Login" style="padding: 20px"><i class="fa fa-user"></i><strong> Login</strong></a></li>
+                            <li><a asp-controller="User" asp-action="Register" style="padding: 20px"><i class="fa fa-user-plus"></i><strong> Register</strong></a></li>
+                        }
                         <li>
                             <div class="btn-group">
                                 <a href="#" class="btn btn-search dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="margin:4px;color:#000000; margin-left:10px"><i class="fa fa-search fa-2x"></i></a>
@@ -44,6 +56,7 @@
                             </div>
                         </li>
                     </ul>
+
                 </div>
             </div>
         </div>

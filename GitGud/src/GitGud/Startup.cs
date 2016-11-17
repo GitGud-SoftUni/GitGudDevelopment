@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using GitGud.Models;
 using Microsoft.Extensions.Configuration;
 using GitGud.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace GitGud
 {
@@ -40,6 +41,9 @@ namespace GitGud
 
             services.AddDbContext<GitGudContext>();
 
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<GitGudContext>();
+
             services.AddMvc();
         }
 
@@ -53,6 +57,7 @@ namespace GitGud
             //app.UseDefaultFiles();
             app.UseStaticFiles();// For this to run it adds "Microsoft.AspNetCore.StaticFiles": "1.0.0" to the project.json
 
+            app.UseIdentity();
 
             app.UseMvc(config =>
            {

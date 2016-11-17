@@ -10,7 +10,7 @@ namespace GitGud.ViewModels
 {
     public class UploadViewModel
     {
-        [Required]
+        [Required, DataType(DataType.Upload)]
         public IFormFile MusicFile { get; set; }
         [Required]
         [StringLength(20, MinimumLength =2)]
