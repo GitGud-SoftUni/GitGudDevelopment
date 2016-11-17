@@ -9,7 +9,7 @@ namespace GitGud.Models
 {
     public class User : IdentityUser
     {
-        //Identity package contains every property for a user...
+        //Identity package contains every property for a user including these...
         //        public int Id { get; set; }
         //        public string Username { get; set; } //a.k.a email
         //        public string FullName { get; set; }
@@ -17,7 +17,7 @@ namespace GitGud.Models
         //        public string Role { get; set; } // user or admin 
         //        public string Salt { get; set; }//a.k.a. encryption key for the password before storing in db
 
-
-        //public ICollection<Song> Songs { get; set; }
+        //sholud add only custom properties
+        public ICollection<Song> Songs { get; set; }
     }
 }
