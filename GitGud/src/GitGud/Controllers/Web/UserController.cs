@@ -10,13 +10,15 @@ namespace GitGud.Controllers.Web
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
+        private RoleManager<User> _roleManager;
 
 
         //user manager - for creating user, sign in manager - for log in and log out user
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<User> roleManager )
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -37,6 +39,7 @@ namespace GitGud.Controllers.Web
                 if (createResult.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false); //signinasync - false means user won't stay logged in after closes browser
+                    //await _roleManager.SetRoleNameAsync(user, "User"); //to check if works after db is repaired
                     return RedirectToAction("Index", "App");
                    
                 }
@@ -89,5 +92,6 @@ namespace GitGud.Controllers.Web
 
             return View(model);
         }
+
     }
 }
