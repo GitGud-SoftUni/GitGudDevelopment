@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
 using GitGud.Controllers.Web;
+using GitGud.Services;
 
 namespace GitGud.Controllers.Web
 {
@@ -19,12 +20,14 @@ namespace GitGud.Controllers.Web
         private GitGudContext _context;
         private IConfigurationRoot _config;
         private IHostingEnvironment _environment;
+        private IUploadService _uploadService;
 
-        public AppController(IConfigurationRoot config, GitGudContext context, IHostingEnvironment environment)
+        public AppController(IConfigurationRoot config, GitGudContext context, IHostingEnvironment environment, IUploadService uploadService)
         {
             _config = config;
             _context = context;
             _environment = environment;
+            _uploadService = uploadService;
         }
 
         public IActionResult Index()
@@ -55,10 +58,21 @@ namespace GitGud.Controllers.Web
         }
 
         //[Authorize]//only registered users to be able to upload files
-        [HttpPost, Authorize]
+        [HttpPost]
         public IActionResult Upload(UploadViewModel model)
         {
-           
+            if (ModelState.IsValid)
+            {
+                _uploadService.UploadSong(
+                    model.MusicFile,
+                    model.SongName, 
+                    model.Artist, 
+                    model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList());
+
+                
+                ModelState.Clear();
+                ViewBag.InputFields = "Song send/uploaded";
+            }
             return View();
         }
 

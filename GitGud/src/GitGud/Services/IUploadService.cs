@@ -9,7 +9,7 @@ namespace GitGud.Services
 {
     public interface IUploadService
     {
-        void UploadSong(IFormFile file, string songName, string artistName, string[] tags);
+        void UploadSong(IFormFile file, string songName, string artistName, List<string> tags);
         
     }
 }

@@ -13,10 +13,10 @@ namespace GitGud.ViewModels
         [Required, DataType(DataType.Upload)]
         public IFormFile MusicFile { get; set; }
         [Required]
-        [StringLength(20, MinimumLength =2)]
+        [StringLength(40, MinimumLength =2)]
         public string SongName { get; set; }
         [Required]
-        [StringLength(20, MinimumLength = 2)]
+        [StringLength(40, MinimumLength = 2)]
         public string Artist { get; set; }
         [Required]
         public string Tags { get; set; }
