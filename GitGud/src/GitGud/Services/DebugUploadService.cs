@@ -12,11 +12,13 @@ namespace GitGud.Services
 {
     public class DebugUploadService : IUploadService
     {
+        private GitGudContext _context;
         private IHostingEnvironment _environment;
 
-        public DebugUploadService(IHostingEnvironment environemnt)
+        public DebugUploadService(IHostingEnvironment environemnt, GitGudContext context)
         {
             _environment = environemnt;
+            _context = context;
 
         }
 
@@ -48,7 +50,7 @@ namespace GitGud.Services
 
                 var song = new Song
                 {
-                    Name = file.FileName,
+                    Name = songName,
                     ArtistName = artistName,
                     fileAdress = path,//this is not the best way TODO: change it later
                     UploaderName = "Gosho",//TODO use the real username
@@ -57,8 +59,9 @@ namespace GitGud.Services
                 };
 
 
-                //TODO: context.Songs.Add(song);
-                //TODO: context.SaveChanges();
+                _context.Songs.Add(song);
+                _context.Tags.AddRange(song.Tags);
+                _context.SaveChanges();
 
             }
 
