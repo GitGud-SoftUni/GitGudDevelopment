@@ -45,6 +45,20 @@ namespace GitGud
                 .AddEntityFrameworkStores<GitGudContext>();
 
             services.AddMvc();
+
+            //this makes changes  to validation settings
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+
+               // User settings
+                options.User.RequireUniqueEmail = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
