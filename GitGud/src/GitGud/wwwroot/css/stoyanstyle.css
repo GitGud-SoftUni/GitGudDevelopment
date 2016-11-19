@@ -64,6 +64,17 @@ img.logo {
    height:10px;   /* Height of the footer */
 }
 
+.submit {
+    background: transparent;    
+    text-transform: uppercase;
+    height: 60px;
+}
+.off:hover, .submit:hover, .span:hover, strong:hover {
+    color: #d9230f!important;
+    text-decoration: none;
+}
+
+
 /* CUSTOMIZE THE CAROUSEL
     -------------------------------------------------- */
 

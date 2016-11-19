@@ -7,7 +7,7 @@ namespace GitGud.ViewModels
         [Required, DataType(DataType.EmailAddress), EmailAddress]
         public string Email { get; set; }
 
-        [Required, MinLength(3), MaxLength(64)]
+        [Required, MinLength(3), MaxLength(64), Display(Name = "User Name")]
         public string FullName { get; set; }
 
         [Required, MinLength(3), DataType(DataType.Password)]

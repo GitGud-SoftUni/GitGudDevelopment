@@ -58,6 +58,10 @@ namespace GitGud
 
                // User settings
                 options.User.RequireUniqueEmail = true;
+
+                //Username settings
+                options.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -._@+";
             });
         }
 

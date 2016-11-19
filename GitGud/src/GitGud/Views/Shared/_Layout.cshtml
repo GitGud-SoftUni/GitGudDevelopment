@@ -25,18 +25,19 @@
                         <li><a href="#" style="padding:20px"><i class="fa fa-fire"></i><strong> Hot tracks</strong></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a asp-controller="App" asp-action="Upload" style="padding:20px"><i class="fa fa-cloud-upload"></i><strong> Upload</strong></a></li>
                         @if (User.Identity.IsAuthenticated)
                         {
+                            <li><a asp-controller="App" asp-action="Index" style="padding:20px"><strong> Hello, @User.Identity.Name</strong></a></li>
+                            <li><a asp-controller="App" asp-action="Upload" style="padding:20px"><i class="fa fa-cloud-upload"></i><strong> Upload</strong></a></li>
                             <li>
-                                <span style="padding-right: 5px">Hello, @User.Identity.Name</span>
-                                <a asp-controller="User" asp-action="Logout" style="padding: 20px">
-                                    <i class="fa fa-user"></i><strong> Logout</strong>
-                                </a>
+                                <form method="post" asp-controller="User" asp-action="Logout" asp-antiforgery="true">
+                                    <button type="submit" class="btn btn-link submit"><a style="padding:20px" class="off"><span class="span text-muted"><i class="fa fa-user text-muted"></i><strong >Logout</strong></span></a></button>
+                                </form>        
                             </li>
                         }
                         else
                         {
+                            <li><a asp-controller="App" asp-action="Upload" style="padding:20px"><i class="fa fa-cloud-upload"></i><strong> Upload</strong></a></li>
                             <li><a asp-controller="User" asp-action="Login" style="padding: 20px"><i class="fa fa-user"></i><strong> Login</strong></a></li>
                             <li><a asp-controller="User" asp-action="Register" style="padding: 20px"><i class="fa fa-user-plus"></i><strong> Register</strong></a></li>
                         }
