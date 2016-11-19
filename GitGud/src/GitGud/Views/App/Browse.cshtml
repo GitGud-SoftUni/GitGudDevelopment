@@ -1,10 +1,37 @@
-﻿@{
+﻿@model IEnumerable<GitGud.Models.Song>
+@{
     ViewBag.Title = "Browse";
 }
 <div class="container">
-    <div class="jumbotron">
-        <h1>Jumbotron</h1>
-        <p>Some text here</p>
-        <p><a class="btn btn-primary btn-lg">Button</a></p>
-    </div>
+    <table class="table table-striped table-hover ">
+        <thead>
+            <tr>
+                <th>Song</th>
+                <th>Artist</th>
+                <th>Date added</th>
+                <th>Uploader</th>
+                <th>Audio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var song in Model)
+            {
+                <tr class="info">
+                    <td>@song.Name</td>
+                    <td>@song.ArtistName</td>
+                    <td>@song.DateUploaded.ToString("d")</td>
+                    <td>@song.UploaderName</td>
+                    <td>
+                        <audio controls preload="none">
+                            <source src="~/uploads/@song.fileAdress" type="audio/ogg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+
+    </table>
 </div>

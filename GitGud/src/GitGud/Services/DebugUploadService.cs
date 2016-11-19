@@ -52,9 +52,9 @@ namespace GitGud.Services
                 {
                     Name = songName,
                     ArtistName = artistName,
-                    fileAdress = path,//this is not the best way TODO: change it later
+                    fileAdress = file.FileName,//Think about this some more
                     UploaderName = "Gosho",//TODO use the real username
-                    Tags = tagsToAdd//TODO See if this works in the new DB
+                    Tags = tagsToAdd
 
                 };
 

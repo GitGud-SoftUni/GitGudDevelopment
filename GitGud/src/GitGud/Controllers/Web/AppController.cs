@@ -17,15 +17,16 @@ namespace GitGud.Controllers.Web
 {
     public class AppController : Controller
     {
-        private GitGudContext _context;
+
         private IConfigurationRoot _config;
         private IHostingEnvironment _environment;
         private IUploadService _uploadService;
+        private IGitGudRepository _repository;
 
-        public AppController(IConfigurationRoot config, GitGudContext context, IHostingEnvironment environment, IUploadService uploadService)
+        public AppController(IConfigurationRoot config, IGitGudRepository repository, IHostingEnvironment environment, IUploadService uploadService)
         {
             _config = config;
-            _context = context;
+            _repository = repository;
             _environment = environment;
             _uploadService = uploadService;
         }
@@ -37,7 +38,7 @@ namespace GitGud.Controllers.Web
 
         public IActionResult Browse()
         {
-            var data = _context.Songs.ToList();//TODO: Change this
+            var data = _repository.GetAllSongs();//TODO: Change this
 
             return View(data);
         }

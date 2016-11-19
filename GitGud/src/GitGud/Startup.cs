@@ -41,6 +41,8 @@ namespace GitGud
 
             services.AddDbContext<GitGudContext>();
 
+            services.AddScoped<IGitGudRepository, GitGudRepository>();
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<GitGudContext>();
 
