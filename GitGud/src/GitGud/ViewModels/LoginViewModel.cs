@@ -4,7 +4,7 @@ namespace GitGud.ViewModels
 {
     public class LoginViewModel
     {
-        [Required, Display(Name = "Email")]
+        [Required, EmailAddress, Display(Name = "Email")]
         public string Username { get; set; }
 
         [Required, DataType(DataType.Password)]

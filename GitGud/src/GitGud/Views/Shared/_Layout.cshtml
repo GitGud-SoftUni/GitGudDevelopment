@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model GitGud.Models.User
+<!DOCTYPE html>
 <html>
 <head>
     <title>GitGud - @ViewBag.Title</title>
@@ -31,7 +32,7 @@
                             <li><a asp-controller="App" asp-action="Upload" style="padding:20px"><i class="fa fa-cloud-upload"></i><strong> Upload</strong></a></li>
                             <li>
                                 <form method="post" asp-controller="User" asp-action="Logout" asp-antiforgery="true">
-                                    <button type="submit" class="btn btn-link submit"><a style="padding:20px" class="off"><span class="span text-muted"><i class="fa fa-user text-muted"></i><strong >Logout</strong></span></a></button>
+                                    <button type="submit" class="btn navbar-btn btn-link submit"><a style="padding:20px" class="off"><span class="span text-muted"><i class="fa fa-user text-muted"></i><strong >Logout</strong></span></a></button>
                                 </form>        
                             </li>
                         }
