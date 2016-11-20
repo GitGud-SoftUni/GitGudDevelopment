@@ -19,6 +19,5 @@ namespace GitGud.Models
 
         //sholud add only custom properties
         public ICollection<Song> Songs { get; set; }
-        public string FullName { get; set; }
     }
 }

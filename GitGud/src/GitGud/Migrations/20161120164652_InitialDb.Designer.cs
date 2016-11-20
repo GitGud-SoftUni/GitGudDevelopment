@@ -8,7 +8,7 @@ using GitGud.Models;
 namespace GitGud.Migrations
 {
     [DbContext(typeof(GitGudContext))]
-    [Migration("20161120141651_InitialDb")]
+    [Migration("20161120164652_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,8 +69,6 @@ namespace GitGud.Migrations
                         .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<string>("FullName");
 
                     b.Property<bool>("LockoutEnabled");
 

@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using GitGud.Models;
 using GitGud.ViewModels;
+using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
-
 
 namespace GitGud.Controllers.Web
 {
@@ -18,8 +18,6 @@ namespace GitGud.Controllers.Web
         {
             _userManager = userManager;
             _signInManager = signInManager;
-
-           
         }
 
         [HttpGet]
@@ -42,11 +40,9 @@ namespace GitGud.Controllers.Web
                     await _signInManager.SignInAsync(user, false); //signinasync - false means user won't stay logged in after closes browser
                    
                     return RedirectToAction("Index", "App");
-                    
+                   
                 }
 
-                //ToDo - display message if such username exists in the db??? LINQ-maybe?
-                
                 foreach (var error in createResult.Errors)
                 {
                         //error will appear also in <span asp-validation-summary="ModelOnly"></span> field
@@ -70,7 +66,7 @@ namespace GitGud.Controllers.Web
             return View();
         }
 
-        [HttpPost][ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -83,16 +79,11 @@ namespace GitGud.Controllers.Web
                 //trying to reach if it is local url and to index if it's not
                 if (loginResult.Succeeded)
                 {
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) &&
-                        Url.IsLocalUrl(model.ReturnUrl))
-                    {
-                        return Redirect(model.ReturnUrl);
-                    }
+//                    if (Url.IsLocalUrl(model.ReturnUrl))
+//                    {
+//                        return Redirect(model.ReturnUrl);
+//                    }
                     return RedirectToAction("Index", "App");
-                }
-                else
-                {
-                    return View(model);
                 }
             }
 
