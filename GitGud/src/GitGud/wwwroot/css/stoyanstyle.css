@@ -69,11 +69,10 @@ img.logo {
     text-transform: uppercase;
     height: 60px;
 }
-.off:hover, .submit:hover, .span:hover, strong:hover {
+.off:hover, .submit:hover, .span:hover {
     color: #d9230f!important;
     text-decoration: none;
 }
-
 
 /* CUSTOMIZE THE CAROUSEL
     -------------------------------------------------- */
