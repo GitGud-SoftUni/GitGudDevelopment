@@ -27,9 +27,13 @@
                             Your browser does not support the audio element.
                         </audio>
                     </td>
-                </tr>
-            }
 
+                    <td>
+                        <a asp-controller="Song" asp-action="DeleteSong" asp-route-song="@song" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+
+            }
 
         </tbody>
 
