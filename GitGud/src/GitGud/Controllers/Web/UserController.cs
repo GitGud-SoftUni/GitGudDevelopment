@@ -1,14 +1,8 @@
-﻿using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GitGud.Models;
 using GitGud.ViewModels;
-using Microsoft.AspNetCore.Hosting.Internal;
-using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
-using Microsoft.EntityFrameworkCore.Storage;
 
 
 namespace GitGud.Controllers.Web
@@ -39,7 +33,7 @@ namespace GitGud.Controllers.Web
         {
             if (ModelState.IsValid)
             {
-                var user = new User {UserName = model.Email, Email = model.Email, FullName = model.FullName};
+                var user = new User {UserName = model.Username, Email = model.Email};
 
                 var createResult = await _userManager.CreateAsync(user, model.Password);
 
@@ -81,7 +75,7 @@ namespace GitGud.Controllers.Web
         {
             if (ModelState.IsValid)
             {
-                var loginResult = await _signInManager.PasswordSignInAsync(model.Username, 
+                var loginResult = await _signInManager.PasswordSignInAsync(model.Email, 
                                                                             model.Password, 
                                                                             model.RememberMe, 
                                                                             false);
