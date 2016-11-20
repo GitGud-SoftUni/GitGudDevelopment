@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GitGud.Models
 {
@@ -18,6 +19,12 @@ namespace GitGud.Models
         public IEnumerable<Song> GetAllSongs()
         {
             return _context.Songs.ToList();
+        }
+
+        public void DeleteSong(Song song)
+        {
+            _context.Songs.Remove(song);
+            _context.SaveChanges();
         }
     }
 }
