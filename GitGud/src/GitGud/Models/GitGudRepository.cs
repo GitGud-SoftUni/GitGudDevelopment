@@ -36,9 +36,9 @@ namespace GitGud.Models
             var currentSongTags = _context.Songs.Where(s => s.Id == currentSong.Id)
                 .Include(s => s.Tags).FirstOrDefault().Tags;
 
-           _context.Tags.RemoveRange(currentSongTags);
-           _context.Songs.Remove(currentSong);
-           _context.SaveChanges();
+            _context.Tags.RemoveRange(currentSongTags);
+            _context.Songs.Remove(currentSong);
+            _context.SaveChanges();
         }
     }
 }
