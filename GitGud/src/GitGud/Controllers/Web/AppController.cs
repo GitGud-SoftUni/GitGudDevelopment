@@ -67,7 +67,7 @@ namespace GitGud.Controllers.Web
                 _uploadService.UploadSong(
                     model.MusicFile,
                     model.SongName, 
-                    model.Artist, 
+                    model.Artist,
                     model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList());
 
                 

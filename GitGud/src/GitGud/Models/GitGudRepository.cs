@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace GitGud.Models
 {
@@ -31,8 +32,13 @@ namespace GitGud.Models
                 File.Delete(songFileAddress);
             }
 
-            //_context.Songs.Remove(currentSong);
-            //_context.SaveChanges();
+            //Get Tags for current song
+            var currentSongTags = _context.Songs.Where(s => s.Id == currentSong.Id)
+                .Include(s => s.Tags).FirstOrDefault().Tags;
+
+           _context.Tags.RemoveRange(currentSongTags);
+           _context.Songs.Remove(currentSong);
+           _context.SaveChanges();
         }
     }
 }
