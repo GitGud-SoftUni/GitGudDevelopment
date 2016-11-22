@@ -55,12 +55,18 @@ namespace GitGud.Controllers.Web
             return View();
         }
 
+        //[Authorize]//ToDo - find out why redirect path is not working 
+        [HttpGet]
         public IActionResult Upload()
         {
+            //until then - instead of annotations we just check for user login
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
             return View();
         }
 
-        //[Authorize]//only registered users to be able to upload files
         [HttpPost]
         public IActionResult Upload(UploadViewModel model)
         {
