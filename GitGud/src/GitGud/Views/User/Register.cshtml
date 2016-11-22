@@ -14,7 +14,7 @@
         <form class="form-horizontal" method="post" asp-antiforgery="true">
             <fieldset>
                 @* added tag helpers instead ids and names*@
-                <span asp-validation-summary="ModelOnly"></span>
+                <div asp-validation-summary="ModelOnly"></div>
                 <legend>Register</legend>
                 <div class="form-group">
                     <label asp-for="Email" class="col-lg-4 control-label">Email</label>
