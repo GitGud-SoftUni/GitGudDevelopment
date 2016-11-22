@@ -29,7 +29,14 @@ namespace GitGud.Models
 
             if (File.Exists(songFileAddress))
             {
-                File.Delete(songFileAddress);
+                try
+                {
+                    File.Delete(songFileAddress);
+                }
+                catch (Exception)
+                {
+                   
+                }
             }
 
             //Get Tags for current song
