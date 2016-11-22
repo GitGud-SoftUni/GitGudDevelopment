@@ -33,7 +33,9 @@ namespace GitGud.Controllers.Web
 
         public IActionResult Index()
         {
-            return View();
+            var tags = _repository.GetTopTags();
+
+            return View(tags);
         }
 
         public IActionResult Browse()

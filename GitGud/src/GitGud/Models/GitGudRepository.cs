@@ -47,5 +47,28 @@ namespace GitGud.Models
             _context.Songs.Remove(currentSong);
             _context.SaveChanges();
         }
+
+        public IEnumerable<string> GetTopTags()
+        {
+            var allTags = _context.Tags.ToList();
+
+            Dictionary<string, int> tagsCounter = new Dictionary<string, int>();
+
+            foreach (var tag in allTags)
+            {
+                if (tagsCounter.ContainsKey(tag.Name))
+                {
+                    tagsCounter[tag.Name] += 1;
+                }
+                else
+                {
+                    tagsCounter.Add(tag.Name, 1);
+                }
+            }
+
+            List<string> topTags = tagsCounter.OrderByDescending(x => x.Value).Take(25).Select(y => y.Key).ToList();
+
+            return topTags;
+        }
     }
 }

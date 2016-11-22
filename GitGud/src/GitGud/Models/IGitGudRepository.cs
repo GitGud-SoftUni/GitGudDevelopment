@@ -6,5 +6,6 @@ namespace GitGud.Models
     {
         IEnumerable<Song> GetAllSongs();
         void DeleteSong(int songId);
+        IEnumerable<string> GetTopTags();
     }
 }
