@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     ViewBag.Title = "Home Page";
 }
 <div class="container">
@@ -32,36 +32,22 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <h2 style="text-align:center">Popular tags:</h2>
-            <ul class="pager">
-                <li><a href="#" style="margin:3px">Tagtagtag</a></li>
-                <li><a href="#" style="margin:3px">Tralala</a></li>
-                <li><a href="#" style="margin:3px">mofo</a></li>
-                <li><a href="#" style="margin:3px">Tag</a></li>
-                <li><a href="#" style="margin:3px">lolololo</a></li>
-                <li><a href="#" style="margin:3px">Tag</a></li>
-                <li><a href="#" style="margin:3px">Tagtuktuktuk</a></li>
-                <li><a href="#" style="margin:3px">Tag</a></li>
-                <li><a href="#" style="margin:3px">Tag</a></li>
-                <li><a href="#" style="margin:3px">You</a></li>
-                <li><a href="#" style="margin:3px">Touch</a></li>
-                <li><a href="#" style="margin:3px">My</a></li>
-                <li><a href="#" style="margin:3px">Tralala</a></li>
-                <li><a href="#" style="margin:3px">Tag</a></li>
-                <li><a href="#" style="margin:3px">Tag</a></li>
-                <li><a href="#" style="margin:3px">Tag</a></li>
-                <li><a href="#" style="margin:3px">Tag</a></li>
-                <li><a href="#" style="margin:3px">Tag</a></li>
-                <li><a href="#" style="margin:3px">Tag</a></li>
-                <li><a href="#" style="margin:3px">This</a></li>
-                <li><a href="#" style="margin:3px">Is</a></li>
-                <li><a href="#" style="margin:3px">Staring</a></li>
-                <li><a href="#" style="margin:3px">To</a></li>
-                <li><a href="#" style="margin:3px">Overflow</a></li>
-                <li><a href="#" style="margin:3px">NotCool</a></li>
-            </ul>
-        </div>
+            <div class="col-md-6">
+                <h2 style="text-align:center">Popular tags:</h2>
+                <ul class="pager">
+                    @if (Model.Count > 0)
+                    {
+                        @foreach (var tag in Model)
+                        {
+                            <li><a href="#" style="margin:3px">@tag</a></li>
+                        }
+                    }
+                    else
+                    {
+                        <li>No tags to display :(</li>
+                    }
+                </ul>
+            </div>
         <div class="col-md-6">
             <h2 style="text-align:center">What's trending:</h2>
             <div class="list-group">
