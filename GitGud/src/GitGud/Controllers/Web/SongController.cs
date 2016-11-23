@@ -35,7 +35,7 @@ namespace GitGud.Controllers.Web
             string fullSongFileAddress = Path.GetFullPath("..\\GitGud\\wwwroot\\uploads\\")
                                      + song.fileAdress;
             string songTitle = song.fileAdress;
-            return PhysicalFile(fullSongFileAddress, "application/mpeg", songTitle);
+            return PhysicalFile(fullSongFileAddress, "application/mpeg", songTitle); 
         }
     }
 }
