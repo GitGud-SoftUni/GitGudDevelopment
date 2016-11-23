@@ -35,9 +35,13 @@
                             Your browser does not support the audio element.
                         </audio>
                     </td>
+                    
+                    <td>
+                        <a class="btn btn-default" asp-controller="Song" asp-action="DownloadSong" asp-route-strSongId="@song.Id">Download</a>
+                    </td>
 
                     <td>
-                        <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@song.Id" class="btn btn-danger">Delete</a>
+                        <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@song.Id" class="btn btn-primary">Delete</a>
                     </td>
                 </tr>
             }

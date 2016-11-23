@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GitGud.Models
@@ -90,6 +91,12 @@ namespace GitGud.Models
             }
 
             return songsByTagName;
+        }
+
+        public Song GetSongById(int songId)
+        {
+            Song currentSong = _context.Songs.Find(songId);
+            return currentSong;
         }
     }
 }
