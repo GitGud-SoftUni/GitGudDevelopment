@@ -35,7 +35,7 @@ namespace GitGud.Models
                 }
                 catch (Exception)
                 {
-                   
+
                 }
             }
 
@@ -69,6 +69,27 @@ namespace GitGud.Models
             List<string> topTags = tagsCounter.OrderByDescending(x => x.Value).Take(25).Select(y => y.Key).ToList();
 
             return topTags;
+        }
+
+        public IEnumerable<Song> GetSongsByTagName(string tagName)
+        {
+
+            List<Song> songsByTagName = new List<Song>();
+
+            List<Song> allSongs = GetAllSongs().ToList();
+
+            foreach (var song in allSongs)
+            {
+                List<Tag> tagsForSong = _context.Songs.Where(s => s.Id == song.Id)
+                    .Include(s => s.Tags).FirstOrDefault().Tags.ToList();
+
+                if (tagsForSong.Any(t => t.Name == tagName))
+                {
+                    songsByTagName.Add(song);
+                }
+            }
+
+            return songsByTagName;
         }
     }
 }

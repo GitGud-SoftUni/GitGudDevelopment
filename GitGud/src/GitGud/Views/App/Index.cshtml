@@ -39,7 +39,7 @@
                     {
                         @foreach (var tag in Model)
                         {
-                            <li><a href="#" style="margin:3px">@tag</a></li>
+                            <li><a asp-controller="Tag" asp-action="Details" asp-route-tagName="@tag" style="margin:3px">@tag</a></li>
                         }
                     }
                     else
