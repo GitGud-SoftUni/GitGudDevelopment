@@ -79,10 +79,12 @@ namespace GitGud.Controllers.Web
                 //trying to reach if it is local url and to index if it's not
                 if (loginResult.Succeeded)
                 {
-//                    if (Url.IsLocalUrl(model.ReturnUrl))
-//                    {
-//                        return Redirect(model.ReturnUrl);
-//                    }
+                    
+                    if (Url.IsLocalUrl(model.ReturnUrl))
+                    {
+                        return Redirect(model.ReturnUrl);
+                    }
+
                     return RedirectToAction("Index", "App");
                 }
             }

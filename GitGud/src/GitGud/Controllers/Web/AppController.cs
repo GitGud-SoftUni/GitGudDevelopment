@@ -55,13 +55,19 @@ namespace GitGud.Controllers.Web
             return View();
         }
 
+        //[Authorize]//ToDo - find out why redirect path is not working 
+        [HttpGet]
         public IActionResult Upload()
         {
+            //until then - instead of annotations we just check for user login
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
             return View();
         }
 
-        //[Authorize]//only registered users to be able to upload files
-        [HttpPost]
+        [HttpPost][Authorize]
         public IActionResult Upload(UploadViewModel model)
         {
             if (ModelState.IsValid)
@@ -70,7 +76,8 @@ namespace GitGud.Controllers.Web
                     model.MusicFile,
                     model.SongName, 
                     model.Artist,
-                    model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList());
+                    model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList(),
+                    this.User.Identity.Name);
 
                 
                 ModelState.Clear();

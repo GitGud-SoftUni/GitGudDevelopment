@@ -22,7 +22,7 @@ namespace GitGud.Services
 
         }
 
-        public void UploadSong(IFormFile file, string songName, string artistName, List<string> tags)
+        public void UploadSong(IFormFile file, string songName, string artistName, List<string> tags, string userName)
         {
             //TODO change stuff so it has user Id or something and Upload it to Database ?? Profit ??
             var uploads = Path.Combine(_environment.WebRootPath, "uploads");
@@ -53,7 +53,7 @@ namespace GitGud.Services
                     Name = songName,
                     ArtistName = artistName,
                     fileAdress = file.FileName,//Think about this some more
-                    UploaderName = "Gosho",//TODO use the real username
+                    UploaderName = userName,//TODO use the real username
                     Tags = tagsToAdd
 
                 };
