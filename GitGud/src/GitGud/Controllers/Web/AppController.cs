@@ -67,7 +67,7 @@ namespace GitGud.Controllers.Web
             return View();
         }
 
-        [HttpPost]
+        [HttpPost][Authorize]
         public IActionResult Upload(UploadViewModel model)
         {
             if (ModelState.IsValid)
@@ -76,7 +76,8 @@ namespace GitGud.Controllers.Web
                     model.MusicFile,
                     model.SongName, 
                     model.Artist,
-                    model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList());
+                    model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList(),
+                    this.User.Identity.Name);
 
                 
                 ModelState.Clear();
