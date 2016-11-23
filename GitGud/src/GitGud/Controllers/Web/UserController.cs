@@ -71,7 +71,7 @@ namespace GitGud.Controllers.Web
         {
             if (ModelState.IsValid)
             {
-                var loginResult = await _signInManager.PasswordSignInAsync(model.Email, 
+                var loginResult = await _signInManager.PasswordSignInAsync(model.Username, 
                                                                             model.Password, 
                                                                             model.RememberMe, 
                                                                             false);
