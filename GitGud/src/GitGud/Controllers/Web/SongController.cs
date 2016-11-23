@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using GitGud.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
 
 namespace GitGud.Controllers.Web
 {
