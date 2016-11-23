@@ -8,8 +8,8 @@ using GitGud.Models;
 namespace GitGud.Migrations
 {
     [DbContext(typeof(GitGudContext))]
-    [Migration("20161123103019_InitialDb")]
-    partial class InitialDb
+    [Migration("20161123200848_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
