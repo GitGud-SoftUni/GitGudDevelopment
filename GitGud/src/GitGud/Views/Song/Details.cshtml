@@ -1,0 +1,36 @@
+﻿@model GitGud.Models.Song
+@{
+    ViewBag.Title = "Details";
+}
+<div class="container">
+    <div class="col-md-12">
+        <h2 style="text-align:center">"@Model.Name" - <strong>@Model.ArtistName</strong></h2>
+        <div class="col-md-6">
+            <h3 style="text-align:center">Listen:</h3>
+            <audio controls preload="none">
+                <source src="~/uploads/@Model.fileAdress" type="audio/ogg">
+                Your browser does not support the audio element.
+            </audio>
+            <a class="btn btn-default" asp-controller="Song" asp-action="DownloadSong" asp-route-strSongId="@Model.Id">Download</a>
+            <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@Model.Id" class="btn btn-primary">Delete</a>
+            <div>Added on @Model.DateUploaded.ToString("d") by <span class="label label-warning">@Model.UploaderName</span></div>
+        </div>
+        <div class="col-md-6">
+            <h3 style="text-align:center">Tags for this song:</h3>
+            <ul class="pager">
+                @if (Model.Tags.Count > 0)
+                {
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <li><a asp-controller="Tag" asp-action="Details" asp-route-tagName="@tag.Name" style="margin:3px">@tag.Name</a></li>
+                    }
+                }
+                else
+                {
+                    <li>No tags to display :(</li>
+                }
+            </ul>
+
+        </div>
+    </div>
+</div>

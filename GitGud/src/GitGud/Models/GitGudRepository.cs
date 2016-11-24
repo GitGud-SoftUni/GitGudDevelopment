@@ -95,8 +95,19 @@ namespace GitGud.Models
 
         public Song GetSongById(int songId)
         {
-            Song currentSong = _context.Songs.Find(songId);
+
+            Song currentSong = _context.Songs
+                .Where(x => x.Id == songId)
+                .Include(x => x.Tags)
+                .FirstOrDefault();
             return currentSong;
+        }
+
+        public bool SongExists(int sondId)
+        {
+            bool exists = _context.Songs.Any(x => x.Id == sondId);
+
+            return exists;
         }
     }
 }

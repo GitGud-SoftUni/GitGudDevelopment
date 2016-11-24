@@ -25,10 +25,10 @@
             @foreach (var song in Model)
             {
                 <tr class="info">
-                    <td>@song.Name</td>
+                    <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@song.Id" style="margin:3px">@song.Name</a></td>
                     <td>@song.ArtistName</td>
                     <td>@song.DateUploaded.ToString("d")</td>
-                    <td>@song.UploaderName</td>
+                    <td><span class="label label-warning">@song.UploaderName</span></td>
                     <td>
                         <audio controls preload="none">
                             <source src="~/uploads/@song.fileAdress" type="audio/ogg">

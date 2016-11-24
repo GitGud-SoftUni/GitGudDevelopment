@@ -9,5 +9,6 @@ namespace GitGud.Models
         IEnumerable<string> GetTopTags();
         IEnumerable<Song> GetSongsByTagName(string tagName);
         Song GetSongById(int songId);
+        bool SongExists(int sondId);
     }
 }
