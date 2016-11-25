@@ -23,6 +23,13 @@ namespace GitGud.Models
         public string UploaderName { get; set; }
         public string fileAdress { get; set; }
         public ICollection<Tag> Tags { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+
+
+        public Song()
+        {
+            this.Comments = new List<Comment>();
+        }
 
     }
 }

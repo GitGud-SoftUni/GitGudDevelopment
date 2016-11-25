@@ -30,7 +30,28 @@
                     <li>No tags to display :(</li>
                 }
             </ul>
+        </div>
+        <div class="col-md-offset-2 col-md-8" style="margin-bottom:10px">
+            <h1 style="text-align:center">Comments:</h1>
+        </div>
+        @Html.Partial("Comments", new GitGud.ViewModels.CommentViewModel())
+        <div class="col-md-offset-2 col-md-8" style="margin-top:15px">
+            @if (Model.Comments.Count > 0)
+            {
+                <ul class="list-group">
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <li class="list-group-item">
+                            <span class="badge">@comment.Likes</span>
 
+                            <h3>@comment.Content</h3>
+                            <div style="text-align:right">
+                                <i class="fa fa-thumbs-o-up fa-2x"></i> <i class="fa fa-thumbs-o-down fa-2x"></i>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
         </div>
     </div>
 </div>

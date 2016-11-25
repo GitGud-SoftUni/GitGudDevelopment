@@ -44,6 +44,10 @@ namespace GitGud.Models
             var currentSongTags = _context.Songs.Where(s => s.Id == currentSong.Id)
                 .Include(s => s.Tags).FirstOrDefault().Tags;
 
+            var currentSongComments = _context.Songs.Where(s => s.Id == currentSong.Id)
+                .Include(s => s.Comments).FirstOrDefault().Comments;
+
+            _context.Comments.RemoveRange(currentSongComments);
             _context.Tags.RemoveRange(currentSongTags);
             _context.Songs.Remove(currentSong);
             _context.SaveChanges();
@@ -99,6 +103,7 @@ namespace GitGud.Models
             Song currentSong = _context.Songs
                 .Where(x => x.Id == songId)
                 .Include(x => x.Tags)
+                .Include(x => x.Comments)
                 .FirstOrDefault();
             return currentSong;
         }
@@ -108,6 +113,19 @@ namespace GitGud.Models
             bool exists = _context.Songs.Any(x => x.Id == sondId);
 
             return exists;
+        }
+
+        public void AddComment(string userName, string content, int songId )
+        {
+            Song songCommented = GetSongById(songId);
+            Comment comment = new Comment();
+            comment.Content = content;
+            comment.UserName = userName;
+            songCommented.Comments.Add(comment);
+
+            _context.Entry(songCommented).State = EntityState.Modified;
+
+            _context.SaveChanges();
         }
     }
 }

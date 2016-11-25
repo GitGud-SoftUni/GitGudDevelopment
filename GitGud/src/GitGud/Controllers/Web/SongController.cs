@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GitGud.Models;
 using Microsoft.AspNetCore.Mvc;
+using GitGud.ViewModels;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace GitGud.Controllers.Web
 {
@@ -37,6 +39,7 @@ namespace GitGud.Controllers.Web
             return PhysicalFile(fullSongFileAddress, "application/mpeg", songTitle);
         }
 
+        [HttpGet]
         public IActionResult Details(int songId)
         {
             if (_repository.SongExists(songId))
@@ -52,5 +55,25 @@ namespace GitGud.Controllers.Web
 
 
         }
+
+        [HttpPost]
+        public IActionResult Details(CommentViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string url = Request.GetDisplayUrl();
+                int songId = int.Parse(url.Split('=').ToList().Last().ToString());
+                _repository.AddComment(this.User.Identity.Name, model.Content,songId);
+                
+
+                ModelState.Clear();
+            }
+            else
+            {
+                ViewBag.InputFields = "Comment min length is 3 and max is 255";
+            }
+            return Redirect(Request.GetDisplayUrl());
+        }
+
     }
 }

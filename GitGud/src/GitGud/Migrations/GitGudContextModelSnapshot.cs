@@ -16,6 +16,26 @@ namespace GitGud.Migrations
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("GitGud.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<int>("Likes");
+
+                    b.Property<int?>("SongId");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SongId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("GitGud.Models.Song", b =>
                 {
                     b.Property<int>("Id")
@@ -209,6 +229,13 @@ namespace GitGud.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("GitGud.Models.Comment", b =>
+                {
+                    b.HasOne("GitGud.Models.Song")
+                        .WithMany("Comments")
+                        .HasForeignKey("SongId");
                 });
 
             modelBuilder.Entity("GitGud.Models.Song", b =>
