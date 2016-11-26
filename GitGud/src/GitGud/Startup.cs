@@ -43,7 +43,7 @@ namespace GitGud
 
             services.AddScoped<IGitGudRepository, GitGudRepository>();
 
-            services.AddIdentity<User, IdentityRole>(config =>
+            services.AddIdentity<User, Role>(config =>
             {
                 config.Cookies.ApplicationCookie.LoginPath = "/User/Login";
             })

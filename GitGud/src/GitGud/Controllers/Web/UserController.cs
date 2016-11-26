@@ -11,13 +11,15 @@ namespace GitGud.Controllers.Web
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
+        private RoleManager<Role> _roleManager;
 
 
         //user manager - for creating user, sign in manager - for log in and log out user
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -37,9 +39,24 @@ namespace GitGud.Controllers.Web
 
                 if (createResult.Succeeded)
                 {
+                    if (!_roleManager.RoleExistsAsync("User").Result)
+                    {
+                        Role role = new Role();
+                        role.Name = "User";
+                        role.Description = "Perform normal operations.";
+                        IdentityResult roleResult = _roleManager.
+                        CreateAsync(role).Result;
+                        if (!roleResult.Succeeded)
+                        {
+                            ModelState.AddModelError("",
+                             "Error while creating role!");
+                            return View(model);
+                        }
+                    }
+                    _userManager.AddToRoleAsync(user,"User").Wait();
+
                     await _signInManager.SignInAsync(user, false); //signinasync - false means user won't stay logged in after closes browser
-                   
-                    return RedirectToAction("Index", "App");
+                   return RedirectToAction("Index", "App");
                    
                 }
 

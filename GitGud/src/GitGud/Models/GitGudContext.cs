@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace GitGud.Models
 {
-    public class GitGudContext : IdentityDbContext<User>
+    public class GitGudContext : IdentityDbContext<User, Role, string>
     {
         private IConfigurationRoot _config;
 
