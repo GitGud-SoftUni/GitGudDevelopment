@@ -51,6 +51,8 @@ namespace GitGud
 
             services.AddMvc();
 
+            services.AddTransient<SeedAdmin>();
+
             //this makes changes  to validation settings
             services.Configure<IdentityOptions>(options =>
             {
@@ -71,7 +73,7 @@ namespace GitGud
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, SeedAdmin seeder)
         {
             if (env.IsDevelopment())
             {
@@ -91,7 +93,7 @@ namespace GitGud
                    );
            });
 
-
+            seeder.SeedRoles();
         }
     }
 }
