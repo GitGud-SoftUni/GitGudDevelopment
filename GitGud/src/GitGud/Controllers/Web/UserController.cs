@@ -53,6 +53,23 @@ namespace GitGud.Controllers.Web
                             return View(model);
                         }
                     }
+
+                    //here's for admin, not the best way to do this, but anyway..
+                    if (!_roleManager.RoleExistsAsync("Admin").Result)
+                    {
+                        Role role = new Role();
+                        role.Name = "Admin";
+                        role.Description = "Manage everything.";
+                        IdentityResult roleResult = _roleManager.
+                        CreateAsync(role).Result;
+                        if (!roleResult.Succeeded)
+                        {
+                            ModelState.AddModelError("",
+                             "Error while creating role!");
+                            return View(model);
+                        }
+                    }
+
                     _userManager.AddToRoleAsync(user,"User").Wait();
 
                     await _signInManager.SignInAsync(user, false); //signinasync - false means user won't stay logged in after closes browser
