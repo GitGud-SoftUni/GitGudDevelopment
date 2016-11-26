@@ -1,0 +1,30 @@
+﻿@model IEnumerable<GitGud.Models.User>
+<div class="container body-content">
+    <div class="well">
+        <h2>All Users</h2>
+        <div class="row">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td><strong>@user.UserName</strong></td>
+                            <td><strong>@user.Email</strong></td>
+                            <td>
+                                <a href="#"><strong>Edit</strong></a>
+                                <a asp-controller="Admin" asp-action="DeleteUser" asp-route-userId="@user.Id"><strong>Delete</strong></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

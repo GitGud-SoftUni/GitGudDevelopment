@@ -127,5 +127,49 @@ namespace GitGud.Models
 
             _context.SaveChanges();
         }
+
+        public IEnumerable<User> GetAllUsers()
+        {
+            return _context.Users.ToList();
+        }
+
+        public void DeleteUser(string userId)
+        {
+            User currentUser = _context.Users.Find(userId);
+            var songsForCurrentUser = GetAllSongs().Where(s => s.UploaderName == currentUser.UserName);
+
+            //Delete all tags and comments for songs that uploaded by currentUser
+            foreach (var song in songsForCurrentUser)
+            {
+                var currentSongTags = _context.Songs.Where(s => s.Id == song.Id)
+                    .Include(s => s.Tags).FirstOrDefault().Tags;
+
+                var currentSongComments = _context.Songs.Where(s => s.Id == song.Id)
+                    .Include(s => s.Comments).FirstOrDefault().Comments;
+
+                //Check if song file exist, if so delete this song on local level first
+                string songFileAddress = Path.GetFullPath("..\\GitGud\\wwwroot\\uploads\\" + song.fileAdress);
+
+                if (File.Exists(songFileAddress))
+                {
+                    try
+                    {
+                        File.Delete(songFileAddress);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                }
+
+                _context.Tags.RemoveRange(currentSongTags);
+                _context.Comments.RemoveRange(currentSongComments);
+                _context.Songs.Remove(song);
+            }
+
+            _context.Users.Remove(currentUser);
+            _context.SaveChanges();
+        }
+
     }
 }

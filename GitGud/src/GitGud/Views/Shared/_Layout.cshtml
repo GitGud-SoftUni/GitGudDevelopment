@@ -27,12 +27,21 @@
                     <ul class="nav navbar-nav navbar-right">
                         @if (User.Identity.IsAuthenticated)
                         {
+
+                            <li class="dropdown" style="padding: 9px">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong>Admin</strong><span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a asp-controller="Admin" asp-action="AllUsers">Users</a></li>
+                                    <li><a href="#">Categories</a></li>
+                                </ul>
+                            </li>
+
                             <li><a asp-controller="App" asp-action="Index" style="padding:20px"><strong> Hello, @User.Identity.Name</strong></a></li>
                             <li><a asp-controller="App" asp-action="Upload" style="padding:20px"><i class="fa fa-cloud-upload"></i><strong> Upload</strong></a></li>
                             <li>
                                 <form method="post" asp-controller="User" asp-action="Logout" asp-antiforgery="true">
-                                    <button type="submit" class="btn btn-link submit"><a style="padding:20px" class="off"><span class="span text-muted"><i class="fa fa-user text-muted"></i><strong >Logout</strong></span></a></button>
-                                </form>        
+                                    <button type="submit" class="btn btn-link submit"><a style="padding:20px" class="off"><span class="span text-muted"><i class="fa fa-user text-muted"></i><strong>Logout</strong></span></a></button>
+                                </form>
                             </li>
                         }
                         else
@@ -56,6 +65,8 @@
                             </div>
                         </li>
                     </ul>
+
+
 
                 </div>
             </div>

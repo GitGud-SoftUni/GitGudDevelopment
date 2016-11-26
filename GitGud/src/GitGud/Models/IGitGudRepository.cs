@@ -11,5 +11,7 @@ namespace GitGud.Models
         Song GetSongById(int songId);
         bool SongExists(int sondId);
         void AddComment(string userName, string content, int songId);
+        IEnumerable<User> GetAllUsers();
+        void DeleteUser(string userId);
     }
 }
