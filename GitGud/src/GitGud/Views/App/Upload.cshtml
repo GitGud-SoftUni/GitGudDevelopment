@@ -55,13 +55,19 @@
                 @if (ViewBag.InputFields != null)
                 {
                     <div><h3>@ViewBag.InputFields</h3></div>
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                }
+                else
+                {
+                    <!-- Progress Bar -->
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar" style="width: 0%"></div>
+                    </div>
                 }
 
             </form>
-            <!-- Progress Bar -->
-            <div class="progress progress-striped active">
-                <div class="progress-bar" style="width: 0%"></div>
-            </div>
         </div>
     </div>
 </div> <!-- /container -->
