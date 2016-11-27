@@ -34,7 +34,35 @@
         <div class="col-md-offset-2 col-md-8" style="margin-bottom:10px">
             <h1 style="text-align:center">Comments</h1>
         </div>
-        @Html.Partial("Comments", new GitGud.ViewModels.CommentViewModel())
+        @if (User.Identity.IsAuthenticated)
+        {
+            @Html.Partial("Comments", new GitGud.ViewModels.CommentViewModel())
+        }
+        else
+        {
+            <div class="container">
+                <div class="col-md-8 col-md-offset-2">
+                    
+
+                        <div>
+                            <div class="form-group">
+
+                                <div class="col-md-12">
+                                    <label>Login to comment</label>
+                                    <textarea rows="5" class="form-control input-lg" type="text" id="inputLarge" placeholder="Log in to comment" disabled=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8" style="padding-top: 7px">
+                            <div class="form-group">
+                                <div>
+                                    <a class="btn btn-info" asp-controller="User" asp-action="Login">Login</a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        }
         <div class="col-md-offset-2 col-md-8" style="margin-top:15px">
             @if (Model.Comments.Count > 0)
             {

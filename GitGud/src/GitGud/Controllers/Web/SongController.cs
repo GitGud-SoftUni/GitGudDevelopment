@@ -8,6 +8,7 @@ using GitGud.Models;
 using Microsoft.AspNetCore.Mvc;
 using GitGud.ViewModels;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GitGud.Controllers.Web
 {
@@ -57,6 +58,7 @@ namespace GitGud.Controllers.Web
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Details(CommentViewModel model)
         {
             if (ModelState.IsValid)
