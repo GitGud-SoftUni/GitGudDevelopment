@@ -26,7 +26,7 @@ namespace GitGud.Services
         {
             //TODO change stuff so it has user Id or something and Upload it to Database ?? Profit ??
             var uploads = Path.Combine(_environment.WebRootPath, "uploads");
-
+			Directory.CreateDirectory(uploads);
             var path = Path.Combine(uploads, file.FileName);
 
 
