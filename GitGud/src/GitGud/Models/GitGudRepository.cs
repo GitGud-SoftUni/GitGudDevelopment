@@ -171,5 +171,36 @@ namespace GitGud.Models
             _context.SaveChanges();
         }
 
+        public IEnumerable<Category> GetAllCategories()
+        {
+            return _context.Categories.ToList();
+        }
+
+        public void AddCategory(string categoryName)
+        {
+            Category category = new Category()
+            {
+                Name = categoryName
+            };
+
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<Song> SearchSongsByCategory(int categoryId)
+        {
+
+            List<Song> songsForCategories = _context.Songs.Where(s => s.Category.Id == categoryId)
+                .ToList();
+
+            return songsForCategories;
+        }
+
+
+        public Category SearchCategoryById(int categoryId)
+        {
+            return _context.Categories.Find(categoryId);
+        }
+
     }
 }

@@ -13,5 +13,9 @@ namespace GitGud.Models
         void AddComment(string userName, string content, int songId);
         IEnumerable<User> GetAllUsers();
         void DeleteUser(string userId);
+        IEnumerable<Category> GetAllCategories();
+        void AddCategory(string categoryName);
+        IEnumerable<Song> SearchSongsByCategory(int categoryId);
+        Category SearchCategoryById(int categoryId);
     }
 }

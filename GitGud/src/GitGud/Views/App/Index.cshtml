@@ -49,13 +49,18 @@
                 </ul>
             </div>
         <div class="col-md-6">
-            <h2 style="text-align:center">What's trending:</h2>
+            <h2 style="text-align:center">Categories:</h2>
             <div class="list-group">
-                <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item">Morbi leo risus</a>
-                <a href="#" class="list-group-item">Morbi leo risus</a>
-                <a href="#" class="list-group-item">Morbi leo risus</a>
-                <a href="#" class="list-group-item">Morbi leo risus</a>
+                @try
+                {
+                    @foreach (var category in ViewData["categories"] as IEnumerable<GitGud.Models.Category>)
+                    {
+                        <a asp-controller="App" asp-action="SearchByCategory" asp-route-strCategoryId="@category.Id" class="list-group-item">@category.Name</a>
+                    }
+                }
+                catch (Exception exception)
+                {
+                }
             </div>
             <div class="well panel-info" style="text-align:center;">
                 <a href="#" style="color:black"><strong>Facebook </strong><i class="fa fa-facebook-square fa-2x"></i></a>

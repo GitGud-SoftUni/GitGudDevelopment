@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GitGud.Models;
+using GitGud.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,27 @@ namespace GitGud.Controllers.Web
         {
             _repository.DeleteUser(userId);
             return RedirectToAction("AllUsers");
+        }
+
+        public IActionResult AllCategories()
+        {
+            var allCategories = _repository.GetAllCategories();
+            return View(allCategories);
+        }
+
+        public IActionResult CreateCategory()
+        {
+            return View();
+        }
+
+        public IActionResult AddCreatedCategory(CategoryViewModel categoryViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _repository.AddCategory(categoryViewModel.CategoryName);
+            }
+
+            return RedirectToAction("AllCategories");
         }
     }
 }

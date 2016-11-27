@@ -19,6 +19,8 @@ namespace GitGud.ViewModels
         [StringLength(40, MinimumLength = 2)]
         public string Artist { get; set; }
         [Required]
+        public string Category { get; set; }
+        [Required]
         public string Tags { get; set; }
     }
 }

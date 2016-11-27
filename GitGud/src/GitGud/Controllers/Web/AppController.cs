@@ -34,6 +34,8 @@ namespace GitGud.Controllers.Web
         public IActionResult Index()
         {
             var tags = _repository.GetTopTags();
+            var categories = _repository.GetAllCategories();
+            ViewData["categories"] = categories;
 
             return View(tags);
         }
@@ -64,6 +66,10 @@ namespace GitGud.Controllers.Web
             {
                 return RedirectToAction("Login", "User");
             }
+
+            var categories = _repository.GetAllCategories();
+            ViewData["categories"] = categories;
+
             return View();
         }
 
@@ -76,6 +82,7 @@ namespace GitGud.Controllers.Web
                     model.MusicFile,
                     model.SongName, 
                     model.Artist,
+                    model.Category,
                     model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList(),
                     this.User.Identity.Name);
 
@@ -83,7 +90,7 @@ namespace GitGud.Controllers.Web
                 ModelState.Clear();
                 ViewBag.InputFields = "Song send/uploaded";
             }
-            return View();
+            return RedirectToAction("Upload");
         }
 
         public IActionResult Search()
@@ -94,6 +101,17 @@ namespace GitGud.Controllers.Web
         public IActionResult About()
         {
             return View();
+        }
+
+        public IActionResult SearchByCategory(string strCategoryId)
+        {
+            int categoryId = int.Parse(strCategoryId);
+            var songsByCategory = _repository.SearchSongsByCategory(categoryId);
+
+            string categoryName = _repository.SearchCategoryById(categoryId).Name;
+            ViewData["categoryName"] = categoryName;
+
+            return View(songsByCategory);
         }
     }
 }
