@@ -8,8 +8,8 @@ using GitGud.Models;
 namespace GitGud.Migrations
 {
     [DbContext(typeof(GitGudContext))]
-    [Migration("20161126165127_seed")]
-    partial class seed
+    [Migration("20161127104152_Admin")]
+    partial class Admin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

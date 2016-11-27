@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace GitGud.Migrations
 {
-    public partial class seed : Migration
+    public partial class Admin : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

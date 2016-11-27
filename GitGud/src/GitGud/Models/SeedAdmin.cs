@@ -9,11 +9,13 @@ namespace GitGud.Models
     {
         private GitGudContext _context;
         private RoleManager<Role> _roleManager;
+        private UserManager<User> _userManager;
 
-        public SeedAdmin(GitGudContext context, RoleManager<Role> roleManager)
+        public SeedAdmin(GitGudContext context, RoleManager<Role> roleManager, UserManager<User> userManager )
         {
             _context = context;
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public async void SeedRoles()
@@ -34,25 +36,27 @@ namespace GitGud.Models
                 IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
             }
 
-//            if (!_context.Users.Any(u => u.UserName == "Admin"))
-//            {
-//                var user = new User
-//                {
-//                    UserName = "Admin",
-//                    Email = "admin@test.bg",
-//                    NormalizedEmail = "admin@test.bg",
-//                    NormalizedUserName = "Admin",
-//                    LockoutEnabled = true,
-//                    SecurityStamp = Guid.NewGuid().ToString()
-//                };
-//
-//                var password = new PasswordHasher<User>();
-//                var hashed = password.HashPassword(user, "admin");
-//                user.PasswordHash = hashed;
-//                var userStore = new UserStore<User>(_context);
-//                await userStore.CreateAsync(user);
-//                await userStore.AddToRoleAsync(user, "admin");
-//            }
+            if (!_context.Users.Any(u => u.UserName == "Admin"))
+            {
+                var user = new User
+                {
+                    UserName = "Admin",
+                    Email = "admin@test.bg",
+                    NormalizedEmail = "admin@test.bg",
+                    NormalizedUserName = "Admin",
+                    LockoutEnabled = true,
+                    SecurityStamp = Guid.NewGuid().ToString()
+                };
+
+                var password = new PasswordHasher<User>();
+                var hashed = password.HashPassword(user, "admin");
+                user.PasswordHash = hashed;
+                var userStore = new UserStore<User>(_context);
+                await userStore.CreateAsync(user);
+                await _userManager.AddToRoleAsync(user, "Admin");   
+            }
+
+
 
             await _context.SaveChangesAsync();
         }
