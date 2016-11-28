@@ -1,0 +1,68 @@
+﻿@model GitGud.ViewModels.ProfileViewModel
+@{
+    ViewBag.Title = "Edit profile";
+}
+
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" src="~/js/script.js"></script>
+}
+
+<div class="container upload">
+    <div class="panel panel-default col-md-offset-4 col-md-4">
+        <div class="panel-heading"><strong>Update profile</strong></div>
+        <div class="panel-body">
+
+            <!-- Standar Form -->
+            <h4>Select a file from your computer</h4>
+            <form method="post" enctype="multipart/form-data" id="js-upload-form">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label asp-for="ImageFile"></label>
+                        <input asp-for="ImageFile" accept="image/*">
+                        <span asp-validation-for="ImageFile"></span>
+                    </div>
+                </div>
+                <p></p>
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <div>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <div>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Town" class="control-label"></label>
+                    <div>
+                        <input asp-for="Town" class="form-control" />
+                        <span asp-validation-for="Town"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Birthday" class="control-label"></label>
+                    <div>
+                        <input type="date" asp-for="Birthday" class="form-control" />
+                        <span asp-validation-for="Birthday"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> <!-- /container -->

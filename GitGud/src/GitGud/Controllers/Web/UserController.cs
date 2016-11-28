@@ -97,7 +97,16 @@ namespace GitGud.Controllers.Web
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult Show() 
+        {
+            return View();
+        }
 
-
+        [HttpGet]
+        public IActionResult Edit() 
+        {
+            return View();
+        }
     }
 }
