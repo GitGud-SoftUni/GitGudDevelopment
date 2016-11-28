@@ -2,7 +2,7 @@
 @model IEnumerable<GitGud.Models.Category>
 
 @{
-    ViewBag.Title = "All categories";
+    ViewBag.Title = "All Categories";
 }
 <div class="container body-content">
     <div class="well">
@@ -24,7 +24,7 @@
                         <tr>
                             <td><strong>@category.Name</strong></td>
                             <td>
-                                <a href="#">Edit</a>
+                                <a asp-controller="Admin" asp-action="EditCategory" asp-route-strCategoryId="@category.Id">Edit</a>
                                 <a asp-controller="Admin" asp-action="DeleteCategory" asp-route-strCategoryId="@category.Id">Delete</a>
                             </td>
                         </tr>

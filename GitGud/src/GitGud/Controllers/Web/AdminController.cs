@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GitGud.Controllers.Web
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private IGitGudRepository _repository;
@@ -61,5 +61,39 @@ namespace GitGud.Controllers.Web
 
             return RedirectToAction("AllCategories");
         }
+
+        [HttpGet]
+        public IActionResult EditCategory(string strCategoryId)
+        {
+            int categoryId = int.Parse(strCategoryId);
+            Category category = _repository.SearchCategoryById(categoryId);
+
+            if (category != null)
+            {
+                ViewData["categoryName"] = category.Name;
+                ViewData["categoryId"] = category.Id;
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EditCategory(int categoryId, CategoryViewModel categoryViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                string newCategoryName = categoryViewModel.CategoryName;
+                Category category = _repository.SearchCategoryById(categoryId);
+
+                if (category != null)
+                {
+                    _repository.EditCategory(newCategoryName, category);
+                }
+            }
+
+            return RedirectToAction("AllCategories");
+        }
+
+
     }
 }

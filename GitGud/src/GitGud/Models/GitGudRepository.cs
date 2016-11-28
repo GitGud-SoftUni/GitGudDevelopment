@@ -263,5 +263,10 @@ namespace GitGud.Models
             _context.SaveChanges();
         }
 
+        public void EditCategory(string newCategoryName, Category category)
+        {
+            category.Name = newCategoryName;
+            _context.SaveChanges();
+        }
     }
 }

@@ -76,6 +76,5 @@ namespace GitGud.Controllers.Web
             }
             return Redirect(Request.GetDisplayUrl());
         }
-
     }
 }
