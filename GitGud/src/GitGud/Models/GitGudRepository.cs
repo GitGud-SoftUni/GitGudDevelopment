@@ -214,5 +214,54 @@ namespace GitGud.Models
             return _context.Categories.Find(categoryId);
         }
 
+        public void DeleteCategory(int categoryId)
+        {
+            Category category = _context.Categories.Find(categoryId);
+
+            if (category == null)
+            {
+                return;
+            }
+
+            List<Song> songsForCategory = _context.Songs.Where(s => s.Category.Id == categoryId)
+                .ToList();
+
+            foreach (var song in songsForCategory)
+            {
+                //Get all tags for current song
+                var currentSongTags = _context.Songs.Where(s => s.Id == song.Id)
+                   .Include(s => s.Tags).FirstOrDefault().Tags;
+
+                // Get all comments for current song
+                var currentSongComments = _context.Songs.Where(s => s.Id == song.Id)
+                    .Include(s => s.Comments).FirstOrDefault().Comments;
+
+                //Delete song localy
+                string songFileAddress = Path.GetFullPath("..\\GitGud\\wwwroot\\uploads\\" + song.fileAdress);
+
+                if (File.Exists(songFileAddress))
+                {
+                    try
+                    {
+                        File.Delete(songFileAddress);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+
+                //Delete tags, comments for current song
+                _context.RemoveRange(currentSongTags);
+                _context.RemoveRange(currentSongComments);
+            }
+
+            //Delete all songs for current category
+            _context.Songs.RemoveRange(songsForCategory);
+
+            //Delete category
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
+        }
+
     }
 }

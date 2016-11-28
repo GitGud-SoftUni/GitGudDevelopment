@@ -17,5 +17,6 @@ namespace GitGud.Models
         void AddCategory(string categoryName);
         IEnumerable<Song> SearchSongsByCategory(int categoryId);
         Category SearchCategoryById(int categoryId);
+        void DeleteCategory(int categoryId);
     }
 }
