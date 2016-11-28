@@ -26,6 +26,12 @@ namespace GitGud.Models
         public void DeleteSong(int songId)
         {
             Song currentSong = _context.Songs.Find(songId);
+
+            if (currentSong == null)
+            {
+                return;
+            }
+
             string songFileAddress = Path.GetFullPath("..\\GitGud\\wwwroot\\uploads\\" + currentSong.fileAdress);
 
             if (File.Exists(songFileAddress))
@@ -136,6 +142,12 @@ namespace GitGud.Models
         public void DeleteUser(string userId)
         {
             User currentUser = _context.Users.Find(userId);
+
+            if (currentUser == null)
+            {
+                return;
+            }
+
             var songsForCurrentUser = GetAllSongs().Where(s => s.UploaderName == currentUser.UserName);
 
             //Delete all tags and comments for songs that uploaded by currentUser
