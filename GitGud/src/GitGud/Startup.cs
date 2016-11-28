@@ -86,11 +86,11 @@ namespace GitGud
 
             app.UseMvc(config =>
            {
-               config.MapRoute(
-                name: "Profile",
-                template: "User/Profile/{action}",
-                defaults: new { controller = "UserProfile" }
-        );
+//               config.MapRoute(
+//                name: "Profile",
+//                template: "User/Profile/{action}",
+//                defaults: new { controller = "UserProfile" }
+//        );
 
                config.MapRoute(
                    name: "Default",
