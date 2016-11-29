@@ -21,9 +21,23 @@ namespace GitGud.Controllers.Web
             _repository = repository;
         }
 
+        [HttpGet]
         public IActionResult DeleteSong(string strSongId)
         {
             int songId = int.Parse(strSongId);
+            Song song = _repository.GetSongById(songId);
+
+            if (song == null)
+            {
+                return RedirectToAction("Browse", "App");
+            }
+
+            return View(song);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteSong(int songId)
+        {
 
             _repository.DeleteSong(songId);
             return RedirectToAction("Browse", "App");

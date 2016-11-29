@@ -54,9 +54,23 @@ namespace GitGud.Controllers.Web
             return RedirectToAction("AllCategories");
         }
 
+        [HttpGet]
         public IActionResult DeleteCategory(string strCategoryId)
         {
             int categoryId = int.Parse(strCategoryId);
+            Category category = _repository.SearchCategoryById(categoryId);
+
+            if (category == null)
+            {
+                return RedirectToAction("AllCategories", "Admin");
+            }
+
+            return View(category);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteCategory(int categoryId)
+        {
             _repository.DeleteCategory(categoryId);
 
             return RedirectToAction("AllCategories");
