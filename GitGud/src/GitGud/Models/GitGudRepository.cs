@@ -268,5 +268,13 @@ namespace GitGud.Models
             category.Name = newCategoryName;
             _context.SaveChanges();
         }
+
+
+        public IEnumerable<Song> GetSongByArtist(string artistName)
+        {
+             IEnumerable<Song> songsByArtist = GetAllSongs().Where(a => a.ArtistName == artistName);
+
+            return songsByArtist;
+        }
     }
 }
