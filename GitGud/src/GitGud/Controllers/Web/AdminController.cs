@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using GitGud.Models;
 using GitGud.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -29,8 +30,24 @@ namespace GitGud.Controllers.Web
 
         public IActionResult DeleteUser(string userId)
         {
-            _repository.DeleteUser(userId);
+            var currentLoggedInUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            //Check if current logged in user is same as user to be deleted
+            if (userId != currentLoggedInUserId)
+            {
+                _repository.DeleteUser(userId);
+            }
+            else
+            {
+                return RedirectToAction("DeleteUserError");
+            }
+
             return RedirectToAction("AllUsers");
+        }
+
+        public IActionResult DeleteUserError()
+        {
+            return View();
         }
 
         public IActionResult AllCategories()
