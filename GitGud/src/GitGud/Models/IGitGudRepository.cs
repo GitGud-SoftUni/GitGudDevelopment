@@ -21,5 +21,6 @@ namespace GitGud.Models
         void EditCategory(string newCategoryName, Category category);
         IEnumerable<Song> GetSongByArtist(string artistName);
         void AddLike(int commentId, string userName);
+        User GetUserById(string userId);
     }
 }

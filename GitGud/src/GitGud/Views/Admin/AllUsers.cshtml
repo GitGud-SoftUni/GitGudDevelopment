@@ -2,6 +2,7 @@
     ViewBag.Title = "All Users";
 }
 
+@using GitGud.Models
 @model IEnumerable<GitGud.Models.User>
 <div class="container body-content">
     <div class="well">
@@ -23,7 +24,7 @@
                             <td><strong>@user.Email</strong></td>
                             <td>
                                 <a href="#"><strong>Edit</strong></a>
-                                <a asp-controller="Admin" asp-action="DeleteUser" asp-route-userId="@user.Id"><strong>Delete</strong></a>
+                                <a asp-controller="Admin" asp-action="DeleteUserConfirmation" asp-route-userId="@user.Id"><strong>Delete</strong></a>
                             </td>
                         </tr>
                     }

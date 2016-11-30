@@ -307,6 +307,11 @@ namespace GitGud.Models
             _context.Entry(commentLiked).State = EntityState.Modified;
 
             _context.SaveChanges();
+		}
+
+        public User GetUserById(string userId)
+        {
+            return _context.Users.Find(userId);
         }
     }
 }
