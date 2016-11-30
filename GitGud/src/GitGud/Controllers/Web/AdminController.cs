@@ -28,6 +28,18 @@ namespace GitGud.Controllers.Web
             return View(allUsers);
         }
 
+        public IActionResult DeleteUserConfirmation(string userId)
+        {
+            User user = _repository.GetUserById(userId);
+
+            if (user == null)
+            {
+                return RedirectToAction("AllUsers");
+            }
+
+            return View(user);
+        }
+
         public IActionResult DeleteUser(string userId)
         {
             var currentLoggedInUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);

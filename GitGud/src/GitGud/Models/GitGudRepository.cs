@@ -276,5 +276,10 @@ namespace GitGud.Models
 
             return songsByArtist;
         }
+
+        public User GetUserById(string userId)
+        {
+            return _context.Users.Find(userId);
+        }
     }
 }
