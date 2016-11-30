@@ -51,7 +51,25 @@ namespace GitGud.Models
                 .Include(s => s.Tags).FirstOrDefault().Tags;
 
             var currentSongComments = _context.Songs.Where(s => s.Id == currentSong.Id)
-                .Include(s => s.Comments).FirstOrDefault().Comments;
+                .Include("Comments.Likes").FirstOrDefault().Comments;
+
+            List<int> likesIds = new List<int>();
+
+            foreach (var com in currentSongComments)
+            {
+                likesIds.AddRange(com.Likes.Select(x => x.Id).ToList());
+            }
+
+            List<Like> likesToRemove = new List<Like>();
+
+            foreach (var id in likesIds)
+            {
+                likesToRemove.Add(_context.Likes.Find(id));
+            }
+
+            _context.Likes.RemoveRange(likesToRemove);
+
+           
 
             _context.Comments.RemoveRange(currentSongComments);
             _context.Tags.RemoveRange(currentSongTags);
@@ -105,12 +123,12 @@ namespace GitGud.Models
 
         public Song GetSongById(int songId)
         {
-
             Song currentSong = _context.Songs
                 .Where(x => x.Id == songId)
                 .Include(x => x.Tags)
-                .Include(x => x.Comments)
+                .Include("Comments.Likes")
                 .FirstOrDefault();
+
             return currentSong;
         }
 
@@ -121,7 +139,7 @@ namespace GitGud.Models
             return exists;
         }
 
-        public void AddComment(string userName, string content, int songId )
+        public void AddComment(string userName, string content, int songId)
         {
             Song songCommented = GetSongById(songId);
             Comment comment = new Comment();
@@ -272,9 +290,23 @@ namespace GitGud.Models
 
         public IEnumerable<Song> GetSongByArtist(string artistName)
         {
-             IEnumerable<Song> songsByArtist = GetAllSongs().Where(a => a.ArtistName == artistName);
+            IEnumerable<Song> songsByArtist = GetAllSongs().Where(a => a.ArtistName == artistName);
 
             return songsByArtist;
+        }
+
+        public void AddLike(int commentId, string userName)
+        {
+            var commentLiked = _context.Comments.Find(commentId);
+
+            Like like = new Like();
+            like.User = userName;
+
+            commentLiked.Likes.Add(like);
+
+            _context.Entry(commentLiked).State = EntityState.Modified;
+
+            _context.SaveChanges();
         }
     }
 }

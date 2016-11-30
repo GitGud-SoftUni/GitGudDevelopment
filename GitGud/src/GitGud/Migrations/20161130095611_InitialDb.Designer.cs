@@ -8,8 +8,8 @@ using GitGud.Models;
 namespace GitGud.Migrations
 {
     [DbContext(typeof(GitGudContext))]
-    [Migration("20161128185636_Profile")]
-    partial class Profile
+    [Migration("20161130095611_InitialDb")]
+    partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,8 +36,6 @@ namespace GitGud.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<int>("Likes");
-
                     b.Property<int?>("ProfileId");
 
                     b.Property<int?>("SongId");
@@ -51,6 +49,22 @@ namespace GitGud.Migrations
                     b.HasIndex("SongId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("GitGud.Models.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CommentId");
+
+                    b.Property<string>("User");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("GitGud.Models.Profile", b =>
@@ -291,6 +305,13 @@ namespace GitGud.Migrations
                     b.HasOne("GitGud.Models.Song")
                         .WithMany("Comments")
                         .HasForeignKey("SongId");
+                });
+
+            modelBuilder.Entity("GitGud.Models.Like", b =>
+                {
+                    b.HasOne("GitGud.Models.Comment")
+                        .WithMany("Likes")
+                        .HasForeignKey("CommentId");
                 });
 
             modelBuilder.Entity("GitGud.Models.Profile", b =>

@@ -18,11 +18,11 @@ namespace GitGud.Models
             }
         }
         public string Content { get; set; }
-        public int Likes { get; set; }
+        public ICollection<Like> Likes { get; set; }
 
         public Comment()
         {
-            this.Likes = 0;
+            this.Likes = new List<Like>();
         }
     }
 }

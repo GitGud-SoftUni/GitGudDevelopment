@@ -16,5 +16,4 @@
 
         startUpload(uploadFiles)
     })
-
 }(jQuery);

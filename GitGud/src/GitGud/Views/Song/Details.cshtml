@@ -69,7 +69,7 @@
                     @foreach (var comment in Model.Comments)
                     {
                         <li class="list-group-item">
-                            <span class="badge">@comment.Likes</span>
+                            <span class="badge">@comment.Likes.Count</span>
 
                             <h3>@comment.Content</h3>
                             <div style="text-align:right">
