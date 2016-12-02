@@ -295,6 +295,30 @@ namespace GitGud.Models
             return songsByArtist;
         }
 
+
+        public bool UserLikeExists(int commentId, string userName)
+        {
+            var commentLiked = _context.Comments
+                .Where(x => x.Id == commentId)
+                .Include(x => x.Likes)
+                .FirstOrDefault();
+
+
+            bool likeExists = false;
+
+            foreach (var like in commentLiked.Likes)
+            {
+                if (like.User == userName)
+                {
+                    likeExists = true;
+                    break;
+                }
+            }
+
+            return likeExists;
+
+        }
+
         public void AddLike(int commentId, string userName)
         {
             var commentLiked = _context.Comments.Find(commentId);
@@ -308,6 +332,24 @@ namespace GitGud.Models
 
             _context.SaveChanges();
 		}
+
+        public void RemoveLike(int commentId, string userName)
+        {
+            var commentLiked = _context.Comments
+                .Where(x => x.Id == commentId)
+                .Include(x => x.Likes)
+                .FirstOrDefault();
+
+            var likeToRemove = commentLiked.Likes.Where(x => x.User == userName).FirstOrDefault();
+
+            commentLiked.Likes.Remove(likeToRemove);
+
+            _context.Entry(commentLiked).State = EntityState.Modified;
+
+            _context.Likes.Remove(likeToRemove);
+
+            _context.SaveChanges();
+        }
 
         public User GetUserById(string userId)
         {

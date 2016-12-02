@@ -31,13 +31,29 @@ namespace GitGud.Controllers.Api
         [HttpPost("")]
         public IActionResult Post([FromBody]LikeViewModel liked)
         {
+            string user = this.User.Identity.Name;
 
-            
+
             if (ModelState.IsValid)
             {
-                _repository.AddLike(liked.CommentId, this.User.Identity.Name);
+                try
+                {
+                    if (!_repository.UserLikeExists(liked.CommentId, user))
+                    {
+                        _repository.AddLike(liked.CommentId, user);
 
-                return Created($"api/like/{this.User.Identity.Name}", liked);
+                        return Created($"api/like/{user}", liked);
+                    }
+                    else
+                    {
+                        _repository.RemoveLike(liked.CommentId, user);
+                        return Ok($"api/like/{user} like removed");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest($"Something went wrong: {ex.Message}");
+                }
             }
 
             return BadRequest("Invalid Data");
