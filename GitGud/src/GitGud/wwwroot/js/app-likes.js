@@ -1,6 +1,6 @@
 ﻿// app-likes.js
 function like(id) {
-    let likeUrl = "http://localhost:54204/api/like";
+    let likeUrl = "../api/like";
     $.ajax({
         type: "POST",
         url: likeUrl,
