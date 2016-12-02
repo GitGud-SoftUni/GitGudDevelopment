@@ -8,6 +8,7 @@
     "Font-Awesome": "~4.7.0",
     "underscore": "~1.8.3",
     "jquery-validation": "~1.15.1",
-    "jquery-validation-unobtrusive": "~3.2.6"
+    "jquery-validation-unobtrusive": "~3.2.6",
+    "angular": "~1.5.9"
   }
 }

@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "Details";
 }
+@section Scripts {
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/js/app-likes.js"></script>
+}
 <div class="container">
     <div class="col-md-12">
         <h2 style="text-align:center">"@Model.Name" - <strong>@Model.ArtistName</strong></h2>
@@ -69,14 +73,10 @@
                     @foreach (var comment in Model.Comments)
                     {
                         <li class="list-group-item">
-                            <span class="badge">@comment.Likes.Count</span>
-
                             <h3>@comment.Content</h3>
-                            <div style="text-align:right">
-                                <i class="fa fa-thumbs-o-up fa-2x"></i> <i class="fa fa-thumbs-o-down fa-2x"></i>
-                            </div>
                             <div>
                                 <span><small>Posted on @comment.Date.ToString("d") by </small><label class="label label-warning">@comment.UserName</label></span>
+                                <span><a class="btn btn-primary btn-xs" onclick="like(@comment.Id)"><span class="like-Unlike">I <i class="fa fa-thumbs-o-up"></i> IT</span></a></span> <span class="badge">@comment.Likes.Count</span>
                             </div>
                         </li>
                     }
