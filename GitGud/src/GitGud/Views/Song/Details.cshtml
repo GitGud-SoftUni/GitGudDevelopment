@@ -16,7 +16,15 @@
                 Your browser does not support the audio element.
             </audio>
             <a class="btn btn-default" asp-controller="Song" asp-action="DownloadSong" asp-route-strSongId="@Model.Id">Download</a>
-            <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@Model.Id" class="btn btn-primary">Delete</a>
+            
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin") || Model.UploaderName.Equals(User.Identity.Name))
+                {
+                    <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@Model.Id" class="btn btn-primary">Delete</a>
+                }
+            }
+
             <div>Added on @Model.DateUploaded.ToString("d") by <span class="label label-warning">@Model.UploaderName</span></div>
         </div>
         <div class="col-md-6">

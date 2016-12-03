@@ -38,9 +38,21 @@
                     <td>
                         <a class="btn btn-default" asp-controller="Song" asp-action="DownloadSong" asp-route-strSongId="@song.Id">Download</a>
                     </td>
-                    <td>
-                        <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@song.Id" class="btn btn-primary">Delete</a>
-                    </td>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin") || song.UploaderName.Equals(User.Identity.Name))
+                        {
+
+                            <td>
+                                <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@song.Id" class="btn btn-primary">Delete</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    }
                 </tr>
             }
 
