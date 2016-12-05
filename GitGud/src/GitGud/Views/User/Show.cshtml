@@ -1,4 +1,6 @@
-﻿@model GitGud.ViewModels.ProfileViewModel
+﻿@using GitGud.Models
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@model GitGud.Models.Profile
 @{
     ViewBag.Title = "Show profile";
 }
@@ -81,8 +83,8 @@
                 <a href="~/images/pic3.jpg" target="_blank">
                     <img src="~/images/pic3.jpg" alt="Fjords" style="width:100%">
                     <div class="caption">
-                        <p>Username: tralalal</p>
-                        <p>Email: lololo@lolol.com</p>
+                        <p>Username: @User.Identity.Name</p>
+                        <p>Email:</p>
                     </div>
                 </a>
             </div>
