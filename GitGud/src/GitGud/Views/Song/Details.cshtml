@@ -16,7 +16,7 @@
                 Your browser does not support the audio element.
             </audio>
             <a class="btn btn-default" asp-controller="Song" asp-action="DownloadSong" asp-route-strSongId="@Model.Id">Download</a>
-            
+
             @if (User.Identity.IsAuthenticated)
             {
                 if (User.IsInRole("Admin") || Model.UploaderName.Equals(User.Identity.Name))
@@ -43,7 +43,7 @@
                 }
             </ul>
         </div>
-        <div class="col-md-offset-2 col-md-8" style="margin-bottom:10px; padding-top:20px">
+        <div class="col-md-8 col-md-offset-2" style="margin-bottom:10px; padding-top:20px">
             <h1 style="text-align:center">Comments</h1>
         </div>
         @if (User.Identity.IsAuthenticated)
@@ -53,43 +53,76 @@
         else
         {
             <div class="container">
-                <div class="col-md-8 col-md-offset-2">
-                    
-                        <div>
-                            <div class="form-group">
+                <div class="col-md-7 col-md-offset-2" style="padding-left:40px">
 
-                                <div class="col-md-12">
-                                    <label>Login to comment</label>
-                                    <textarea rows="5" class="form-control input-lg" type="text" id="inputLarge" placeholder="Log in to comment" disabled=""></textarea>
-                                </div>
+                    <div>
+                        <div class="form-group">
+
+                            <div>
+                                <label>Login to comment</label>
+                                <textarea rows="5" class="form-control input-lg" type="text" id="inputLarge" placeholder="Log in to comment" disabled=""></textarea>
                             </div>
                         </div>
-                        <div class="col-md-8" style="padding-top: 7px">
-                            <div class="form-group">
-                                <div>
-                                    <a class="btn btn-info" asp-controller="User" asp-action="Login">Login</a>
-                                </div>
+                    </div>
+                    <div style="padding-top: 7px">
+                        <div class="form-group">
+                            <div>
+                                <a class="btn btn-info" asp-controller="User" asp-action="Login">Login</a>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         }
-        <div class="col-md-offset-2 col-md-8" style="margin-top:15px">
-            @if (Model.Comments.Count > 0)
-            {
-                <ul class="list-group">
-                    @foreach (var comment in Model.Comments)
-                    {
-                        <li class="list-group-item">
-                            <h3>@comment.Content</h3>
-                            <div>
-                                <span><small>Posted on @comment.Date.ToString("d") by </small><label class="label label-warning">@comment.UserName</label></span>
-                                <span><a class="btn btn-primary btn-xs" onclick="like(@comment.Id)"><span class="like-Unlike">I <i class="fa fa-thumbs-o-up"></i> IT</span></a></span> <span class="badge">@comment.Likes.Count</span>
-                            </div>
-                        </li>
-                    }
-                </ul>
-            }
+        <div id="comments">
+            <div class="col-md-offset-2 col-md-8" style="margin-top:15px">
+                @if (Model.Comments.Count > 0)
+                {
+                    <ul class="list-group">
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <li class="list-group-item">
+                                <h3>@comment.Content</h3>
+                                <div>
+                                    <span><small>Posted on @comment.Date.ToString("d") by </small><label class="label label-warning">@comment.UserName</label></span>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        @if (comment.Likes.Any(x => x.User == User.Identity.Name))
+                                        {
+                                            <span>
+                                                <a class="btn btn-primary btn-xs" onclick="like(@comment.Id)">
+                                                    <span class="like-Unlike">
+                                                        I <i class="fa fa-thumbs-o-down"></i> IT
+                                                    </span>
+                                                </a>
+                                            </span>
+                                        }
+                                        else
+                                        {
+
+                                            <span>
+                                                <a class="btn btn-primary btn-xs" onclick="like(@comment.Id)">
+                                                    <span class="like-Unlike">
+                                                        I <i class="fa fa-thumbs-o-up"></i> IT
+                                                    </span>
+                                                </a>
+                                            </span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            <a class="btn btn-primary btn-xs" asp-controller="User" asp-action="Login">Login to like</a>
+                                        </span>
+                                    }
+                                    <span class="badge">@comment.Likes.Count</span>
+                                </div>
+
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
         </div>
     </div>
 </div>

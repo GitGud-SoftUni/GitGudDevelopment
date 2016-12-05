@@ -8,6 +8,7 @@ function like(id) {
         contentType: "application/json",
         success: function () {
             console.log("success");
+            $('#comments').load(document.URL + ' #comments');
         },
         error: function (err) {
             console.log(err);
