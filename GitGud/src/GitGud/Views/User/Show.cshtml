@@ -8,3 +8,84 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script type="text/javascript" src="~/js/script.js"></script>
 }
+
+<div class="container">
+    <div class="row">
+        <div class="panel-group col-md-8" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            User details
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        Разните му там рождени дни, възрасти, имена и т.н.
+                        Ще се вижда от регистрирани
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                            My songs
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Списъка със всички песни, които юзъра е качил
+                        Ще се вижда от регистрирани
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                            My comments
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Списък със всички коментари на юзъра
+                        Ще се вижда само от юзъра
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                            My favorites (songs that I've liked)
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Песните, които юзъра харесва? Ако сме измислили такава опция разбира се.
+                        Ще се вижда само от юзъра
+                    </div>
+                </div>
+            </div>
+            <div id="edit">
+                <a class="btn btn-primary" asp-controller="User" asp-action="Edit">Edit profile</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a href="~/images/pic3.jpg" target="_blank">
+                    <img src="~/images/pic3.jpg" alt="Fjords" style="width:100%">
+                    <div class="caption">
+                        <p>Username: tralalal</p>
+                        <p>Email: lololo@lolol.com</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
