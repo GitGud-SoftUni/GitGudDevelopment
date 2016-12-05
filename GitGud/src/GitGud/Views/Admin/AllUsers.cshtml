@@ -19,16 +19,33 @@
                 <tbody>
                     @foreach (var user in Model)
                     {
-                        <tr>
-                            <td><strong>@user.UserName</strong></td>
-                            <td><strong>@user.Email</strong></td>
-                            <td>
-                                <a href="#"><strong>Edit</strong></a>
-                                <a asp-controller="Admin" asp-action="DeleteUserConfirmation" asp-route-userId="@user.Id"><strong>Delete</strong></a>
-                            </td>
-                        </tr>
+
+                        if (ViewBag.Admins.Contains(user))
+                        {
+                            <tr class="info">
+                                <td><strong>@user.UserName</strong></td>
+                                <td><strong>@user.Email</strong></td>
+                                <td>
+                                    <a href="#"><strong>Edit</strong></a>
+                                    <a asp-controller="Admin" asp-action="DeleteUserConfirmation" asp-route-userId="@user.Id"><strong>Delete</strong></a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+
+                            <tr>
+                                <td><strong>@user.UserName</strong></td>
+                                <td><strong>@user.Email</strong></td>
+                                <td>
+                                    <a href="#"><strong>Edit</strong></a>
+                                    <a asp-controller="Admin" asp-action="DeleteUserConfirmation" asp-route-userId="@user.Id"><strong>Delete</strong></a>
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
+
             </table>
         </div>
     </div>

@@ -355,5 +355,14 @@ namespace GitGud.Models
         {
             return _context.Users.Find(userId);
         }
+
+        public IEnumerable<User> GetAllAdmins()
+        {
+            var adminRole = _context.Roles.FirstOrDefault(r => r.Name == "Admin");
+            List<User> admins = _context.Users
+                .Where(x => x.Roles.Select(y => y.RoleId).Contains(adminRole.Id)).ToList();
+
+            return admins;
+        }
     }
 }

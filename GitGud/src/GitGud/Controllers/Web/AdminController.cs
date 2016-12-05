@@ -25,6 +25,9 @@ namespace GitGud.Controllers.Web
         public IActionResult AllUsers()
         {
             List<User> allUsers = _repository.GetAllUsers().ToList();
+
+            ViewBag.Admins = _repository.GetAllAdmins();
+
             return View(allUsers);
         }
 
