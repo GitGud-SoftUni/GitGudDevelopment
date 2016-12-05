@@ -167,34 +167,10 @@ namespace GitGud.Models
             }
 
             var songsForCurrentUser = GetAllSongs().Where(s => s.UploaderName == currentUser.UserName);
-
-            //Delete all tags and comments for songs that uploaded by currentUser
+    
             foreach (var song in songsForCurrentUser)
             {
-                var currentSongTags = _context.Songs.Where(s => s.Id == song.Id)
-                    .Include(s => s.Tags).FirstOrDefault().Tags;
-
-                var currentSongComments = _context.Songs.Where(s => s.Id == song.Id)
-                    .Include(s => s.Comments).FirstOrDefault().Comments;
-
-                //Check if song file exist, if so delete this song on local level first
-                string songFileAddress = Path.GetFullPath("..\\GitGud\\wwwroot\\uploads\\" + song.fileAdress);
-
-                if (File.Exists(songFileAddress))
-                {
-                    try
-                    {
-                        File.Delete(songFileAddress);
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-                }
-
-                _context.Tags.RemoveRange(currentSongTags);
-                _context.Comments.RemoveRange(currentSongComments);
-                _context.Songs.Remove(song);
+               DeleteSong(song.Id);
             }
 
             _context.Users.Remove(currentUser);
@@ -246,37 +222,9 @@ namespace GitGud.Models
 
             foreach (var song in songsForCategory)
             {
-                //Get all tags for current song
-                var currentSongTags = _context.Songs.Where(s => s.Id == song.Id)
-                   .Include(s => s.Tags).FirstOrDefault().Tags;
-
-                // Get all comments for current song
-                var currentSongComments = _context.Songs.Where(s => s.Id == song.Id)
-                    .Include(s => s.Comments).FirstOrDefault().Comments;
-
-                //Delete song localy
-                string songFileAddress = Path.GetFullPath("..\\GitGud\\wwwroot\\uploads\\" + song.fileAdress);
-
-                if (File.Exists(songFileAddress))
-                {
-                    try
-                    {
-                        File.Delete(songFileAddress);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-
-                //Delete tags, comments for current song
-                _context.RemoveRange(currentSongTags);
-                _context.RemoveRange(currentSongComments);
+                DeleteSong(song.Id);
             }
 
-            //Delete all songs for current category
-            _context.Songs.RemoveRange(songsForCategory);
-
-            //Delete category
             _context.Categories.Remove(category);
             _context.SaveChanges();
         }
