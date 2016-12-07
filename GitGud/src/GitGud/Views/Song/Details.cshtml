@@ -5,6 +5,7 @@
 @section Scripts {
     <script src="~/lib/angular/angular.min.js"></script>
     <script src="~/js/app-likes.js"></script>
+    <script src="~/js/app-comments.js"></script>
 }
 <div class="container">
     <div class="col-md-12">
@@ -116,6 +117,15 @@
                                         </span>
                                     }
                                     <span class="badge">@comment.Likes.Count</span>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        if (User.IsInRole("Admin"))
+                                        {
+                                            <a class="btn btn-default btn-xs" onclick="deleteComment(@comment.Id)">
+                                                Delete this comment! <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        }
+                                    }
                                 </div>
 
                             </li>

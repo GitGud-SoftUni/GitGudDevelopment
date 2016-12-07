@@ -69,7 +69,7 @@ namespace GitGud.Models
 
             _context.Likes.RemoveRange(likesToRemove);
 
-           
+
 
             _context.Comments.RemoveRange(currentSongComments);
             _context.Tags.RemoveRange(currentSongTags);
@@ -167,10 +167,10 @@ namespace GitGud.Models
             }
 
             var songsForCurrentUser = GetAllSongs().Where(s => s.UploaderName == currentUser.UserName);
-    
+
             foreach (var song in songsForCurrentUser)
             {
-               DeleteSong(song.Id);
+                DeleteSong(song.Id);
             }
 
             _context.Users.Remove(currentUser);
@@ -279,7 +279,7 @@ namespace GitGud.Models
             _context.Entry(commentLiked).State = EntityState.Modified;
 
             _context.SaveChanges();
-		}
+        }
 
         public void RemoveLike(int commentId, string userName)
         {
@@ -311,6 +311,44 @@ namespace GitGud.Models
                 .Where(x => x.Roles.Select(y => y.RoleId).Contains(adminRole.Id)).ToList();
 
             return admins;
+        }
+
+        public bool CommentExists(int? id)
+        {
+            if (_context.Comments.Any(c => c.Id == id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void DeleteCommentById(int? id)
+        {
+            Comment targetedComment = _context.Comments
+                .Where(c => c.Id == id)
+                .Include(c => c.Likes)
+                .FirstOrDefault();
+
+            List<Like> likesToRemove = _context.Comments
+                .Where(c => c.Id == id)
+                .Include(c => c.Likes)
+                .FirstOrDefault().Likes.ToList();
+
+
+
+            foreach (var like in likesToRemove)
+            {
+                targetedComment.Likes.Remove(like);
+            }
+            _context.Likes.RemoveRange(likesToRemove);
+            _context.Entry(targetedComment).State = EntityState.Modified;
+            _context.Comments.Remove(targetedComment);
+
+            _context.SaveChanges();
+
         }
     }
 }

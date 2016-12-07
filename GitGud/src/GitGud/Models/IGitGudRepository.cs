@@ -25,5 +25,7 @@ namespace GitGud.Models
         void RemoveLike(int commentId, string userName);
         User GetUserById(string userId);
         IEnumerable<User> GetAllAdmins();
+        void DeleteCommentById(int? id);
+        bool CommentExists(int? id);
     }
 }
