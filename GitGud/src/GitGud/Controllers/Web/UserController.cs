@@ -4,6 +4,7 @@ using GitGud.Models;
 using GitGud.ViewModels;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
+using System.Linq;
 
 namespace GitGud.Controllers.Web
 {
@@ -12,14 +13,16 @@ namespace GitGud.Controllers.Web
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
         private RoleManager<Role> _roleManager;
+        private IGitGudRepository _repository;
 
 
         //user manager - for creating user, sign in manager - for log in and log out user
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager)
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IGitGudRepository repository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _repository = repository;
         }
 
         [HttpGet]
@@ -100,18 +103,16 @@ namespace GitGud.Controllers.Web
         [HttpGet]
         public async Task<IActionResult> Show()
         {
-            var name = this.User.Identity.Name;
-            using (var db = new GitGudContext())
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user == null)
             {
-                var user = await GetCurrentUser();
-
-                if (user != null)
-                {
-                    return View(user);
-                }
-
                 return RedirectToAction("Login");
             }
+
+            var songs = _repository.GetAllSongsFromUser(user.UserName).ToList();
+            user.Songs = songs;
+            return View(user);
 
         }
 
@@ -121,9 +122,6 @@ namespace GitGud.Controllers.Web
             return View();
         }
 
-        private async Task<User> GetCurrentUser()
-        {
-            return await _userManager.GetUserAsync(HttpContext.User);
-        }
+       
     }
 }

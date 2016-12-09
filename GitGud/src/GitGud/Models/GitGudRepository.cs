@@ -350,5 +350,10 @@ namespace GitGud.Models
             _context.SaveChanges();
 
         }
+
+        public IEnumerable<Song> GetAllSongsFromUser(string userName)
+        {
+            return _context.Songs.Where(s => s.UploaderName == userName).ToList();
+        }
     }
 }

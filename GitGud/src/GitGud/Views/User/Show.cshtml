@@ -14,7 +14,7 @@
         <h2 style="text-align:center">User <strong>@Model.UserName</strong> - Profile Details</h2>
     </div>
     <div class="row">
-        <div class="panel-group col-md-8" id="accordion">
+        <div class="panel-group col-md-9" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -102,8 +102,48 @@
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
                     <div class="panel-body">
-                        Списъка със всички песни, които юзъра е качил
-                        Ще се вижда от регистрирани
+                        <div class="row">
+                            <table class="table table-hover">
+                                @if (Model.Songs.Any())
+                                {
+                                    <thead>
+                                        <tr>
+                                            <th>Song</th>
+                                            <th>Artist</th>
+                                            <th>Date added</th>
+                                            <th>Audio</th>
+                                        </tr>
+                                    </thead>
+                                }
+                                else
+                                {
+                                    <p style="text-align: center">No songs available</p>
+                                }
+                                <tbody>
+                                    @foreach (var song in Model.Songs)
+            {
+                                        <tr class="info">
+                                            <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@song.Id" style="margin:3px">@song.Name</a></td>
+                                            <td><a asp-controller="Artist" asp-action="Artist" asp-route-artistName="@song.ArtistName" style="margin:3px">@song.ArtistName</a></td>
+                                            <td>@song.DateUploaded.ToString("d")</td>
+                                            <td>
+                                                <audio controls preload="none">
+                                                    <source src="~/uploads/@song.fileAdress" type="audio/ogg">
+                                                    Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <td>
+                                                        <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@song.Id" class="btn btn-primary">Delete</a>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,7 +178,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="thumbnail">
                 <a href="~/images/pic3.jpg" target="_blank">
                     <img src="~/images/pic3.jpg" alt="Fjords" style="width: 100%">
