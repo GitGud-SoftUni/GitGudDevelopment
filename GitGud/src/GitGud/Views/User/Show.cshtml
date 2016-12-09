@@ -1,6 +1,4 @@
-﻿@using GitGud.Models
-@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
-@model GitGud.Models.Profile
+﻿@model GitGud.Models.User
 @{
     ViewBag.Title = "Show profile";
 }
@@ -13,6 +11,9 @@
 
 <div class="container">
     <div class="row">
+        <h2 style="text-align:center">User <strong>@Model.UserName</strong> - Profile Details</h2>
+    </div>
+    <div class="row">
         <div class="panel-group col-md-8" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -24,8 +25,70 @@
                 </div>
                 <div id="collapse1" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        Разните му там рождени дни, възрасти, имена и т.н.
-                        Ще се вижда от регистрирани
+                        <div class="row">
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>Names: </th>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(Model.FirstName))
+                                        {
+                                            <strong>@Model.FirstName</strong>
+                                        }
+                                        @if (!string.IsNullOrEmpty(Model.LastName))
+                                        {
+                                            <strong>@Model.LastName</strong>
+                                        }
+                                        @if (string.IsNullOrEmpty(Model.FirstName) && string.IsNullOrEmpty(Model.LastName))
+                                        {
+                                            <strong>(n/a)</strong>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Lives in: </th>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(Model.Town))
+                                        {
+                                            <strong>@Model.Town</strong>
+                                        }
+                                        else
+                                        {
+                                            <strong>(n/a)</strong>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Birthday: </th>
+                                    <td>
+                                        @if (Model.Birthday.Year != 1)
+                                        {
+                                            <strong>@(Model.Birthday.Date.ToString("d"))</strong>
+                                        }
+                                        else
+                                        {
+                                            <strong>(n/a)</strong>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Age: </th>
+                                    <td>
+                                        @if (Model.Birthday.Year != 1)
+                                        {
+                                            <strong>@(DateTime.Now.Year - Model.Birthday.Year)</strong>
+                                        }
+                                        else
+                                        {
+                                            <strong>(n/a)</strong>
+                                        }
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="edit">
+                            <a class="btn btn-primary" asp-controller="User" asp-action="Edit">Edit profile</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,19 +137,16 @@
                     </div>
                 </div>
             </div>
-            <div id="edit">
-                <a class="btn btn-primary" asp-controller="User" asp-action="Edit">Edit profile</a>
-            </div>
         </div>
         <div class="col-md-4">
             <div class="thumbnail">
                 <a href="~/images/pic3.jpg" target="_blank">
-                    <img src="~/images/pic3.jpg" alt="Fjords" style="width:100%">
-                    <div class="caption">
-                        <p>Username: @User.Identity.Name</p>
-                        <p>Email:</p>
-                    </div>
+                    <img src="~/images/pic3.jpg" alt="Fjords" style="width: 100%">
                 </a>
+                <div class="caption">
+                    <p><strong>Username: @User.Identity.Name</strong></p>
+                    <p><strong>Email: @Model.Email</strong></p>
+                </div>
             </div>
         </div>
     </div>

@@ -98,15 +98,32 @@ namespace GitGud.Controllers.Web
         }
 
         [HttpGet]
-        public IActionResult Show() 
+        public async Task<IActionResult> Show()
+        {
+            var name = this.User.Identity.Name;
+            using (var db = new GitGudContext())
+            {
+                var user = await GetCurrentUser();
+
+                if (user != null)
+                {
+                    return View(user);
+                }
+
+                return RedirectToAction("Login");
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult Edit()
         {
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Edit() 
+        private async Task<User> GetCurrentUser()
         {
-            return View();
+            return await _userManager.GetUserAsync(HttpContext.User);
         }
     }
 }

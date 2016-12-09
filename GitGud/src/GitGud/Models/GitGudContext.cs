@@ -19,11 +19,15 @@ namespace GitGud.Models
            
         }
 
+        public GitGudContext()
+        {
+            
+        }
+
         public DbSet<Song> Songs { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Profile> Profiles { get; set; } 
         public DbSet<Like> Likes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

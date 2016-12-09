@@ -9,15 +9,26 @@ namespace GitGud.Models
 {
     public class User : IdentityUser
     {
-        //Identity package contains every property for a user including these...
-        //        public int Id { get; set; }
-        //        public string Username { get; set; } //a.k.a email
-        //        public string FullName { get; set; }
-        //        public string PasswordHash { get; set; }// a.k.a encrypted password string which is stored in db instead password 
-        //        public string Role { get; set; } // user or admin 
-        //        public string Salt { get; set; }//a.k.a. encryption key for the password before storing in db
+        public User()
+        {
+            this.Comments = new List<Comment>();
+            this.Songs = new List<Song>();
+            this.Likes = new List<Like>();
+            this.Birthday = new DateTime();
+            this.Age = DateTime.Now.Year - Birthday.Year;
+        }
 
-        //sholud add only custom properties
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        public DateTime Birthday { get; set; }
+
+        public int Age { get; set; }
+        public string Town { get; set; }
+        public string fileAdress { get; set; }
+
         public ICollection<Song> Songs { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Like> Likes { get; set; }
     }
 }
