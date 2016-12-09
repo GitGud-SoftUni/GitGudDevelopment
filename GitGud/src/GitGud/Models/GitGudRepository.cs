@@ -355,5 +355,12 @@ namespace GitGud.Models
         {
             return _context.Songs.Where(s => s.UploaderName == userName).ToList();
         }
+
+        public IEnumerable<Comment> GetCommentsFromUser(string userName)
+        {
+            return _context.Comments.Where(c => c.UserName == userName).Include(c => c.Likes).ToList();
+        }
+
+        
     }
 }

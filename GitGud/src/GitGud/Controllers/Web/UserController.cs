@@ -111,7 +111,11 @@ namespace GitGud.Controllers.Web
             }
 
             var songs = _repository.GetAllSongsFromUser(user.UserName).ToList();
+            var comments = _repository.GetCommentsFromUser(user.UserName).ToList();
+            
             user.Songs = songs;
+            user.Comments = comments;
+            
             return View(user);
 
         }

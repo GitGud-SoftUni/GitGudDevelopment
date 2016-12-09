@@ -7,6 +7,7 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script type="text/javascript" src="~/js/script.js"></script>
+
 }
 
 <div class="container">
@@ -117,7 +118,7 @@
                                 }
                                 else
                                 {
-                                    <p style="text-align: center">No songs available</p>
+                                    <p style="text-align: center">No songs from user @User.Identity.Name available</p>
                                 }
                                 <tbody>
                                     @foreach (var song in Model.Songs)
@@ -132,13 +133,9 @@
                                                     Your browser does not support the audio element.
                                                 </audio>
                                             </td>
-
-                                            @if (User.Identity.IsAuthenticated)
-                                            {
-                                                <td>
-                                                        <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@song.Id" class="btn btn-primary">Delete</a>
-                                                </td>
-                                            }
+                                            <td>
+                                                <a asp-controller="Song" asp-action="UserDeleteSong" asp-route-strSongId="@song.Id" class="btn btn-primary">Delete</a>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>
@@ -157,8 +154,35 @@
                 </div>
                 <div id="collapse3" class="panel-collapse collapse">
                     <div class="panel-body">
-                        Списък със всички коментари на юзъра
-                        Ще се вижда само от юзъра
+                        <div class="row">
+                            <table class="table table-hover">
+                                @if (Model.Comments.Any())
+                                {
+                                    <thead>
+                                        <tr>
+                                            <th>Content</th>
+                                            <th>DateAdded</th>
+                                            <th>Likes Count</th>
+                                        </tr>
+                                    </thead>
+                                }
+                                else
+                                {
+                                    <p style="text-align: center">No comments from user @User.Identity.Name available</p>
+                                }
+                                <tbody>
+                                    @foreach (var comment in Model.Comments)
+            {
+                                        <tr class="info">
+
+                                            <td>@comment.Content</td>
+                                            <td>@comment.Date</td>
+                                            <td>@comment.Likes.Count</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -172,8 +196,7 @@
                 </div>
                 <div id="collapse4" class="panel-collapse collapse">
                     <div class="panel-body">
-                        Песните, които юзъра харесва? Ако сме измислили такава опция разбира се.
-                        Ще се вижда само от юзъра
+                       To do... or maybe not...
                     </div>
                 </div>
             </div>
