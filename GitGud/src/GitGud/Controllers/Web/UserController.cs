@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GitGud.Models;
 using GitGud.ViewModels;
@@ -121,11 +122,42 @@ namespace GitGud.Controllers.Web
         }
 
         [HttpGet]
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+
             return View();
         }
 
-       
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProfileViewModel model)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+
+                return RedirectToAction("Login");
+            }
+
+            if (ModelState.IsValid)
+            {
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Town = model.Town;
+                user.Birthday = model.Birthday;
+                user.Age = DateTime.Now.Year - model.Birthday.Year;
+                await _userManager.UpdateAsync(user);
+
+                return RedirectToAction("Show");
+            }
+
+            return View(model);
+        }
+
+
     }
 }

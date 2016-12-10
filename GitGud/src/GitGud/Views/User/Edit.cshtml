@@ -7,6 +7,25 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script type="text/javascript" src="~/js/script.js"></script>
+    @*This is for Mozilla and IE, which doesn't support input type=date*@
+    <script type="text/javascript">
+        var datefield=document.createElement("input")
+        datefield.setAttribute("type", "date")
+        if (datefield.type!="date"){ //if browser doesn't support input type="date", load files for jQuery UI Date Picker
+            document.write('<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />\n')
+            document.write('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"><\/script>\n')
+            document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"><\/script>\n')
+        }
+    </script>
+
+    <script>
+        if (datefield.type!="date"){ //if browser doesn't support input type="date", initialize date picker widget:
+            jQuery(function($){ //on document.ready
+                $('#birthday').datepicker();
+            })
+        }
+    </script>
+    @*End of datepicker script*@
 }
 
 <div class="container upload">
@@ -52,13 +71,13 @@
                 <div class="form-group">
                     <label asp-for="Birthday" class="control-label"></label>
                     <div>
-                        <input type="date" asp-for="Birthday" class="form-control" />
+                        <input type="date" asp-for="Birthday" class="form-control" id="birthday" />
                         <span asp-validation-for="Birthday"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <a asp-action="Show" asp-controller="User" class="btn btn-default">Cancel</a>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
