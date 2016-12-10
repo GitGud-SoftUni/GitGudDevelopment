@@ -21,6 +21,7 @@ namespace GitGud.Controllers.Web
             _repository = repository;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult DeleteSong(string strSongId)
         {
@@ -32,12 +33,30 @@ namespace GitGud.Controllers.Web
                 return RedirectToAction("Browse", "App");
             }
 
+            if (!User.IsInRole("Admin") && !song.UploaderName.Equals(User.Identity.Name))
+            {
+                return this.StatusCode(401);
+            }
+
             return View(song);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult DeleteSong(int songId)
         {
+
+            Song song = _repository.GetSongById(songId);
+
+            if (song == null)
+            {
+                return RedirectToAction("Browse", "App");
+            }
+
+            if (!User.IsInRole("Admin") && !song.UploaderName.Equals(User.Identity.Name))
+            {
+                return this.StatusCode(401);
+            }
 
             _repository.DeleteSong(songId);
             return RedirectToAction("Browse", "App");
