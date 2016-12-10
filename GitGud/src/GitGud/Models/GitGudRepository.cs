@@ -53,6 +53,9 @@ namespace GitGud.Models
             var currentSongComments = _context.Songs.Where(s => s.Id == currentSong.Id)
                 .Include("Comments.Likes").FirstOrDefault().Comments;
 
+            var currentSongFavs = _context.Songs.Where(s => s.Id == currentSong.Id)
+                .Include(s => s.Favorites).FirstOrDefault().Favorites;
+
             List<int> likesIds = new List<int>();
 
             foreach (var com in currentSongComments)
@@ -70,7 +73,7 @@ namespace GitGud.Models
             _context.Likes.RemoveRange(likesToRemove);
 
 
-
+            _context.Favs.RemoveRange(currentSongFavs);
             _context.Comments.RemoveRange(currentSongComments);
             _context.Tags.RemoveRange(currentSongTags);
             _context.Songs.Remove(currentSong);
@@ -126,6 +129,7 @@ namespace GitGud.Models
             Song currentSong = _context.Songs
                 .Where(x => x.Id == songId)
                 .Include(x => x.Tags)
+                .Include(x => x.Favorites)
                 .Include("Comments.Likes")
                 .FirstOrDefault();
 
@@ -361,6 +365,44 @@ namespace GitGud.Models
             return _context.Comments.Where(c => c.UserName == userName).Include(c => c.Likes).ToList();
         }
 
-        
+        public bool UserFavExists(int songId, string userId)
+        {
+            var song = GetSongById(songId);
+            if (song.Favorites.Any(f => f.UserId == userId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void AddFav(int songId, string userId)
+        {
+            var song = GetSongById(songId);
+
+            Fav fav = new Fav();
+            fav.UserId = userId;
+
+            song.Favorites.Add(fav);
+
+            _context.Entry(song).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public void RemoveFav(int songId, string userId)
+        {
+            var song = GetSongById(songId);
+
+            var fav = song.Favorites.Where(s => s.UserId == userId).FirstOrDefault();
+
+            song.Favorites.Remove(fav);
+
+            _context.Favs.Remove(fav);
+
+            _context.Entry(song).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
     }
 }

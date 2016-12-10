@@ -28,7 +28,9 @@ namespace GitGud.Models
         void DeleteCommentById(int? id);
         bool CommentExists(int? id);
         IEnumerable<Song> GetAllSongsFromUser(string userName);
-        IEnumerable<Comment> GetCommentsFromUser(string userName); 
-        
+        IEnumerable<Comment> GetCommentsFromUser(string userName);
+        bool UserFavExists(int songId, string userId);
+        void AddFav(int songId, string userId);
+        void RemoveFav(int songId, string userId);
     }
 }

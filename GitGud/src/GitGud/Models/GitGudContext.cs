@@ -29,6 +29,7 @@ namespace GitGud.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Fav> Favs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

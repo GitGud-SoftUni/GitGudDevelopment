@@ -25,11 +25,13 @@ namespace GitGud.Models
         public Category Category { get; set; }
         public ICollection<Tag> Tags { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        public ICollection<Fav> Favorites { get; set; }
 
 
         public Song()
         {
             this.Comments = new List<Comment>();
+            this.Favorites = new List<Fav>();
         }
 
     }

@@ -50,6 +50,22 @@ namespace GitGud.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("GitGud.Models.Fav", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("SongId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SongId");
+
+                    b.ToTable("Favs");
+                });
+
             modelBuilder.Entity("GitGud.Models.Like", b =>
                 {
                     b.Property<int>("Id")
@@ -292,6 +308,13 @@ namespace GitGud.Migrations
                     b.HasOne("GitGud.Models.User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GitGud.Models.Fav", b =>
+                {
+                    b.HasOne("GitGud.Models.Song")
+                        .WithMany("Favorites")
+                        .HasForeignKey("SongId");
                 });
 
             modelBuilder.Entity("GitGud.Models.Like", b =>

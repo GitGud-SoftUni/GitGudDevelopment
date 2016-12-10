@@ -8,7 +8,7 @@ using GitGud.Models;
 namespace GitGud.Migrations
 {
     [DbContext(typeof(GitGudContext))]
-    [Migration("20161205171315_InitialDb")]
+    [Migration("20161210175821_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,19 +36,35 @@ namespace GitGud.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<int?>("ProfileId");
-
                     b.Property<int?>("SongId");
+
+                    b.Property<string>("UserId");
 
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProfileId");
+                    b.HasIndex("SongId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("GitGud.Models.Fav", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("SongId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Favs");
                 });
 
             modelBuilder.Entity("GitGud.Models.Like", b =>
@@ -60,35 +76,15 @@ namespace GitGud.Migrations
 
                     b.Property<string>("User");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CommentId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Likes");
-                });
-
-            modelBuilder.Entity("GitGud.Models.Profile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("Birthday");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("Town");
-
-                    b.Property<string>("UserIdId");
-
-                    b.Property<string>("fileAdress");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserIdId");
-
-                    b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("GitGud.Models.Role", b =>
@@ -127,8 +123,6 @@ namespace GitGud.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("ProfileId");
-
                     b.Property<string>("UploaderName");
 
                     b.Property<string>("UserId");
@@ -138,8 +132,6 @@ namespace GitGud.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProfileId");
 
                     b.HasIndex("UserId");
 
@@ -169,6 +161,10 @@ namespace GitGud.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<int>("Age");
+
+                    b.Property<DateTime>("Birthday");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -176,6 +172,10 @@ namespace GitGud.Migrations
                         .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -195,10 +195,14 @@ namespace GitGud.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<string>("Town");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("fileAdress");
 
                     b.HasKey("Id");
 
@@ -298,12 +302,19 @@ namespace GitGud.Migrations
 
             modelBuilder.Entity("GitGud.Models.Comment", b =>
                 {
-                    b.HasOne("GitGud.Models.Profile")
-                        .WithMany("Comments")
-                        .HasForeignKey("ProfileId");
-
                     b.HasOne("GitGud.Models.Song")
                         .WithMany("Comments")
+                        .HasForeignKey("SongId");
+
+                    b.HasOne("GitGud.Models.User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GitGud.Models.Fav", b =>
+                {
+                    b.HasOne("GitGud.Models.Song")
+                        .WithMany("Favorites")
                         .HasForeignKey("SongId");
                 });
 
@@ -312,13 +323,10 @@ namespace GitGud.Migrations
                     b.HasOne("GitGud.Models.Comment")
                         .WithMany("Likes")
                         .HasForeignKey("CommentId");
-                });
 
-            modelBuilder.Entity("GitGud.Models.Profile", b =>
-                {
-                    b.HasOne("GitGud.Models.User", "UserId")
-                        .WithMany()
-                        .HasForeignKey("UserIdId");
+                    b.HasOne("GitGud.Models.User")
+                        .WithMany("Likes")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("GitGud.Models.Song", b =>
@@ -326,10 +334,6 @@ namespace GitGud.Migrations
                     b.HasOne("GitGud.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId");
-
-                    b.HasOne("GitGud.Models.Profile")
-                        .WithMany("Songs")
-                        .HasForeignKey("ProfileId");
 
                     b.HasOne("GitGud.Models.User")
                         .WithMany("Songs")

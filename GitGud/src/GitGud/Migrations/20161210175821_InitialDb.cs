@@ -43,9 +43,13 @@ namespace GitGud.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
+                    Age = table.Column<int>(nullable: false),
+                    Birthday = table.Column<DateTime>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
@@ -54,8 +58,10 @@ namespace GitGud.Migrations
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     SecurityStamp = table.Column<string>(nullable: true),
+                    Town = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true)
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    fileAdress = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,24 +104,30 @@ namespace GitGud.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Profiles",
+                name: "Songs",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Birthday = table.Column<DateTime>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Town = table.Column<string>(nullable: true),
-                    UserIdId = table.Column<string>(nullable: true),
+                    ArtistName = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    UploaderName = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
                     fileAdress = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Profiles", x => x.Id);
+                    table.PrimaryKey("PK_Songs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Profiles_AspNetUsers_UserIdId",
-                        column: x => x.UserIdId,
+                        name: "FK_Songs_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Songs_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -187,36 +199,27 @@ namespace GitGud.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Songs",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ArtistName = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    ProfileId = table.Column<int>(nullable: true),
-                    UploaderName = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true),
+                    SongId = table.Column<int>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    fileAdress = table.Column<string>(nullable: true)
+                    UserName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Songs", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Songs_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
+                        name: "FK_Comments_Songs_SongId",
+                        column: x => x.SongId,
+                        principalTable: "Songs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Songs_Profiles_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "Profiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Songs_AspNetUsers_UserId",
+                        name: "FK_Comments_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -224,27 +227,19 @@ namespace GitGud.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comments",
+                name: "Favs",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Content = table.Column<string>(nullable: true),
-                    ProfileId = table.Column<int>(nullable: true),
                     SongId = table.Column<int>(nullable: true),
-                    UserName = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.PrimaryKey("PK_Favs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_Profiles_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "Profiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Comments_Songs_SongId",
+                        name: "FK_Favs_Songs_SongId",
                         column: x => x.SongId,
                         principalTable: "Songs",
                         principalColumn: "Id",
@@ -278,7 +273,8 @@ namespace GitGud.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CommentId = table.Column<int>(nullable: true),
-                    User = table.Column<string>(nullable: true)
+                    User = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -289,16 +285,27 @@ namespace GitGud.Migrations
                         principalTable: "Comments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Likes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_ProfileId",
-                table: "Comments",
-                column: "ProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_SongId",
                 table: "Comments",
+                column: "SongId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_UserId",
+                table: "Comments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Favs_SongId",
+                table: "Favs",
                 column: "SongId");
 
             migrationBuilder.CreateIndex(
@@ -307,9 +314,9 @@ namespace GitGud.Migrations
                 column: "CommentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profiles_UserIdId",
-                table: "Profiles",
-                column: "UserIdId");
+                name: "IX_Likes_UserId",
+                table: "Likes",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -321,11 +328,6 @@ namespace GitGud.Migrations
                 name: "IX_Songs_CategoryId",
                 table: "Songs",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Songs_ProfileId",
-                table: "Songs",
-                column: "ProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Songs_UserId",
@@ -372,6 +374,9 @@ namespace GitGud.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Favs");
+
+            migrationBuilder.DropTable(
                 name: "Likes");
 
             migrationBuilder.DropTable(
@@ -403,9 +408,6 @@ namespace GitGud.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Profiles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
