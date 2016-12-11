@@ -131,7 +131,13 @@ namespace GitGud.Controllers.Web
                 return RedirectToAction("Login");
             }
 
-            return View();
+            var profileViewModel = new ProfileViewModel();
+            profileViewModel.FirstName = user.FirstName;
+            profileViewModel.LastName = user.LastName;
+            profileViewModel.Town = user.Town;
+            profileViewModel.Birthday = user.Birthday;
+
+            return View(profileViewModel);
         }
 
         [HttpPost]
