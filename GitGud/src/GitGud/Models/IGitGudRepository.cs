@@ -32,5 +32,7 @@ namespace GitGud.Models
         bool UserFavExists(int songId, string userId);
         void AddFav(int songId, string userId);
         void RemoveFav(int songId, string userId);
+        IEnumerable<Role> GetAllRoles();
+        void SaveChangesInDb();
     }
 }

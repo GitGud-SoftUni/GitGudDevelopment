@@ -404,5 +404,15 @@ namespace GitGud.Models
             _context.Entry(song).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
+        public IEnumerable<Role> GetAllRoles()
+        {
+            return _context.Roles.Include(r => r.Users).ToList();
+        }
+
+        public void SaveChangesInDb()
+        {
+            _context.SaveChanges();
+        }
     }
 }

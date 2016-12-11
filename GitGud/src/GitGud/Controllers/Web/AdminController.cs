@@ -4,6 +4,7 @@ using System.Security.Claims;
 using GitGud.Models;
 using GitGud.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -13,13 +14,15 @@ namespace GitGud.Controllers.Web
     public class AdminController : Controller
     {
         private IGitGudRepository _repository;
+        private UserManager<User> _userManager;
         //here to add everything that an admin can do
         //create categories, manage users etc.
         //first to find out how a user can take role=admin???
 
-        public AdminController(IGitGudRepository repository)
+        public AdminController(IGitGudRepository repository, UserManager<User> userManager)
         {
             _repository = repository;
+            _userManager = userManager;
         }
 
         public IActionResult AllUsers()
@@ -63,6 +66,77 @@ namespace GitGud.Controllers.Web
         public IActionResult DeleteUserError()
         {
             return View();
+        }
+
+        public IActionResult EditUser(string userId)
+        {
+            var user = _repository.GetUserById(userId);
+
+            var editUserViewModel = new EditUserViewModel();
+            editUserViewModel.User = user;
+            editUserViewModel.Roles = GetUserRoles(user);
+
+            return View(editUserViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditUser(string userId, EditUserViewModel editUserViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _repository.GetUserById(userId);
+
+                if (!string.IsNullOrEmpty(editUserViewModel.Password))
+                {
+                    var passwordHasher = new PasswordHasher<User>();
+                    var newPasswordHash = passwordHasher.HashPassword(user, editUserViewModel.Password);
+                    user.PasswordHash = newPasswordHash;
+                }
+
+                SetUserRoles(editUserViewModel, user);
+                _repository.SaveChangesInDb();
+            }
+
+            return RedirectToAction("AllUsers");
+        }
+
+        private void SetUserRoles(EditUserViewModel editUserViewModel, User user)
+        {
+            foreach (var role in editUserViewModel.Roles)
+            {
+                var isUserInRole = _userManager.IsInRoleAsync(user, role.Name).Result;
+
+                if (role.IsSelected && !isUserInRole)
+                {
+                    var isUserAddedToRole = _userManager.AddToRoleAsync(user, role.Name).Result;
+                }
+                else if (!role.IsSelected && isUserInRole)
+                {
+                    var isUserRemovedFromRole = _userManager.RemoveFromRoleAsync(user, role.Name).Result;
+                }
+            }
+        }
+
+        private List<CheckUserRolesViewModel> GetUserRoles(User user)
+        {
+            var allRoles = _repository.GetAllRoles();
+
+            var userRoles = new List<CheckUserRolesViewModel>();
+
+            foreach (var role in allRoles)
+            {
+                CheckUserRolesViewModel checkUserRolesViewModel = new CheckUserRolesViewModel();
+                checkUserRolesViewModel.Name = role.Name;
+
+                if (role.Users.Any(u => u.UserId == user.Id))
+                {
+                    checkUserRolesViewModel.IsSelected = true;
+                }
+
+                userRoles.Add(checkUserRolesViewModel);
+            }
+
+            return userRoles;
         }
 
         public IActionResult AllCategories()

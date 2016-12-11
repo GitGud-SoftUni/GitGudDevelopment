@@ -1,0 +1,68 @@
+﻿@model GitGud.ViewModels.EditUserViewModel
+
+
+@{
+    ViewBag.Title = "Edit User";
+}
+
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<div class="container">
+    <div class="well">
+        <form class="form-horizontal" asp-controller="Admin" asp-action="EditUser" asp-route-userId="@Model.User.Id" method="post">
+            <fieldset>
+                <legend>Edit User</legend>
+                @Html.ValidationSummary()
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Email</label>
+                    <div class="col-sm-4 ">
+                        <input class="form-control" type="email" placeholder="Email"
+                               required="required" value="@Model.User.Email" disabled="disabled"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Username</label>
+                    <div class="col-sm-4 ">
+                        <input class="form-control" type="text" placeholder="Username"
+                               required="required" value="@Model.User.UserName" disabled="disabled"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Password</label>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" placeholder="Password" asp-for="Password" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Confirm Password</label>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" placeholder="Password" asp-for="ConfirmPassword" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @for (int i = 0; i < Model.Roles.Count; i++)
+                    {
+                        <div class="col-sm-offset-4 col-sm-4">
+                            @Html.HiddenFor(m => m.Roles[i].Name)
+                            @Html.CheckBoxFor(m => m.Roles[i].IsSelected)
+                            @Model.Roles[i].Name
+                        </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <a class="btn btn-default" asp-controller="Admin" asp-action="AllUsers">Cancel</a>
+                        <input value="Edit" type="submit" class="btn btn-success" />
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

@@ -26,7 +26,7 @@
                                 <td><strong>@user.UserName</strong></td>
                                 <td><strong>@user.Email</strong></td>
                                 <td>
-                                    <a href="#"><strong>Edit</strong></a>
+                                    <a asp-controller="Admin" asp-action="EditUser" asp-route-userId="@user.Id"><strong>Edit</strong></a>
                                     <a asp-controller="Admin" asp-action="DeleteUserConfirmation" asp-route-userId="@user.Id"><strong>Delete</strong></a>
                                 </td>
                             </tr>
@@ -38,7 +38,7 @@
                                 <td><strong>@user.UserName</strong></td>
                                 <td><strong>@user.Email</strong></td>
                                 <td>
-                                    <a href="#"><strong>Edit</strong></a>
+                                    <a asp-controller="Admin" asp-action="EditUser" asp-route-userId="@user.Id"><strong>Edit</strong></a>
                                     <a asp-controller="Admin" asp-action="DeleteUserConfirmation" asp-route-userId="@user.Id"><strong>Delete</strong></a>
                                 </td>
                             </tr>
