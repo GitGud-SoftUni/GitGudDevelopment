@@ -63,6 +63,8 @@ namespace GitGud.Migrations
 
                     b.HasIndex("SongId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Favs");
                 });
 
@@ -126,6 +128,8 @@ namespace GitGud.Migrations
 
                     b.Property<string>("UserId");
 
+                    b.Property<string>("UserId1");
+
                     b.Property<string>("fileAdress");
 
                     b.HasKey("Id");
@@ -133,6 +137,8 @@ namespace GitGud.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Songs");
                 });
@@ -312,9 +318,13 @@ namespace GitGud.Migrations
 
             modelBuilder.Entity("GitGud.Models.Fav", b =>
                 {
-                    b.HasOne("GitGud.Models.Song")
+                    b.HasOne("GitGud.Models.Song", "Song")
                         .WithMany("Favorites")
                         .HasForeignKey("SongId");
+
+                    b.HasOne("GitGud.Models.User")
+                        .WithMany("Favs")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("GitGud.Models.Like", b =>
@@ -335,8 +345,12 @@ namespace GitGud.Migrations
                         .HasForeignKey("CategoryId");
 
                     b.HasOne("GitGud.Models.User")
-                        .WithMany("Songs")
+                        .WithMany("FavSongs")
                         .HasForeignKey("UserId");
+
+                    b.HasOne("GitGud.Models.User")
+                        .WithMany("Songs")
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("GitGud.Models.Tag", b =>

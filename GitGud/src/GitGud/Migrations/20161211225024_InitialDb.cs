@@ -114,6 +114,7 @@ namespace GitGud.Migrations
                     Name = table.Column<string>(nullable: true),
                     UploaderName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
+                    UserId1 = table.Column<string>(nullable: true),
                     fileAdress = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -128,6 +129,12 @@ namespace GitGud.Migrations
                     table.ForeignKey(
                         name: "FK_Songs_AspNetUsers_UserId",
                         column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Songs_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -244,6 +251,12 @@ namespace GitGud.Migrations
                         principalTable: "Songs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Favs_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -309,6 +322,11 @@ namespace GitGud.Migrations
                 column: "SongId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Favs_UserId",
+                table: "Favs",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Likes_CommentId",
                 table: "Likes",
                 column: "CommentId");
@@ -333,6 +351,11 @@ namespace GitGud.Migrations
                 name: "IX_Songs_UserId",
                 table: "Songs",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Songs_UserId1",
+                table: "Songs",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tags_SongId",

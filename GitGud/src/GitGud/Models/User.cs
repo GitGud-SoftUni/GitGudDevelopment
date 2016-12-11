@@ -15,6 +15,8 @@ namespace GitGud.Models
             this.Songs = new List<Song>();
             this.Likes = new List<Like>();
             this.Birthday = new DateTime();
+            this.Favs = new List<Fav>();
+            this.FavSongs = new List<Song>();
             this.Age = DateTime.Now.Year - Birthday.Year;
         }
 
@@ -30,5 +32,7 @@ namespace GitGud.Models
         public ICollection<Song> Songs { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Like> Likes { get; set; }
+        public ICollection<Fav> Favs { get; set; }
+        public ICollection<Song> FavSongs { get; set; }
     }
 }

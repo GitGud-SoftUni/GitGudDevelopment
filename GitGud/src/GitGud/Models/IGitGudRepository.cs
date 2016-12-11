@@ -35,5 +35,6 @@ namespace GitGud.Models
         IEnumerable<Role> GetAllRoles();
         void SaveChangesInDb();
         IEnumerable<Song> GetHotTracks();
+        IEnumerable<Song> GetUserFavs(string userId);
     }
 }

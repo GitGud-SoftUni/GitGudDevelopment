@@ -196,10 +196,47 @@
                 </div>
                 <div id="collapse4" class="panel-collapse collapse">
                     <div class="panel-body">
-                       To do... or maybe not...
+                        <table class="table table-hover">
+                            @if (Model.Favs.Any())
+                            {
+                                <thead>
+                                    <tr>
+                                        <th>Song</th>
+                                        <th>Artist</th>
+                                        <th>Date added</th>
+                                        <th>Uploader</th>
+                                        <th>Audio</th>
+                                    </tr>
+                                </thead>
+                            }
+                            else
+                            {
+                                <p style="text-align: center">No favorites of user @User.Identity.Name available</p>
+                            }
+                            <tbody>
+                                @foreach (var fav in Model.FavSongs)
+            {
+                                    <tr class="info">
+                                        <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@fav.Id" style="margin:3px">@fav.Name</a></td>
+                                        <td><a asp-controller="Artist" asp-action="Artist" asp-route-artistName="@fav.ArtistName" style="margin:3px">@fav.ArtistName</a></td>
+                                        <td>@fav.DateUploaded.ToString("d")</td>
+                                        <td>@fav.UploaderName</td>
+
+                                        <td>
+                                            <audio controls preload="none">
+                                                <source src="~/uploads/@fav.fileAdress" type="audio/ogg">
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
                     </div>
                 </div>
-            </div>
+            
         </div>
         <div class="col-md-3">
             <div class="thumbnail">
