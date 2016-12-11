@@ -23,7 +23,7 @@
                     <ul class="nav navbar-nav navbar-left">
                         <li><a asp-controller="App" asp-action="Browse" style="padding:20px"><i class="fa fa-music"></i><strong> Browse</strong></a></li>
                         <li><a href="#" style="padding:20px"><i class="fa fa-line-chart"></i><strong> Charts</strong></a></li>
-                        <li><a href="#" style="padding:20px"><i class="fa fa-fire"></i><strong> Hot tracks</strong></a></li>
+                        <li><a asp-controller="App" asp-action="HotTracks" style="padding:20px"><i class="fa fa-fire"></i><strong> Hot tracks</strong></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
     @if (User.Identity.IsAuthenticated)

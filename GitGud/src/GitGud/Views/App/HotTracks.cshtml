@@ -4,4 +4,100 @@
     ViewBag.Title = "Hot Tracks";
 }
 
-<h1 style="text-align: center">No songs available</h1>
+
+@if (User.IsInRole("Admin"))
+{
+    <h1 style="text-align: center"> <a asp-controller="Admin" asp-action="#" class="btn btn-default">Edit</a> </h1>
+
+
+}
+
+<h1 style="text-align: center">Hot Tracks</h1>
+
+
+<div class="container body-content">
+    <div class="well">
+        
+        @if (User.IsInRole("Admin"))
+        {
+            <h1 style="text-align: center">Hot Tracks - <a asp-controller="Admin" asp-action="#" class="btn btn-default">Edit</a></h1>
+
+
+        }
+        else
+        {
+            <h1 style="text-align: center">Hot Tracks</h1>
+
+
+        }
+
+        
+
+        <div class="row">
+            <table class="table table-striped table-hover ">
+                
+                <thead>
+                    
+                    <tr>
+                        <th>№</th>
+                        <th>Song</th>
+                        <th>Artist</th>
+                        <th>Uploader</th>
+                        <th>Audio</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>1</td>
+                        <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@Model" style="margin:3px">@Model</a></td>
+
+                    </tr>
+                    
+                    
+                    <tr><td>2</td></tr>
+                    <tr><td>3</td></tr>
+                    <tr><td>4</td></tr>
+                    <tr><td>5</td></tr>
+                    <tr><td>6</td></tr>
+                    <tr><td>7</td></tr>
+                    <tr><td>8</td></tr>
+                    <tr><td>9</td></tr>
+                    <tr><td>10</td></tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<
