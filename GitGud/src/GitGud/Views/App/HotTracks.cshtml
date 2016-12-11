@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GitGud.Models.Song>
+﻿@model GitGud.Models.Song
 
 @{
     ViewBag.Title = "Hot Tracks";
@@ -49,6 +49,19 @@
                 </thead>
 
                 <tbody>
+
+                    
+                    @for (int i = 1; i <= 10; i++)
+                    {
+                        
+                        <tr>
+                            <td>@i</td>
+                            <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@Model" style="margin:3px">@Model</a></td>
+                            <td><a asp-controller="Artist" asp-action="Artist" asp-route-artistName="@Model" style="margin:3px">@Model</a></td>
+
+                        </tr>
+                    }
+
 
                     <tr>
 
