@@ -42,7 +42,7 @@ namespace GitGud.Controllers.Web
 
         public IActionResult Browse()
         {
-            var data = _repository.GetAllSongs();//TODO: Change this
+            var data = _repository.GetAllSongs();
 
             return View(data);
         }
@@ -54,7 +54,9 @@ namespace GitGud.Controllers.Web
 
         public IActionResult HotTracks()
         {
-            return View();
+            var hotTracks = _repository.GetHotTracks();
+
+            return View(hotTracks);
         }
 
         //[Authorize]//ToDo - find out why redirect path is not working 

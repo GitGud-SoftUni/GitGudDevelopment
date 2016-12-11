@@ -1,91 +1,58 @@
-﻿@model GitGud.Models.Song
+﻿@model IEnumerable<GitGud.Models.Song>
 
 @{
     ViewBag.Title = "Hot Tracks";
 }
 
-
-@if (User.IsInRole("Admin"))
-{
-    <h1 style="text-align: center"> <a asp-controller="Admin" asp-action="#" class="btn btn-default">Edit</a> </h1>
-
-
-}
-
-<h1 style="text-align: center">Hot Tracks</h1>
-
-
-<div class="container body-content">
-    <div class="well">
-        
-        @if (User.IsInRole("Admin"))
+<div class="container">
+    <div class="col-md-12">
+        <h1 style="text-align:center">The hotest tracks from the last 3 days:</h1>
+        @if (Model.Any())
         {
-            <h1 style="text-align: center">Hot Tracks - <a asp-controller="Admin" asp-action="#" class="btn btn-default">Edit</a></h1>
+            <div class="col-md-4">
+                <div class="list-group" style="text-align:center">
+                    <span class="list-group-item">
+                        Fresh:
+                    </span>
+                    @foreach (var freshSong in Model.Take(10))
+                    {
+                        <a class="list-group-item" asp-controller="Song" asp-action="Details" asp-route-songId="@freshSong.Id">"@freshSong.Name" - @freshSong.ArtistName</a>
+                    }
+                </div>
+            </div>
 
+            <div class="col-md-4">
+                <div class="list-group" style="text-align:center">
+                    <span class="list-group-item">
+                        Most commented:
+                    </span>
+                    @foreach (var commentedSong in Model.OrderByDescending(s => s.Comments.Count).Take(10))
+                    {
+                        <a class="list-group-item" asp-controller="Song" asp-action="Details" asp-route-songId="@commentedSong.Id">"@commentedSong.Name" - @commentedSong.ArtistName <span class="badge"> @commentedSong.Comments.Count</span></a>
+                    }
+                </div>
+            </div>
 
+            <div class="col-md-4">
+                <div class="list-group" style="text-align:center">
+                    <span class="list-group-item">
+                        Most favorited:
+                    </span>
+                    @foreach (var favoritedSong in Model.OrderByDescending(s => s.Favorites.Count).Take(10))
+                    {
+                        <a class="list-group-item" asp-controller="Song" asp-action="Details" asp-route-songId="@favoritedSong.Id">"@favoritedSong.Name" - @favoritedSong.ArtistName <span class="badge"> @favoritedSong.Favorites.Count</span></a>
+                    }
+                </div>
+            </div>
         }
         else
         {
-            <h1 style="text-align: center">Hot Tracks</h1>
-
-
+            <div class="col-md-offset-1 col-md-10" style="text-align:center">
+                <h3>No one has uploaded anything in the last 3 days.</h3>
+                <h3>Why not upload some yourself and bask in the glory of the HotTracks page :)</h3>
+                <span><a class="btn btn-success btn-lg" asp-controller="App" asp-action="Upload"><i class="fa fa-cloud-upload fa-2x"> Upload</i></a></span>
+            </div>
         }
-
-        
-
-        <div class="row">
-            <table class="table table-striped table-hover ">
-                
-                <thead>
-                    
-                    <tr>
-                        <th>№</th>
-                        <th>Song</th>
-                        <th>Artist</th>
-                        <th>Uploader</th>
-                        <th>Audio</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    
-                    @for (int i = 1; i <= 10; i++)
-                    {
-                        
-                        <tr>
-                            <td>@i</td>
-                            <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@Model" style="margin:3px">@Model</a></td>
-                            <td><a asp-controller="Artist" asp-action="Artist" asp-route-artistName="@Model" style="margin:3px">@Model</a></td>
-
-                        </tr>
-                    }
-
-
-                    <tr>
-
-                        <td>1</td>
-                        <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@Model" style="margin:3px">@Model</a></td>
-
-                    </tr>
-                    
-                    
-                    <tr><td>2</td></tr>
-                    <tr><td>3</td></tr>
-                    <tr><td>4</td></tr>
-                    <tr><td>5</td></tr>
-                    <tr><td>6</td></tr>
-                    <tr><td>7</td></tr>
-                    <tr><td>8</td></tr>
-                    <tr><td>9</td></tr>
-                    <tr><td>10</td></tr>
-
-                </tbody>
-
-            </table>
-        </div>
-
     </div>
 </div>
 
@@ -112,5 +79,4 @@
 
 
 
-
-<
+            <

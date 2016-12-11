@@ -414,5 +414,27 @@ namespace GitGud.Models
         {
             _context.SaveChanges();
         }
+
+        public IEnumerable<Song> GetHotTracks()
+        {
+            var dateToday = DateTime.Today;
+            var dateTreeDaysAgo = dateToday.AddDays(-3);
+
+            var matchingSongs = GetAllSongs()
+                .Where(d => d.DateUploaded >= dateTreeDaysAgo)
+                .ToList();
+
+            var hotSongs = new List<Song>();
+
+            foreach (var song in matchingSongs)
+            {
+                var hotSong = GetSongById(song.Id);
+                hotSongs.Add(hotSong);
+            }
+
+            hotSongs.Reverse();
+
+            return hotSongs;
+        }
     }
 }
