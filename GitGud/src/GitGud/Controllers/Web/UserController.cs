@@ -114,8 +114,8 @@ namespace GitGud.Controllers.Web
             var songs = _repository.GetAllSongsFromUser(user.UserName).ToList();
             var comments = _repository.GetCommentsFromUser(user.UserName).ToList();
             var favs = _repository.GetUserFavs(user.Id).ToList();
-            //тук нещо свързано с Favs.Song липсва...
-            user.Songs = songs;
+            
+			user.Songs = songs;
             user.Comments = comments;
             user.FavSongs = favs;
             return View(user);
