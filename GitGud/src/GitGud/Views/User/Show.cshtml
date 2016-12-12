@@ -204,6 +204,8 @@
                                         <th>Song</th>
                                         <th>Artist</th>
                                         <th>Date added</th>
+                                        <th>Category</th>
+                                        <th>Favorited</th>
                                         <th>Uploader</th>
                                         <th>Audio</th>
                                     </tr>
@@ -220,8 +222,9 @@
                                         <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@fav.Id" style="margin:3px">@fav.Name</a></td>
                                         <td><a asp-controller="Artist" asp-action="Artist" asp-route-artistName="@fav.ArtistName" style="margin:3px">@fav.ArtistName</a></td>
                                         <td>@fav.DateUploaded.ToString("d")</td>
+                                        <td>@fav.Category.Name</td>
+                                        <td>@fav.Favorites.Count times</td>
                                         <td>@fav.UploaderName</td>
-
                                         <td>
                                             <audio controls preload="none">
                                                 <source src="~/uploads/@fav.fileAdress" type="audio/ogg">
