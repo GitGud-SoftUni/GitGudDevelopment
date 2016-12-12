@@ -68,5 +68,29 @@ namespace GitGud.Services
             }
 
         }
+
+        public void UploadAvatar(IFormFile file, string userName)
+        {
+            var avatars = Path.Combine(_environment.WebRootPath, "avatars");
+            Directory.CreateDirectory(avatars);
+            var pathImg = Path.Combine(avatars, file.FileName);
+
+            var user = _context.Users.FirstOrDefault(u => u.UserName == userName);
+            if (file.Length > 0)
+            {
+                using (var fileStream = new FileStream(pathImg, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                if (user != null)
+                {
+                    user.fileAdress = file.FileName;
+                    _context.SaveChanges();
+                }
+            }
+
+
+        }
     }
 }

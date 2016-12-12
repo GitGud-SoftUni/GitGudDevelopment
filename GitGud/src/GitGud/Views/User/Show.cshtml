@@ -240,9 +240,16 @@
         </div>
         <div class="col-md-3">
             <div class="thumbnail">
-                <a href="~/images/pic3.jpg" target="_blank">
-                    <img src="~/images/pic3.jpg" alt="Fjords" style="width: 100%">
+               @if (Model.fileAdress == null)
+               {
+                <img src="~/images/pic.jpg" alt="Fjords" style="width: 100%">
+               }
+               else
+               {
+                <a href="~/avatars/@Model.fileAdress" target="_blank">
+                    <img src="~/avatars/@Model.fileAdress" alt="Fjords" style="width: 100%">
                 </a>
+               }
                 <div class="caption">
                     <p><strong>Username: @User.Identity.Name</strong></p>
                     <p><strong>Email: @Model.Email</strong></p>

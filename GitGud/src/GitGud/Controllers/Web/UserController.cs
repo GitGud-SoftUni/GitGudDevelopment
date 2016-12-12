@@ -6,6 +6,7 @@ using GitGud.ViewModels;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
+using GitGud.Services;
 
 namespace GitGud.Controllers.Web
 {
@@ -15,15 +16,17 @@ namespace GitGud.Controllers.Web
         private SignInManager<User> _signInManager;
         private RoleManager<Role> _roleManager;
         private IGitGudRepository _repository;
+        private IUploadService _uploadService;
 
 
         //user manager - for creating user, sign in manager - for log in and log out user
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IGitGudRepository repository)
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IGitGudRepository repository, IUploadService uploadService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _repository = repository;
+            _uploadService = uploadService;
         }
 
         [HttpGet]
@@ -136,7 +139,8 @@ namespace GitGud.Controllers.Web
             profileViewModel.LastName = user.LastName;
             profileViewModel.Town = user.Town;
             profileViewModel.Birthday = user.Birthday;
-
+            //ToDo - pass current avatar to profileviewmodel
+            //profileViewModel.ImageFile = ????;
             return View(profileViewModel);
         }
 
@@ -152,6 +156,7 @@ namespace GitGud.Controllers.Web
 
             if (ModelState.IsValid)
             {
+                _uploadService.UploadAvatar(model.ImageFile, this.User.Identity.Name);
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Town = model.Town;

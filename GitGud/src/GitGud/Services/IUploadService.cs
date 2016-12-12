@@ -10,5 +10,6 @@ namespace GitGud.Services
     public interface IUploadService
     {
         void UploadSong(IFormFile file, string songName, string artistName, string strCategoryId, List<string> tags, string userName);
+        void UploadAvatar(IFormFile file, string userName);
     }
 }

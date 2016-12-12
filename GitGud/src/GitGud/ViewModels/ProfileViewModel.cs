@@ -10,6 +10,7 @@ namespace GitGud.ViewModels
 {
     public class ProfileViewModel
     {
+        [Required]
         [DataType(DataType.Upload)]
         public IFormFile ImageFile { get; set; }
        

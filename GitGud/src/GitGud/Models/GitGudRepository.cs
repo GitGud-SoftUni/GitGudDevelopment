@@ -439,19 +439,24 @@ namespace GitGud.Models
 
         public IEnumerable<Song> GetUserFavs(string userId)
         {
-            var favs = _context.Favs.Where(c => c.UserId == userId).Include(f => f.Song).ToList();
+            var favs = _context.Favs
+                .Where(c => c.UserId == userId)
+                .Include(f => f.Song)
+                .ToList();
             var songs = new List<Song>();
 
             foreach (var fav in favs)
             {
-                var song = _context.Songs.FirstOrDefault(s => s.Id == fav.Song.Id);
+                var song = _context.Songs
+                    .Where(s => s.Id == fav.Song.Id)
+                    .Include(s => s.Category)
+                    .FirstOrDefault();
 
                 if (song != null)
                 {
                     songs.Add(song);
                 }
             }
-
             return songs;
         }
     }
