@@ -75,29 +75,43 @@ namespace GitGud.Controllers.Web
             return View();
         }
 
-        [HttpPost][Authorize]
+        [HttpPost]
+        [Authorize]
         public IActionResult Upload(UploadViewModel model)
         {
             if (ModelState.IsValid)
             {
                 _uploadService.UploadSong(
                     model.MusicFile,
-                    model.SongName, 
+                    model.SongName,
                     model.Artist,
                     model.Category,
                     model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList(),
                     this.User.Identity.Name);
 
-                
+
                 ModelState.Clear();
                 ViewBag.InputFields = "Song send/uploaded";
             }
             return RedirectToAction("Upload");
         }
 
-        public IActionResult Search()
+        public IActionResult Search(string id)
         {
-            return View();
+            var songs = _repository.GetAllSongs();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                id = id.ToLower();
+                songs = songs.Where(s => s.ArtistName.ToLower().Contains(id) || s.Name.ToLower().Contains(id));
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+            ViewData["SearchString"] = id;
+
+            return View(songs.ToList());
         }
 
         public IActionResult About()

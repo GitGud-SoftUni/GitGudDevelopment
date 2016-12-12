@@ -26,62 +26,64 @@
                         <li><a asp-controller="App" asp-action="HotTracks" style="padding:20px"><i class="fa fa-fire"></i><strong> Hot tracks</strong></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-    @if (User.Identity.IsAuthenticated)
-    {
-        @if (User.IsInRole("Admin"))
-         {
-             <li class="dropdown" style="padding: 9px">
-                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong>Admin</strong><span class="caret"></span></a>
-                 <ul class="dropdown-menu" role="menu">
-                     <li><a asp-controller="Admin" asp-action="AllUsers">Users</a></li>
-                     <li><a asp-controller="Admin" asp-action="AllCategories">Categories</a></li>
-                 </ul>
-             </li>
-         }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="dropdown" style="padding: 9px">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong>Admin</strong><span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a asp-controller="Admin" asp-action="AllUsers">Users</a></li>
+                                        <li><a asp-controller="Admin" asp-action="AllCategories">Categories</a></li>
+                                    </ul>
+                                </li>
+                            }
 
-            <li>
-                <a asp-controller="User" asp-action="Show" style="padding:20px">
-                    <strong>
-                        Hello, @User.Identity.Name
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <span>(ADMIN)</span>
+                            <li>
+                                <a asp-controller="User" asp-action="Show" style="padding:20px">
+                                    <strong>
+                                        Hello, @User.Identity.Name
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <span>(ADMIN)</span>
+                                        }
+                                        else if (User.IsInRole("User"))
+                                        {
+                                            <span>(USER)</span>
+                                        }
+                                    </strong>
+                                </a>
+                            </li>
+                            <li><a asp-controller="App" asp-action="Upload" style="padding:20px"><i class="fa fa-cloud-upload"></i><strong> Upload</strong></a></li>
+                            <li>
+                                <form method="post" asp-controller="User" asp-action="Logout" asp-antiforgery="true">
+                                    <button type="submit" class="btn btn-link submit"><a style="padding:20px" class="off"><span class="span text-muted"><i class="fa fa-user text-muted"></i><strong>Logout</strong></span></a></button>
+                                </form>
+                            </li>
                         }
-                        else if (User.IsInRole("User"))
+                        else
                         {
-                            <span>(USER)</span>
-                        }
-                    </strong>
-                </a>
-            </li>
-            <li><a asp-controller="App" asp-action="Upload" style="padding:20px"><i class="fa fa-cloud-upload"></i><strong> Upload</strong></a></li>
-            <li>
-                <form method="post" asp-controller="User" asp-action="Logout" asp-antiforgery="true">
-                    <button type="submit" class="btn btn-link submit"><a style="padding:20px" class="off"><span class="span text-muted"><i class="fa fa-user text-muted"></i><strong>Logout</strong></span></a></button>
-                </form>
-            </li>
-        }
-        else
-        {
-            <li><a asp-controller="User" asp-action="Login" style="padding: 20px"><i class="fa fa-user"></i><strong> Login</strong></a></li>
+                            <li><a asp-controller="User" asp-action="Login" style="padding: 20px"><i class="fa fa-user"></i><strong> Login</strong></a></li>
                             <li><a asp-controller="User" asp-action="Register" style="padding: 20px"><i class="fa fa-user-plus"></i><strong> Register</strong></a></li>
-        }
-        <li>
-            <div class="btn-group">
-                <a href="#" class="btn btn-search dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="margin:4px;color:#000000; margin-left:10px"><i class="fa fa-search fa-2x"></i></a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <form class="navbar-right" role="search" style="padding:10px;">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search" style="width:90%">
+                        }
+                        <li>
+                            <div class="btn-group">
+                                <a href="#" class="btn btn-search dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="margin:4px;color:#000000; margin-left:10px"><i class="fa fa-search fa-2x"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+
+                                        <form class="navbar-right" asp-controller="App" asp-action="Search" method="get" style="padding:10px;">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Search for a song" style="width:90%" name="id">
+                                                <input type="submit" class="btn btn-default btn-sm" style="margin-top:5px" value="Search" />
+                                            </div>
+                                        </form>
+
+                                    </li>
+                                </ul>
                             </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </li>
-                </ul>
+                        </li>
+                    </ul>
 
 
 
@@ -105,7 +107,7 @@
             </footer>
         }
     }
-    
+
     <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
     @RenderSection("scripts", false)
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
