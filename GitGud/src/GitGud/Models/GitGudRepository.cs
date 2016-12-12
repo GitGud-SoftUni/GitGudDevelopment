@@ -450,6 +450,7 @@ namespace GitGud.Models
                 var song = _context.Songs
                     .Where(s => s.Id == fav.Song.Id)
                     .Include(s => s.Category)
+                    .Include(s => s.Favorites)
                     .FirstOrDefault();
 
                 if (song != null)
