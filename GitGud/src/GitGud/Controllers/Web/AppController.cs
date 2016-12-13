@@ -40,11 +40,14 @@ namespace GitGud.Controllers.Web
             return View(tags);
         }
 
-        public IActionResult Browse()
+        public IActionResult Browse(int? page)
         {
-            var data = _repository.GetAllSongs();
+            var songs = _repository.GetAllSongs();
 
-            return View(data);
+            int pageSize = 10;//NUMBER IF RESULTS PER PAGE
+            ViewData["PagerIsNeeded"] = songs.Count() > pageSize;
+            //If the songs we have in the DB are less than the results per page(pageSize) we dont show the navigation in the view.
+            return View(PaginatedList<Song>.Create(songs.AsQueryable(), page ?? 1, pageSize));
         }
 
         public IActionResult Charts()

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GitGud.Models.Song>
+﻿@model GitGud.Models.PaginatedList<GitGud.Models.Song>
 @{
     ViewBag.Title = "Browse";
 }
@@ -50,7 +50,7 @@
                         }
                         else
                         {
-                           <td></td>
+                            <td></td>
                         }
                     }
 
@@ -59,6 +59,27 @@
 
 
         </tbody>
-
     </table>
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    @if (Model.Any() && ViewData["PagerIsNeeded"].Equals(true))
+    {
+        <div class="text-center">
+            <a asp-controller="App"
+               asp-action="Browse"
+               asp-route-page="@(Model.PageIndex - 1)"
+               class="btn btn-default @prevDisabled btn">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a>
+            <a asp-controller="App"
+               asp-action="Browse"
+               asp-route-page="@(Model.PageIndex + 1)"
+               class="btn btn-default @nextDisabled btn">
+                Next <i class="fa fa-chevron-right"></i>
+            </a>
+        </div>
+    }
+
 </div>
