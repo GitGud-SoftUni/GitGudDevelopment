@@ -8,7 +8,7 @@ using GitGud.Models;
 namespace GitGud.Migrations
 {
     [DbContext(typeof(GitGudContext))]
-    [Migration("20161211225024_InitialDb")]
+    [Migration("20161213104938_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,6 +55,8 @@ namespace GitGud.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateFavorited");
 
                     b.Property<int?>("SongId");
 
@@ -122,6 +124,10 @@ namespace GitGud.Migrations
                     b.Property<string>("ArtistName");
 
                     b.Property<int?>("CategoryId");
+
+                    b.Property<DateTime>("DateUploaded");
+
+                    b.Property<int>("Downloads");
 
                     b.Property<string>("Name");
 

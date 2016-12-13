@@ -384,6 +384,7 @@ namespace GitGud.Models
 
             Fav fav = new Fav();
             fav.UserId = userId;
+            fav.DateFavorited = DateTime.Now;
 
             song.Favorites.Add(fav);
 

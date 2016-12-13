@@ -111,6 +111,8 @@ namespace GitGud.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ArtistName = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: true),
+                    DateUploaded = table.Column<DateTime>(nullable: false),
+                    Downloads = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     UploaderName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
@@ -239,6 +241,7 @@ namespace GitGud.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateFavorited = table.Column<DateTime>(nullable: false),
                     SongId = table.Column<int>(nullable: true),
                     UserId = table.Column<string>(nullable: true)
                 },

@@ -11,12 +11,6 @@ namespace GitGud.Models
         public int Id { get; set; }
         public string UserId { get; set; }
         public Song Song { get; set; }
-        public DateTime DateFavorited
-        {
-            get
-            {
-                return DateTime.Now;
-            }
-        }
+        public DateTime DateFavorited { get; set; }
     }
 }

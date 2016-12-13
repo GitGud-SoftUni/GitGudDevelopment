@@ -55,6 +55,8 @@ namespace GitGud.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("DateFavorited");
+
                     b.Property<int?>("SongId");
 
                     b.Property<string>("UserId");
@@ -121,6 +123,10 @@ namespace GitGud.Migrations
                     b.Property<string>("ArtistName");
 
                     b.Property<int?>("CategoryId");
+
+                    b.Property<DateTime>("DateUploaded");
+
+                    b.Property<int>("Downloads");
 
                     b.Property<string>("Name");
 

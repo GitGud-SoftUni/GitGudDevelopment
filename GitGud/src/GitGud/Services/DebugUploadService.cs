@@ -56,7 +56,8 @@ namespace GitGud.Services
                     fileAdress = file.FileName,//Think about this some more
                     UploaderName = userName,//TODO use the real username
                     Category = songCategory,
-                    Tags = tagsToAdd
+                    Tags = tagsToAdd,
+                    DateUploaded = DateTime.Now
 
                 };
 
