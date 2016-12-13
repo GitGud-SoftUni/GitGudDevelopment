@@ -12,7 +12,7 @@
             <div class="col-md-4">
                 <div class="list-group" style="text-align:center">
                     <span class="list-group-item">
-                        Fresh:
+                        <i class="fa fa-snowflake-o"></i> <strong>Fresh:</strong>
                     </span>
                     @foreach (var freshSong in Model.Take(10))
                     {
@@ -24,9 +24,9 @@
             <div class="col-md-4">
                 <div class="list-group" style="text-align:center">
                     <span class="list-group-item">
-                        Most commented:
+                        <i class="fa fa-comments"></i> <strong>Most commented:</strong>
                     </span>
-                    @foreach (var commentedSong in Model.OrderByDescending(s => s.Comments.Count).Take(10))
+                    @foreach (var commentedSong in Model.OrderByDescending(s => s.Comments.Count).ThenBy(s => s.Name).Take(10))
                     {
                         <a class="list-group-item" asp-controller="Song" asp-action="Details" asp-route-songId="@commentedSong.Id">"@commentedSong.Name" - @commentedSong.ArtistName <span class="badge"> @commentedSong.Comments.Count</span></a>
                     }
@@ -36,9 +36,9 @@
             <div class="col-md-4">
                 <div class="list-group" style="text-align:center">
                     <span class="list-group-item">
-                        Most favorited:
+                        <i class="fa fa-heart"></i> <strong>Most favorited:</strong>
                     </span>
-                    @foreach (var favoritedSong in Model.OrderByDescending(s => s.Favorites.Count).Take(10))
+                    @foreach (var favoritedSong in Model.OrderByDescending(s => s.Favorites.Count).ThenBy(s => s.Name).Take(10))
                     {
                         <a class="list-group-item" asp-controller="Song" asp-action="Details" asp-route-songId="@favoritedSong.Id">"@favoritedSong.Name" - @favoritedSong.ArtistName <span class="badge"> @favoritedSong.Favorites.Count</span></a>
                     }

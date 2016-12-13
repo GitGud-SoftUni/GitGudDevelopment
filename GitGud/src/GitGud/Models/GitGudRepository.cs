@@ -433,7 +433,7 @@ namespace GitGud.Models
                 hotSongs.Add(hotSong);
             }
 
-            hotSongs.Reverse();
+            hotSongs = hotSongs.OrderByDescending(x => x.DateUploaded).ToList();
 
             return hotSongs;
         }
