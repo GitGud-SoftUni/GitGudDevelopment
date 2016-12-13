@@ -52,6 +52,14 @@ namespace GitGud.Controllers.Web
             return View();
         }
 
+        public IActionResult GetDownloadedChart()
+        {
+            var allSongs = _repository.GetAllSongs()
+               .OrderByDescending(s => s.Downloads).Take(10).ToList();
+
+            return Json(allSongs);
+        }
+
         public IActionResult HotTracks()
         {
             var hotTracks = _repository.GetHotTracks();
