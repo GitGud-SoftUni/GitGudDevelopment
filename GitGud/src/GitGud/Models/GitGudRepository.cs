@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace GitGud.Models
 {
@@ -460,6 +461,33 @@ namespace GitGud.Models
                 }
             }
             return songs;
+        }
+
+        public void DeleteAvatar(string userId)
+        {
+            var user = _context.Users.Find(userId);
+
+            if (user == null)
+            {
+                return;
+            }
+
+            string avatarFileAddress = Path.GetFullPath("..\\GitGud\\wwwroot\\avatars\\" + user.fileAdress);
+
+            if (File.Exists(avatarFileAddress))
+            {
+                try
+                {
+                    File.Delete(avatarFileAddress);
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+
+            user.fileAdress = null;
+            _context.SaveChanges();
         }
     }
 }

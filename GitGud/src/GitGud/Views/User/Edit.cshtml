@@ -34,17 +34,8 @@
         <div class="panel-body">
 
             <!-- Standar Form -->
-            <h4>Select a file from your computer</h4>
             <form method="post" enctype="multipart/form-data" id="js-upload-form">
                 <div asp-validation-summary="ModelOnly"></div>
-                <div class="form-inline">
-                    <div class="form-group">
-                        <label asp-for="ImageFile"></label>
-                        <input asp-for="ImageFile" accept="image/*">
-                        <span asp-validation-for="ImageFile"></span>
-                    </div>
-                </div>
-                <p></p>
                 <div class="form-group">
                     <label asp-for="FirstName" class="control-label"></label>
                     <div>

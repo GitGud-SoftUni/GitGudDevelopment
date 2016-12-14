@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using GitGud.Services;
+using System.IO;
+using Microsoft.AspNetCore.Server.Kestrel.Internal.Http;
 
 namespace GitGud.Controllers.Web
 {
@@ -141,6 +143,8 @@ namespace GitGud.Controllers.Web
             profileViewModel.Birthday = user.Birthday;
             //ToDo - pass current avatar to profileviewmodel
             //profileViewModel.ImageFile = ????;
+           
+                       
             return View(profileViewModel);
         }
 
@@ -148,6 +152,7 @@ namespace GitGud.Controllers.Web
         public async Task<IActionResult> Edit(ProfileViewModel model)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
+
             if (user == null)
             {
 
@@ -156,7 +161,6 @@ namespace GitGud.Controllers.Web
 
             if (ModelState.IsValid)
             {
-                _uploadService.UploadAvatar(model.ImageFile, this.User.Identity.Name);
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Town = model.Town;
@@ -170,6 +174,46 @@ namespace GitGud.Controllers.Web
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ChangeAvatar()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeAvatar(ChangeAvatarViewModel model)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            //delete old avatar
+            _repository.DeleteAvatar(user.Id);
+            //upload new avatar fileAddress
+            _uploadService.UploadAvatar(model.ImageFile, this.User.Identity.Name);
+
+            return RedirectToAction("Show");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteAvatar(DeleteAvatarViewModel model)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+            _repository.DeleteAvatar(user.Id);
+            return RedirectToAction("Show");
+        }
 
     }
 }

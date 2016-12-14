@@ -10,10 +10,7 @@ namespace GitGud.ViewModels
 {
     public class ProfileViewModel
     {
-        [Required]
-        [DataType(DataType.Upload)]
-        public IFormFile ImageFile { get; set; }
-       
+              
         [StringLength(20), Display(Name = "First name")]
         public string FirstName { get; set; }
 

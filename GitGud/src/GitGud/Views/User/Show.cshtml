@@ -20,7 +20,7 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                            User details
+                            <i class="fa fa-user"></i><strong style="padding-left:5px">User details</strong>
                         </a>
                     </h4>
                 </div>
@@ -87,8 +87,10 @@
                                 </tr>
                             </table>
                         </div>
-                        <div id="edit">
-                            <a class="btn btn-success" asp-controller="User" asp-action="Edit">Edit profile</a>
+                        <div id="edit" class="row">
+                            <div>
+                                <a class="btn btn-danger col-md-offset-10" asp-controller="User" asp-action="Edit"><i class="fa fa-id-card-o" aria-hidden="true" style="padding-right:5px"></i>Edit</a>
+                            </div> 
                         </div>
                     </div>
                 </div>
@@ -97,7 +99,7 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                            My songs
+                            <i class="fa fa-music"></i><strong style="padding-left:5px">User songs</strong>
                         </a>
                     </h4>
                 </div>
@@ -148,7 +150,7 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                            My comments
+                            <i class="fa fa-comments-o" aria-hidden="true"></i></i><strong style="padding-left:5px">User comments</strong>
                         </a>
                     </h4>
                 </div>
@@ -190,7 +192,7 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                            My favorites (songs that I've liked)
+                            <i class="fa fa-heart" aria-hidden="false"></i><strong style="padding-left:5px">User favorites</strong>
                         </a>
                     </h4>
                 </div>
@@ -253,9 +255,23 @@
                     <img src="~/avatars/@Model.fileAdress" alt="User picture" style="width: 100%">
                 </a>
                }
+                
                 <div class="caption">
                     <p><strong>Username: @User.Identity.Name</strong></p>
                     <p><strong>Email: @Model.Email</strong></p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <a asp-action="DeleteAvatar" asp-controller="User" class="btn btn-primary"><i class="fa fa-trash" aria-hidden="true" style="padding-right:5px"></i>Remove</a>
+                        @if (Model.fileAdress == null)
+                        {
+                            <a class="btn btn-default" asp-controller="User" asp-action="ChangeAvatar"><i class="fa fa-camera" aria-hidden="true" style="padding-right:5px"></i>Upload</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-default" asp-controller="User" asp-action="ChangeAvatar"><i class="fa fa-camera" aria-hidden="true" style="padding-right:5px"></i>Change</a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

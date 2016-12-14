@@ -36,5 +36,6 @@ namespace GitGud.Models
         void SaveChangesInDb();
         IEnumerable<Song> GetHotTracks();
         IEnumerable<Song> GetUserFavs(string userId);
+        void DeleteAvatar(string userId);
     }
 }
