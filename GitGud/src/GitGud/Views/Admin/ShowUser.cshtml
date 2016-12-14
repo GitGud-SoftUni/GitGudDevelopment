@@ -1,6 +1,6 @@
-﻿@model GitGud.Models.User
+﻿@model GitGud.ViewModels.ShowUserViewModel
 @{
-    ViewBag.Title = "Show profile";
+    ViewBag.Title = "Show user";
 }
 
 @section scripts {
@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="row">
-        <h2 style="text-align:center">User <strong>@Model.UserName</strong> - Profile Details</h2>
+        <h2 style="text-align:center">User <strong>@Model.User.UserName</strong> - Profile Details</h2>
     </div>
     <div class="row">
         <div class="panel-group col-md-9" id="accordion">
@@ -31,15 +31,15 @@
                                 <tr>
                                     <th>Names: </th>
                                     <td>
-                                        @if (!string.IsNullOrEmpty(Model.FirstName))
+                                        @if (!string.IsNullOrEmpty(Model.User.FirstName))
                                         {
-                                            <strong>@Model.FirstName</strong>
+                                            <strong>@Model.User.FirstName</strong>
                                         }
-                                        @if (!string.IsNullOrEmpty(Model.LastName))
+                                        @if (!string.IsNullOrEmpty(Model.User.LastName))
                                         {
-                                            <strong>@Model.LastName</strong>
+                                            <strong>@Model.User.LastName</strong>
                                         }
-                                        @if (string.IsNullOrEmpty(Model.FirstName) && string.IsNullOrEmpty(Model.LastName))
+                                        @if (string.IsNullOrEmpty(Model.User.FirstName) && string.IsNullOrEmpty(Model.User.LastName))
                                         {
                                             <strong>(n/a)</strong>
                                         }
@@ -48,9 +48,9 @@
                                 <tr>
                                     <th>Lives in: </th>
                                     <td>
-                                        @if (!string.IsNullOrEmpty(Model.Town))
+                                        @if (!string.IsNullOrEmpty(Model.User.Town))
                                         {
-                                            <strong>@Model.Town</strong>
+                                            <strong>@Model.User.Town</strong>
                                         }
                                         else
                                         {
@@ -61,9 +61,9 @@
                                 <tr>
                                     <th>Birthday: </th>
                                     <td>
-                                        @if (Model.Birthday.Year != 1)
+                                        @if (Model.User.Birthday.Year != 1)
                                         {
-                                            <strong>@(Model.Birthday.Date.ToString("d"))</strong>
+                                            <strong>@(Model.User.Birthday.Date.ToString("d"))</strong>
                                         }
                                         else
                                         {
@@ -74,9 +74,9 @@
                                 <tr>
                                     <th>Age: </th>
                                     <td>
-                                        @if (Model.Birthday.Year != 1)
+                                        @if (Model.User.Birthday.Year != 1)
                                         {
-                                            <strong>@Model.Age</strong>
+                                            <strong>@Model.User.Age</strong>
                                         }
                                         else
                                         {
@@ -87,14 +87,7 @@
                                 </tr>
                             </table>
                         </div>
-                        @if (User.Identity.IsAuthenticated && Model.UserName == User.Identity.Name)
-                        {
-                        <div id="edit" class="row">
-                            <div>
-                                <a class="btn btn-danger col-md-offset-10" asp-controller="User" asp-action="Edit"><i class="fa fa-id-card-o" aria-hidden="true" style="padding-right:5px"></i>Edit</a>
-                            </div> 
-                        </div>
-                        }
+                        
                     </div>
                 </div>
             </div>
@@ -110,7 +103,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <table class="table table-hover">
-                                @if (Model.Songs.Any())
+                                @if (Model.User.Songs.Any())
                                 {
                                     <thead>
                                         <tr>
@@ -126,7 +119,7 @@
                                     <p style="text-align: center">No songs from user @User.Identity.Name available</p>
                                 }
                                 <tbody>
-                                    @foreach (var song in Model.Songs)
+                                    @foreach (var song in Model.User.Songs)
             {
                                         <tr class="info">
                                             <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@song.Id" style="margin:3px">@song.Name</a></td>
@@ -138,12 +131,7 @@
                                                     Your browser does not support the audio element.
                                                 </audio>
                                             </td>
-                                            @if (User.Identity.IsAuthenticated && Model.UserName == User.Identity.Name)
-                                            {
-                                                <td>
-                                                    <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@song.Id" class="btn btn-primary">Delete</a>
-                                                </td>
-                                            }
+                                           
                                         </tr>
                                     }
                                 </tbody>
@@ -164,7 +152,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <table class="table table-hover">
-                                @if (Model.Comments.Any())
+                                @if (Model.User.Comments.Any())
                                 {
                                     <thead>
                                         <tr>
@@ -179,7 +167,7 @@
                                     <p style="text-align: center">No comments from user @User.Identity.Name available</p>
                                 }
                                 <tbody>
-                                    @foreach (var comment in Model.Comments)
+                                    @foreach (var comment in Model.User.Comments)
             {
                                         <tr class="info">
 
@@ -205,7 +193,7 @@
                 <div id="collapse4" class="panel-collapse collapse">
                     <div class="panel-body">
                         <table class="table table-hover">
-                            @if (Model.Favs.Any())
+                            @if (Model.User.Favs.Any())
                             {
                                 <thead>
                                     <tr>
@@ -224,7 +212,7 @@
                                 <p style="text-align: center">No favorites of user @User.Identity.Name available</p>
                             }
                             <tbody>
-                                @foreach (var fav in Model.FavSongs)
+                                @foreach (var fav in Model.User.FavSongs)
             {
                                     <tr class="info">
                                         <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@fav.Id" style="margin:3px">@fav.Name</a></td>
@@ -245,43 +233,28 @@
                         </table>
                     </div>
 
-                    </div>
                 </div>
-            
+            </div>
+
         </div>
         <div class="col-md-3">
             <div class="thumbnail">
-               @if (Model.fileAdress == null)
-               {
-                <img src="~/images/default.jpg" alt="Default avatar" style="width: 100%">
-               }
-               else
-               {
-                <a href="~/avatars/@Model.fileAdress" target="_blank">
-                    <img src="~/avatars/@Model.fileAdress" alt="User picture" style="width: 100%">
-                </a>
-               }
-                
-                <div class="caption">
-                    <p><strong>Username: @User.Identity.Name</strong></p>
-                    <p><strong>Email: @Model.Email</strong></p>
-                </div>
-                @if (User.Identity.IsAuthenticated && Model.UserName == User.Identity.Name)
+                @if (Model.User.fileAdress == null)
                 {
-                <div class="row">
-                    <div class="col-lg-10 col-lg-offset-2">
-                        <a asp-action="DeleteAvatar" asp-controller="User" class="btn btn-primary"><i class="fa fa-trash" aria-hidden="true" style="padding-right:5px"></i>Remove</a>
-                        @if (Model.fileAdress == null)
-                        {
-                            <a class="btn btn-default" asp-controller="User" asp-action="ChangeAvatar"><i class="fa fa-camera" aria-hidden="true" style="padding-right:5px"></i>Upload</a>
-                        }
-                        else
-                        {
-                            <a class="btn btn-default" asp-controller="User" asp-action="ChangeAvatar"><i class="fa fa-camera" aria-hidden="true" style="padding-right:5px"></i>Change</a>
-                        }
-                    </div>
-                </div>
+                    <img src="~/images/default.jpg" alt="Default avatar" style="width: 100%">
                 }
+                else
+                {
+                    <a href="~/avatars/@Model.User.fileAdress" target="_blank">
+                        <img src="~/avatars/@Model.User.fileAdress" alt="User picture" style="width: 100%">
+                    </a>
+                }
+
+                <div class="caption">
+                    <p><strong>Username: @Model.User.UserName</strong></p>
+                    <p><strong>Email: @Model.User.Email</strong></p>
+                </div>
+                
             </div>
         </div>
     </div>
