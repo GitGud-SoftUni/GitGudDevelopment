@@ -44,7 +44,7 @@ namespace GitGud.Controllers.Web
         {
             var songs = _repository.GetAllSongs();
 
-            int pageSize = 10;//NUMBER IF RESULTS PER PAGE
+            int pageSize = 10;//NUMBER OF RESULTS PER PAGE
             ViewData["PagerIsNeeded"] = songs.Count() > pageSize;
             //If the songs we have in the DB are less than the results per page(pageSize) we dont show the navigation in the view.
             return View(PaginatedList<Song>.Create(songs.AsQueryable(), page ?? 1, pageSize));
@@ -92,17 +92,29 @@ namespace GitGud.Controllers.Web
         {
             if (ModelState.IsValid)
             {
-                _uploadService.UploadSong(
-                    model.MusicFile,
-                    model.SongName,
-                    model.Artist,
-                    model.Category,
-                    model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList(),
-                    this.User.Identity.Name);
+                if (!_repository.SongDuplicateExists(model.SongName, model.Artist))
+                {
+                    _uploadService.UploadSong(
+                                        model.MusicFile,
+                                        model.SongName,
+                                        model.Artist,
+                                        model.Category,
+                                        model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList(),
+                                        this.User.Identity.Name);
 
 
-                ModelState.Clear();
-                ViewBag.InputFields = "Song send/uploaded";
+                    ModelState.Clear();
+                    ViewBag.InputFields = $"Your song \"{model.SongName}\" by \"{model.Artist}\" has been uploaded successfully.";
+                    ViewBag.AlertType = "success";
+                    return View();
+                }
+                else
+                {
+                    ModelState.Clear();
+                    ViewBag.InputFields = "Such a song already exists in the Database";
+                    ViewBag.AlertType = "danger";
+                    return View();
+                }
             }
             return RedirectToAction("Upload");
         }

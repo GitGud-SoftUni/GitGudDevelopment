@@ -489,5 +489,18 @@ namespace GitGud.Models
             user.fileAdress = null;
             _context.SaveChanges();
         }
+
+        public bool SongDuplicateExists(string songName, string artistName)
+        {
+            var songs = GetAllSongs();
+
+            var songAlreadyExists = songs.Any(
+                x => x.Name.ToLower() == songName.ToLower() 
+                && 
+                x.ArtistName.ToLower() == artistName.ToLower()
+                );
+
+            return songAlreadyExists;
+        }
     }
 }

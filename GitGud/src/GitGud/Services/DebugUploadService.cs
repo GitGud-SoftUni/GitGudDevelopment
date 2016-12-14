@@ -27,7 +27,9 @@ namespace GitGud.Services
             //TODO change stuff so it has user Id or something and Upload it to Database ?? Profit ??
             var uploads = Path.Combine(_environment.WebRootPath, "uploads");
 			Directory.CreateDirectory(uploads);
-            var path = Path.Combine(uploads, file.FileName);
+            var songExtension = Path.GetExtension(file.FileName);
+            var songFileNameString = $"{songName} - {artistName}{songExtension}";
+            var path = Path.Combine(uploads, songFileNameString);
 
 
             if (file.Length > 0)
@@ -53,8 +55,8 @@ namespace GitGud.Services
                 {
                     Name = songName,
                     ArtistName = artistName,
-                    fileAdress = file.FileName,//Think about this some more
-                    UploaderName = userName,//TODO use the real username
+                    fileAdress = songFileNameString,
+                    UploaderName = userName,
                     Category = songCategory,
                     Tags = tagsToAdd,
                     DateUploaded = DateTime.Now

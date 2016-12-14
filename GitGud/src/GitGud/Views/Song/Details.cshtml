@@ -3,7 +3,6 @@
     ViewBag.Title = "Details";
 }
 @section Scripts {
-    <script src="~/lib/angular/angular.min.js"></script>
     <script src="~/js/app-likes.js"></script>
     <script src="~/js/app-comments.js"></script>
     <script src="~/js/app-favorite.js"></script>
@@ -48,7 +47,7 @@
                 </div>
             }
 
-            <div>Added on @Model.DateUploaded.ToString("d") by <span class="label label-warning">@Model.UploaderName</span></div>
+            <div>Added on @Model.DateUploaded.ToString("d") by <span class="label label-warning">@Model.UploaderName</span> <div class="label label-default">Download count: @Model.Downloads</div></div>
         </div>
         <div class="col-md-6">
             <h3 style="text-align:center">Tags for this song:</h3>
