@@ -26,7 +26,7 @@ namespace GitGud.Services
         {
             //TODO change stuff so it has user Id or something and Upload it to Database ?? Profit ??
             var uploads = Path.Combine(_environment.WebRootPath, "uploads");
-			Directory.CreateDirectory(uploads);
+            Directory.CreateDirectory(uploads);
             var songExtension = Path.GetExtension(file.FileName);
             var songFileNameString = $"{songName} - {artistName}{songExtension}";
             var path = Path.Combine(uploads, songFileNameString);
@@ -76,9 +76,12 @@ namespace GitGud.Services
         {
             var avatars = Path.Combine(_environment.WebRootPath, "avatars");
             Directory.CreateDirectory(avatars);
-            var pathImg = Path.Combine(avatars, file.FileName);
-
+            var fileExtension = Path.GetExtension(file.FileName);
             var user = _context.Users.FirstOrDefault(u => u.UserName == userName);
+            var avatarFileNameString = $"{user.Id}{fileExtension}";
+            var pathImg = Path.Combine(avatars, avatarFileNameString);
+
+
             if (file.Length > 0)
             {
                 using (var fileStream = new FileStream(pathImg, FileMode.Create))
@@ -88,7 +91,7 @@ namespace GitGud.Services
 
                 if (user != null)
                 {
-                    user.fileAdress = file.FileName;
+                    user.fileAdress = avatarFileNameString;
                     _context.SaveChanges();
                 }
             }

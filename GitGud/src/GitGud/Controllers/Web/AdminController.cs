@@ -149,12 +149,22 @@ namespace GitGud.Controllers.Web
         {
             return View();
         }
-
-        public IActionResult AddCreatedCategory(CategoryViewModel categoryViewModel)
+        [HttpPost]
+        public IActionResult CreateCategory(CategoryViewModel categoryViewModel)
         {
             if (ModelState.IsValid)
             {
-                _repository.AddCategory(categoryViewModel.CategoryName);
+                if (!_repository.GetAllCategories().Any(x => x.Name.ToLower() == categoryViewModel.CategoryName.ToLower()))
+                {
+                    _repository.AddCategory(categoryViewModel.CategoryName);
+                }
+                else
+                {
+                    ModelState.Clear();
+                    ViewBag.StatusMessage = $"Sorry, but a category with the same name  \"{categoryViewModel.CategoryName}\" , already exists.";
+                    return View();
+                }
+
             }
 
             return RedirectToAction("AllCategories");
@@ -202,12 +212,16 @@ namespace GitGud.Controllers.Web
         {
             if (ModelState.IsValid)
             {
+
                 string newCategoryName = categoryViewModel.CategoryName;
                 Category category = _repository.SearchCategoryById(categoryId);
 
-                if (category != null)
+                if (!_repository.GetAllCategories().Any(x => x.Name.ToLower() == newCategoryName.ToLower()))
                 {
-                    _repository.EditCategory(newCategoryName, category);
+                    if (category != null)
+                    {
+                        _repository.EditCategory(newCategoryName, category);
+                    }
                 }
             }
 
