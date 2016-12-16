@@ -92,8 +92,19 @@ namespace GitGud.Controllers.Web
         {
             if (ModelState.IsValid)
             {
+                var categories = _repository.GetAllCategories();
+                ViewData["categories"] = categories;
+
                 if (!_repository.SongDuplicateExists(model.SongName, model.Artist))
                 {
+                    var songExtension = Path.GetExtension(model.MusicFile.FileName);
+                    if (model.MusicFile.Length > 10485760 || songExtension != ".mp3")
+                    {
+                        ModelState.Clear();
+                        ViewBag.InputFields = "Sorry but the maximum size allowed for a song is 10mb and the format must be .mp3";
+                        ViewBag.AlertType = "danger";
+                        return View();
+                    }
                     _uploadService.UploadSong(
                                         model.MusicFile,
                                         model.SongName,

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Internal.Http;
 
 namespace GitGud.Controllers.Web
 {
-    public class UserController: Controller
+    public class UserController : Controller
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
@@ -42,23 +42,23 @@ namespace GitGud.Controllers.Web
         {
             if (ModelState.IsValid)
             {
-                var user = new User {UserName = model.Username, Email = model.Email};
+                var user = new User { UserName = model.Username, Email = model.Email };
 
                 var createResult = await _userManager.CreateAsync(user, model.Password);
 
                 if (createResult.Succeeded)
                 {
-                   _userManager.AddToRoleAsync(user,"User").Wait();
+                    _userManager.AddToRoleAsync(user, "User").Wait();
 
-                   await _signInManager.SignInAsync(user, false); //signinasync - false means user won't stay logged in after closes browser
-                   return RedirectToAction("Index", "App");
-                   
+                    await _signInManager.SignInAsync(user, false); //signinasync - false means user won't stay logged in after closes browser
+                    return RedirectToAction("Index", "App");
+
                 }
 
                 foreach (var error in createResult.Errors)
                 {
-                        //error will appear also in <span asp-validation-summary="ModelOnly"></span> field
-                        ModelState.AddModelError("",error.Description);
+                    //error will appear also in <span asp-validation-summary="ModelOnly"></span> field
+                    ModelState.AddModelError("", error.Description);
                 }
 
             }
@@ -83,15 +83,15 @@ namespace GitGud.Controllers.Web
         {
             if (ModelState.IsValid)
             {
-                var loginResult = await _signInManager.PasswordSignInAsync(model.Username, 
-                                                                            model.Password, 
-                                                                            model.RememberMe, 
+                var loginResult = await _signInManager.PasswordSignInAsync(model.Username,
+                                                                            model.Password,
+                                                                            model.RememberMe,
                                                                             false);
                 //if login succeeds user will be returned to the address he was 
                 //trying to reach if it is local url and to index if it's not
                 if (loginResult.Succeeded)
                 {
-                    
+
                     if (Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -101,7 +101,7 @@ namespace GitGud.Controllers.Web
                 }
             }
 
-            ModelState.AddModelError("","Could not log in. Please try again!");
+            ModelState.AddModelError("", "Could not log in. Please try again!");
 
             return View(model);
         }
@@ -113,7 +113,12 @@ namespace GitGud.Controllers.Web
 
             if (user == null)
             {
-                return RedirectToAction("Login");
+                user = _repository.GetUserByUsername(this.User.Identity.Name);
+
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
             }
 
             if (!User.Identity.IsAuthenticated)
@@ -125,8 +130,8 @@ namespace GitGud.Controllers.Web
             var songs = _repository.GetAllSongsFromUser(user.UserName).ToList();
             var comments = _repository.GetCommentsFromUser(user.UserName).ToList();
             var favs = _repository.GetUserFavs(user.Id).ToList();
-            
-			user.Songs = songs;
+
+            user.Songs = songs;
             user.Comments = comments;
             user.FavSongs = favs;
             return View(user);
@@ -147,7 +152,7 @@ namespace GitGud.Controllers.Web
             profileViewModel.LastName = user.LastName;
             profileViewModel.Town = user.Town;
             profileViewModel.Birthday = user.Birthday;
-                     
+
             return View(profileViewModel);
         }
 
@@ -197,6 +202,16 @@ namespace GitGud.Controllers.Web
             {
                 return RedirectToAction("Login");
             }
+
+            var songExtension = Path.GetExtension(model.ImageFile.FileName);
+            if (model.ImageFile.Length > 2097152 || (songExtension != ".jpg" && songExtension != ".png" && songExtension != ".gif"))
+            {
+                ModelState.Clear();
+                ViewBag.InputFields = "Sorry but the maximum size allowed for an avatar is 2mb and the format must be .jpg .png .gif";
+                ViewBag.AlertType = "danger";
+                return View();
+            }
+
 
             //delete old avatar
             _repository.DeleteAvatar(user.Id);

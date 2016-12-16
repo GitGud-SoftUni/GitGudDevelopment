@@ -47,7 +47,7 @@
                 </div>
             }
 
-            <div>Added on @Model.DateUploaded.ToString("d") by <span class="label label-warning">@Model.UploaderName</span> <div class="label label-default">Download count: @Model.Downloads</div></div>
+            <div>Added on @Model.DateUploaded.ToString("d") by <a asp-controller="User" asp-action="Show" asp-route-userName="@Model.UploaderName"><span class="label label-warning">@Model.UploaderName</span></a> <div class="label label-default">Download count: @Model.Downloads</div></div>
         </div>
         <div class="col-md-6">
             <h3 style="text-align:center">Tags for this song:</h3>
@@ -106,7 +106,7 @@
                             <li class="list-group-item">
                                 <h3>@comment.Content</h3>
                                 <div>
-                                    <span><small>Posted on @comment.Date.ToString("d") by </small><label class="label label-warning">@comment.UserName</label></span>
+                                    <span><small>Posted on @comment.Date.ToString("d") by </small><a asp-controller="User" asp-action="Show" asp-route-userName="@comment.UserName"><label class="label label-warning">@comment.UserName</label></a></span>
                                     @if (User.Identity.IsAuthenticated)
                                     {
                                         @if (comment.Likes.Any(x => x.User == User.Identity.Name))
