@@ -263,7 +263,7 @@
                }
                 
                 <div class="caption">
-                    <p><strong>Username: @User.Identity.Name</strong></p>
+                    <p><strong>Username: @Model.UserName</strong></p>
                     <p><strong>Email: @Model.Email</strong></p>
                 </div>
                 @if (User.Identity.IsAuthenticated && Model.UserName == User.Identity.Name)

@@ -116,6 +116,12 @@ namespace GitGud.Controllers.Web
                 return RedirectToAction("Login");
             }
 
+            if (!User.Identity.IsAuthenticated)
+            {
+                //ToDo display some sort of message???
+                return RedirectToAction("Login");
+            }
+
             var songs = _repository.GetAllSongsFromUser(user.UserName).ToList();
             var comments = _repository.GetCommentsFromUser(user.UserName).ToList();
             var favs = _repository.GetUserFavs(user.Id).ToList();
@@ -141,10 +147,7 @@ namespace GitGud.Controllers.Web
             profileViewModel.LastName = user.LastName;
             profileViewModel.Town = user.Town;
             profileViewModel.Birthday = user.Birthday;
-            //ToDo - pass current avatar to profileviewmodel
-            //profileViewModel.ImageFile = ????;
-           
-                       
+                     
             return View(profileViewModel);
         }
 
