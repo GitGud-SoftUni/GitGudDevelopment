@@ -55,10 +55,12 @@ namespace GitGud.Controllers.Web
             return View();
         }
 
-        public IActionResult GetDownloadedChart()
+        public IActionResult GetDownloadsChartData()
         {
             var allSongs = _repository.GetAllSongs()
-               .OrderByDescending(s => s.Downloads).Take(10).ToList();
+               .OrderByDescending(s => s.Downloads)
+               .Take(10)
+               .ToList();
 
             return Json(allSongs);
         }
