@@ -194,10 +194,10 @@ namespace GitGud.Controllers.Web
             }
 
             var songExtension = Path.GetExtension(model.ImageFile.FileName);
-            if (model.ImageFile.Length > 2097152 || (songExtension != ".jpg" && songExtension != ".png" && songExtension != ".gif"))
+            if (model.ImageFile.Length > 2097152 || (songExtension != ".jpg" && songExtension != ".PNG" && songExtension != ".gif"))
             {
                 ModelState.Clear();
-                ViewBag.InputFields = "Sorry but the maximum size allowed for an avatar is 2mb and the format must be .jpg .png .gif";
+                ViewBag.InputFields = "Sorry but the maximum size allowed for an avatar is 2mb and the format must be .jpg .PNG .gif";
                 ViewBag.AlertType = "danger";
                 return View();
             }
