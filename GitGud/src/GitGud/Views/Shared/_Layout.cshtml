@@ -40,7 +40,7 @@
                             }
 
                             <li>
-                                <a asp-controller="User" asp-action="Show" style="padding:20px">
+                                <a asp-controller="User" asp-action="Show" asp-route-userName="@User.Identity.Name" style="padding:20px">
                                     <strong>
                                         Hello, @User.Identity.Name
                                         @if (User.IsInRole("Admin"))

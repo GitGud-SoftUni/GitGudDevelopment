@@ -28,7 +28,7 @@
                                 <td>
                                     <a asp-controller="Admin" asp-action="EditUser" asp-route-userId="@user.Id"><strong>Edit</strong></a>
                                     <a asp-controller="Admin" asp-action="DeleteUserConfirmation" asp-route-userId="@user.Id"><strong>Delete</strong></a>
-                                    <a asp-controller="Admin" asp-action="ShowUser" asp-route-userId="@user.Id"><strong>Show</strong></a>
+                                    <a asp-controller="User" asp-action="Show" asp-route-userName="@user.UserName"><strong>Show</strong></a>
                                 </td>
                             </tr>
                         }
@@ -41,7 +41,7 @@
                                 <td>
                                     <a asp-controller="Admin" asp-action="EditUser" asp-route-userId="@user.Id"><strong>Edit</strong></a>
                                     <a asp-controller="Admin" asp-action="DeleteUserConfirmation" asp-route-userId="@user.Id"><strong>Delete</strong></a>
-                                    <a asp-controller="Admin" asp-action="ShowUser" asp-route-userId="@user.Id"><strong>Show</strong></a>
+                                    <a asp-controller="User" asp-action="Show" asp-route-userName="@user.UserName"><strong>Show</strong></a>
                                 </td>
                             </tr>
                         }

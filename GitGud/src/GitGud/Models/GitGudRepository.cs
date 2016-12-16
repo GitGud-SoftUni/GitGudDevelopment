@@ -502,5 +502,10 @@ namespace GitGud.Models
 
             return songAlreadyExists;
         }
+
+        public User GetUserByUsername(string userName)
+        {
+            return _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+        }
     }
 }

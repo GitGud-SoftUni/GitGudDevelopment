@@ -38,5 +38,6 @@ namespace GitGud.Models
         IEnumerable<Song> GetUserFavs(string userId);
         void DeleteAvatar(string userId);
         bool SongDuplicateExists(string songName, string artistName);
+        User GetUserByUsername(string uploaderName);
     }
 }

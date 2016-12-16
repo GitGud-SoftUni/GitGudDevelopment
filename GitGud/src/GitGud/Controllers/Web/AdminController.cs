@@ -227,14 +227,5 @@ namespace GitGud.Controllers.Web
 
             return RedirectToAction("AllCategories");
         }
-
-        public IActionResult ShowUser(string userId)
-        {
-            var user = _repository.GetUserById(userId);
-
-            var model = new ShowUserViewModel();
-            model.User = user;
-            return View(model);
-        }
     }
 }

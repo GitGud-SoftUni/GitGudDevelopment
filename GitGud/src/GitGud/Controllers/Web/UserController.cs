@@ -107,9 +107,9 @@ namespace GitGud.Controllers.Web
         }
 
         [HttpGet]
-        public async Task<IActionResult> Show()
+        public IActionResult Show(string userName)
         {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var user = _repository.GetUserByUsername(userName);
 
             if (user == null)
             {
