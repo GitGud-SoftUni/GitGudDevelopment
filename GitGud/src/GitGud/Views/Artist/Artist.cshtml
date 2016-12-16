@@ -33,7 +33,7 @@
                             <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@song.Id" style="margin:3px">@song.Name</a></td>
                             <td>@song.ArtistName</td>
                             <td>@song.DateUploaded.ToString("d")</td>
-                            <td><span class="label label-warning">@song.UploaderName</span></td>
+                            <td><a asp-controller="User" asp-action="Show" asp-route-userName="@song.UploaderName"><span class="label label-warning">@song.UploaderName</span></a></td>
                             <td>
                                 <audio controls preload="none">
                                     <source src="~/uploads/@song.fileAdress" type="audio/ogg">

@@ -7,7 +7,7 @@
         <h1>Search results for @ViewData["SearchString"] :</h1>
         @if (Model.Any())
         {
-            @foreach (var song in Model)
+            foreach (var song in Model)
             {
                 <div class="col-md-4">
                     <a class="list-group-item" asp-controller="Song" asp-action="Details" asp-route-songId="@song.Id">"@song.Name" - @song.ArtistName</a>

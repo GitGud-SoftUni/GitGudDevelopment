@@ -109,17 +109,7 @@ namespace GitGud.Controllers.Web
         [HttpGet]
         public IActionResult Show(string userName)
         {
-            var user = _repository.GetUserByUsername(userName);
-
-            if (user == null)
-            {
-                user = _repository.GetUserByUsername(this.User.Identity.Name);
-
-                if (user == null)
-                {
-                    return RedirectToAction("Login");
-                }
-            }
+            var user = _repository.GetUserByUsername(userName) ?? _repository.GetUserByUsername(this.User.Identity.Name);
 
             if (!User.Identity.IsAuthenticated)
             {
@@ -176,7 +166,7 @@ namespace GitGud.Controllers.Web
                 user.Age = DateTime.Now.Year - model.Birthday.Year;
                 await _userManager.UpdateAsync(user);
 
-                return RedirectToAction("Show");
+                return RedirectToAction("Show","User", new { userName = user.UserName});
             }
 
             return View(model);
@@ -218,7 +208,7 @@ namespace GitGud.Controllers.Web
             //upload new avatar fileAddress
             _uploadService.UploadAvatar(model.ImageFile, this.User.Identity.Name);
 
-            return RedirectToAction("Show");
+            return RedirectToAction("Show", "User", new { userName = user.UserName });
         }
 
         [HttpGet]
@@ -230,7 +220,7 @@ namespace GitGud.Controllers.Web
                 return RedirectToAction("Login");
             }
             _repository.DeleteAvatar(user.Id);
-            return RedirectToAction("Show");
+            return RedirectToAction("Show", "User", new { userName = user.UserName });
         }
 
     }
