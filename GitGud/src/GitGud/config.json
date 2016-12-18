@@ -1,5 +1,5 @@
 {
   "ConnectionStrings": {
-    "GitGudContextConnection": "Server=tcp:gitgudsu.database.windows.net,1433;Initial Catalog=GitGudDB;Persist Security Info=False;User ID=ggboss;Password=Admin123@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    "GitGudContextConnection": "Server=(localdb)\\MSSQLLocalDb;Database=TheGitGudDb;Trusted_Connection=true;MultipleActiveResultSets=true;"
   }
 }
