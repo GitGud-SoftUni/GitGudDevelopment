@@ -172,16 +172,27 @@ namespace GitGud.Models
             }
 
             var songsForCurrentUser = GetAllSongs().Where(s => s.UploaderName == currentUser.UserName);
-            var getCommentsFromUser = GetCommentsFromUser(currentUser.UserName);
-            var favs = _context.Favs.Where(c => c.UserId == currentUser.Id).ToList();
-            var commentLikes = _context.Likes.Where(c => c.User == currentUser.UserName).ToList();
+
             foreach (var song in songsForCurrentUser)
             {
                 DeleteSong(song.Id);
             }
+
+            var getCommentsFromUser = GetCommentsFromUser(currentUser.UserName);
+
+            foreach (var comment in getCommentsFromUser)
+            {
+                DeleteCommentById(comment.Id);
+            }
+
+            var favs = _context.Favs.Where(c => c.UserId == currentUser.Id).ToList();
+            var commentLikes = _context.Likes.Where(c => c.User == currentUser.UserName).ToList();
+
+
+
+
             _context.Likes.RemoveRange(commentLikes);
             _context.Favs.RemoveRange(favs);
-            _context.Comments.RemoveRange(getCommentsFromUser);
             _context.Users.Remove(currentUser);
             _context.SaveChanges();
         }
@@ -476,7 +487,7 @@ namespace GitGud.Models
                 return;
             }
 
-            string avatarFileAddress = Path.GetFullPath("..\\GitGud\\wwwroot\\avatars\\" + user.fileAdress);
+            string avatarFileAddress = Path.GetFullPath("..\\GitGud\\wwwroot\\avatars\\" + user.fileAdress);//Check this
 
             if (File.Exists(avatarFileAddress))
             {
@@ -499,8 +510,8 @@ namespace GitGud.Models
             var songs = GetAllSongs();
 
             var songAlreadyExists = songs.Any(
-                x => x.Name.ToLower() == songName.ToLower() 
-                && 
+                x => x.Name.ToLower() == songName.ToLower()
+                &&
                 x.ArtistName.ToLower() == artistName.ToLower()
                 );
 
