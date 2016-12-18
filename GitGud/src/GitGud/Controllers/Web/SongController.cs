@@ -72,7 +72,8 @@ namespace GitGud.Controllers.Web
             string songTitle = song.fileAdress;
             song.Downloads++;
             _repository.SaveChangesInDb();
-            return PhysicalFile(fullSongFileAddress, "application/mpeg", songTitle);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(fullSongFileAddress);
+            return File(fileBytes, "application/mpeg", songTitle);
         }
 
         [HttpGet]
