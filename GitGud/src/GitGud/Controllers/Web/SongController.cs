@@ -70,7 +70,7 @@ namespace GitGud.Controllers.Web
             int songId = int.Parse(strSongId);
             Song song = _repository.GetSongById(songId);
 
-            string fullSongFileAddress = Path.GetFullPath(_environment.WebRootPath)+ @"\uploads\"
+            string fullSongFileAddress = Path.GetFullPath(_environment.WebRootPath) + @"\uploads\"
                                      + song.fileAdress;
             string songTitle = song.fileAdress;
             song.Downloads++;
@@ -104,8 +104,8 @@ namespace GitGud.Controllers.Web
             {
                 string url = Request.GetDisplayUrl();
                 int songId = int.Parse(url.Split('=').ToList().Last().ToString());
-                _repository.AddComment(this.User.Identity.Name, model.Content,songId);
-                
+                _repository.AddComment(this.User.Identity.Name, model.Content, songId);
+
 
                 ModelState.Clear();
             }
@@ -114,6 +114,67 @@ namespace GitGud.Controllers.Web
                 ViewBag.InputFields = "Comment min length is 3 and max is 255";
             }
             return Redirect(Request.GetDisplayUrl());
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult EditSong(int id)
+        {
+            try
+            {
+                if (_repository.SongExists(id))
+                {
+                    var categories = _repository.GetAllCategories();
+                    ViewData["categories"] = categories;
+                    ViewData["songId"] = id;
+
+                    var song = _repository.GetSongById(id);
+
+                    ViewData["artist"] = song.ArtistName;
+                    ViewData["songName"] = song.Name;
+                    ViewData["category"] = song.Category.Name;
+                    ViewData["tags"] = string.Join(", ", song.Tags.Select(x => x.Name.ToString()));
+
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Browse", "App");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest($"Something went wrong: {ex.Message}");
+            }
+
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult EditSong(int songId, EditSongViewModel model)
+        {
+            try
+            {
+                if (_repository.SongExists(songId))
+                {
+                    if (ModelState.IsValid)
+                    {
+                        _repository.EditSong(songId, model.Artist, model.SongName, model.Category, model.Tags);
+                        return RedirectToAction("Details", new { songId = songId });
+                    }
+                    return RedirectToAction("Browse", "App");
+                }
+                else
+                {
+                    return RedirectToAction("Browse", "App");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest($"Something went wrong: {ex.Message}");
+            }
         }
     }
 }

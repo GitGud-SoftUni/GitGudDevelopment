@@ -24,6 +24,10 @@
                 {
                     <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@Model.Id" class="btn btn-primary">Delete</a>
                 }
+                if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Song" asp-action="EditSong" asp-route-id="@Model.Id" class="btn btn-danger">Edit</a>
+                }
 
                 <div id="favBox">
                     @if (Model.Favorites.Any(x => x.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value))

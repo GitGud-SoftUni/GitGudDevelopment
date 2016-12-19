@@ -39,5 +39,6 @@ namespace GitGud.Models
         void DeleteAvatar(string userId);
         bool SongDuplicateExists(string songName, string artistName);
         User GetUserByUsername(string uploaderName);
+        void EditSong(int songId, string artistName, string songName, string categoryId, string tags);
     }
 }

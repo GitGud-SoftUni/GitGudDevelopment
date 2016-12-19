@@ -523,5 +523,41 @@ namespace GitGud.Models
         {
             return _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
         }
+
+        public void EditSong(int songId, string artistName, string songName, string categoryId, string tags)
+        {
+            var song = GetSongById(songId);
+
+            List<Tag> oldTags = song.Tags.ToList();
+
+            List<string> newTagsString = tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Distinct()
+                .ToList();
+
+            List<Tag> newTags = new List<Tag>();
+
+            foreach (var tag in newTagsString)
+            {
+                newTags.Add(new Tag { Name = tag });
+            }
+
+            Category category = SearchCategoryById(int.Parse(categoryId));
+
+            foreach (var tag in oldTags)
+            {
+                song.Tags.Remove(tag);
+            }
+
+            _context.Tags.RemoveRange(oldTags);
+
+            song.Tags = newTags;
+            song.ArtistName = artistName;
+            song.Name = songName;
+            song.Category = category;
+
+            _context.Entry(song).State = EntityState.Modified;
+
+            _context.SaveChanges();
+        }
     }
 }
