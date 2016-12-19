@@ -69,7 +69,7 @@ img.logo {
     text-transform: uppercase;
     height: 60px;
 }
-.off:hover, .submit:hover, .span:hover {
+.submit:hover, .span:hover, .search:hover{
     color: #d9230f!important;
     text-decoration: none;
 }

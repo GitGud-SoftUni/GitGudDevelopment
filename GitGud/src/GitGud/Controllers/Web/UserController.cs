@@ -64,7 +64,7 @@ namespace GitGud.Controllers.Web
             }
             return View();
         }
-
+        
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
@@ -111,11 +111,11 @@ namespace GitGud.Controllers.Web
         {
             var user = _repository.GetUserByUsername(userName) ?? _repository.GetUserByUsername(this.User.Identity.Name);
 
-            if (!User.Identity.IsAuthenticated)
-            {
-                //ToDo display some sort of message???
-                return RedirectToAction("Login");
-            }
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    //ToDo display some sort of message???
+            //    return RedirectToAction("Login");
+            //}
 
             var songs = _repository.GetAllSongsFromUser(user.UserName).ToList();
             var comments = _repository.GetCommentsFromUser(user.UserName).ToList();

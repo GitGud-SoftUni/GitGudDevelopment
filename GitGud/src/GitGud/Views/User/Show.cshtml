@@ -14,275 +14,286 @@
     <div class="row">
         <h2 style="text-align:center">User <strong>@Model.UserName</strong> - Profile Details</h2>
     </div>
-    <div class="row">
-        <div class="panel-group col-md-9" id="accordion">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                            <i class="fa fa-user"></i><strong style="padding-left:5px">User details</strong>
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapse1" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <div class="row">
-                            <table class="table table-hover">
-                                <tr>
-                                    <th>Names: </th>
-                                    <td>
-                                        @if (!string.IsNullOrEmpty(Model.FirstName))
-                                        {
-                                            <strong>@Model.FirstName</strong>
-                                        }
-                                        @if (!string.IsNullOrEmpty(Model.LastName))
-                                        {
-                                            <strong>@Model.LastName</strong>
-                                        }
-                                        @if (string.IsNullOrEmpty(Model.FirstName) && string.IsNullOrEmpty(Model.LastName))
-                                        {
-                                            <strong>(n/a)</strong>
-                                        }
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Lives in: </th>
-                                    <td>
-                                        @if (!string.IsNullOrEmpty(Model.Town))
-                                        {
-                                            <strong>@Model.Town</strong>
-                                        }
-                                        else
-                                        {
-                                            <strong>(n/a)</strong>
-                                        }
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Birthday: </th>
-                                    <td>
-                                        @if (Model.Birthday.Year != 1)
-                                        {
-                                            <strong>@(Model.Birthday.Date.ToString("d"))</strong>
-                                        }
-                                        else
-                                        {
-                                            <strong>(n/a)</strong>
-                                        }
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Age: </th>
-                                    <td>
-                                        @if (Model.Birthday.Year != 1)
-                                        {
-                                            <strong>@Model.Age</strong>
-                                        }
-                                        else
-                                        {
-                                            <strong>(n/a)</strong>
-                                        }
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            <div class="panel-group col-md-9" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                <i class="fa fa-user"></i><strong style="padding-left:5px">User details</strong>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>Names: </th>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(Model.FirstName))
+                                            {
+                                                <strong>@Model.FirstName</strong>
+                                            }
+                                            @if (!string.IsNullOrEmpty(Model.LastName))
+                                            {
+                                                <strong>@Model.LastName</strong>
+                                            }
+                                            @if (string.IsNullOrEmpty(Model.FirstName) && string.IsNullOrEmpty(Model.LastName))
+                                            {
+                                                <strong>(n/a)</strong>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Lives in: </th>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(Model.Town))
+                                            {
+                                                <strong>@Model.Town</strong>
+                                            }
+                                            else
+                                            {
+                                                <strong>(n/a)</strong>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Birthday: </th>
+                                        <td>
+                                            @if (Model.Birthday.Year != 1)
+                                            {
+                                                <strong>@(Model.Birthday.Date.ToString("d"))</strong>
+                                            }
+                                            else
+                                            {
+                                                <strong>(n/a)</strong>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Age: </th>
+                                        <td>
+                                            @if (Model.Birthday.Year != 1)
+                                            {
+                                                <strong>@Model.Age</strong>
+                                            }
+                                            else
+                                            {
+                                                <strong>(n/a)</strong>
+                                            }
 
-                                    </td>
-                                </tr>
-                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            @if (Model.UserName == User.Identity.Name)
+                            {
+                                <div id="edit" class="row">
+                                    <div>
+                                        <a class="btn btn-danger col-md-offset-10" asp-controller="User" asp-action="Edit"><i class="fa fa-id-card-o" aria-hidden="true" style="padding-right:5px"></i>Edit</a>
+                                    </div>
+                                </div>
+                            }
                         </div>
-                        @if (User.Identity.IsAuthenticated && Model.UserName == User.Identity.Name)
-                        {
-                        <div id="edit" class="row">
-                            <div>
-                                <a class="btn btn-danger col-md-offset-10" asp-controller="User" asp-action="Edit"><i class="fa fa-id-card-o" aria-hidden="true" style="padding-right:5px"></i>Edit</a>
-                            </div> 
-                        </div>
-                        }
                     </div>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                            <i class="fa fa-music"></i><strong style="padding-left:5px">User songs</strong>
-                        </a>
-                    </h4>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                <i class="fa fa-music"></i><strong style="padding-left:5px">User songs</strong>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <table class="table table-hover">
+                                    @if (Model.Songs.Any())
+                                    {
+                                        <thead>
+                                            <tr>
+                                                <th>Song</th>
+                                                <th>Artist</th>
+                                                <th>Date added</th>
+                                                <th>Audio</th>
+                                            </tr>
+                                        </thead>
+                                    }
+                                    else
+                                    {
+                                        <p style="text-align: center">No songs from user @User.Identity.Name available</p>
+                                    }
+                                    <tbody>
+                                        @foreach (var song in Model.Songs)
+                                        {
+                                            <tr class="info">
+                                                <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@song.Id" style="margin:3px">@song.Name</a></td>
+                                                <td><a asp-controller="Artist" asp-action="Artist" asp-route-artistName="@song.ArtistName" style="margin:3px">@song.ArtistName</a></td>
+                                                <td>@song.DateUploaded.ToString("d")</td>
+                                                <td>
+                                                    <audio controls preload="none">
+                                                        <source src="~/uploads/@song.fileAdress" type="audio/ogg">
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                </td>
+                                                @if (User.Identity.IsAuthenticated && Model.UserName == User.Identity.Name)
+                                                {
+                                                    <td>
+                                                        <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@song.Id" class="btn btn-primary">Delete</a>
+                                                    </td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="collapse2" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                                <i class="fa fa-comments-o" aria-hidden="true"></i><strong style="padding-left:5px">User comments</strong>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <table class="table table-hover">
+                                    @if (Model.Comments.Any())
+                                    {
+                                        <thead>
+                                            <tr>
+                                                <th>Content</th>
+                                                <th>DateAdded</th>
+                                                <th>Likes Count</th>
+                                            </tr>
+                                        </thead>
+                                    }
+                                    else
+                                    {
+                                        <p style="text-align: center">No comments from user @User.Identity.Name available</p>
+                                    }
+                                    <tbody>
+                                        @foreach (var comment in Model.Comments)
+                                        {
+                                            <tr class="info">
+
+                                                <td>@comment.Content</td>
+                                                <td>@comment.Date</td>
+                                                <td>@comment.Likes.Count</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                                <i class="fa fa-heart" aria-hidden="false"></i><strong style="padding-left:5px">User favorites</strong>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse4" class="panel-collapse collapse">
+                        <div class="panel-body">
                             <table class="table table-hover">
-                                @if (Model.Songs.Any())
+                                @if (Model.Favs.Any())
                                 {
                                     <thead>
                                         <tr>
                                             <th>Song</th>
                                             <th>Artist</th>
                                             <th>Date added</th>
+                                            <th>Category</th>
+                                            <th>Favorited</th>
+                                            <th>Uploader</th>
                                             <th>Audio</th>
                                         </tr>
                                     </thead>
                                 }
                                 else
                                 {
-                                    <p style="text-align: center">No songs from user @User.Identity.Name available</p>
+                                    <p style="text-align: center">No favorites of user @User.Identity.Name available</p>
                                 }
                                 <tbody>
-                                    @foreach (var song in Model.Songs)
-            {
+                                    @foreach (var fav in Model.FavSongs)
+                                    {
                                         <tr class="info">
-                                            <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@song.Id" style="margin:3px">@song.Name</a></td>
-                                            <td><a asp-controller="Artist" asp-action="Artist" asp-route-artistName="@song.ArtistName" style="margin:3px">@song.ArtistName</a></td>
-                                            <td>@song.DateUploaded.ToString("d")</td>
+                                            <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@fav.Id" style="margin:3px">@fav.Name</a></td>
+                                            <td><a asp-controller="Artist" asp-action="Artist" asp-route-artistName="@fav.ArtistName" style="margin:3px">@fav.ArtistName</a></td>
+                                            <td>@fav.DateUploaded.ToString("d")</td>
+                                            <td>@fav.Category.Name</td>
+                                            <td>@fav.Favorites.Count times</td>
+                                            <td>@fav.UploaderName</td>
                                             <td>
                                                 <audio controls preload="none">
-                                                    <source src="~/uploads/@song.fileAdress" type="audio/ogg">
+                                                    <source src="~/uploads/@fav.fileAdress" type="audio/ogg">
                                                     Your browser does not support the audio element.
                                                 </audio>
                                             </td>
-                                            @if (User.Identity.IsAuthenticated && Model.UserName == User.Identity.Name)
-                                            {
-                                                <td>
-                                                    <a asp-controller="Song" asp-action="DeleteSong" asp-route-strSongId="@song.Id" class="btn btn-primary">Delete</a>
-                                                </td>
-                                            }
                                         </tr>
                                     }
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
                 </div>
+
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                            <i class="fa fa-comments-o" aria-hidden="true"></i><strong style="padding-left:5px">User comments</strong>
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    @if (Model.fileAdress == null)
+                    {
+                        <img src="~/images/default.jpg" alt="Default avatar" style="width: 100%">
+                    }
+                    else
+                    {
+                        <a href="~/avatars/@Model.fileAdress" target="_blank">
+                            <img src="~/avatars/@Model.fileAdress" alt="User picture" style="width: 100%">
                         </a>
-                    </h4>
-                </div>
-                <div id="collapse3" class="panel-collapse collapse">
-                    <div class="panel-body">
+                    }
+
+                    <div class="caption">
+                        <p><strong>Username: @Model.UserName</strong></p>
+                        <p><strong>Email: @Model.Email</strong></p>
+                    </div>
+                    @if (Model.UserName == User.Identity.Name)
+                {
                         <div class="row">
-                            <table class="table table-hover">
-                                @if (Model.Comments.Any())
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <a asp-action="DeleteAvatar" asp-controller="User" class="btn btn-primary"><i class="fa fa-trash" aria-hidden="true" style="padding-right:5px"></i>Remove</a>
+                                @if (Model.fileAdress == null)
                                 {
-                                    <thead>
-                                        <tr>
-                                            <th>Content</th>
-                                            <th>DateAdded</th>
-                                            <th>Likes Count</th>
-                                        </tr>
-                                    </thead>
+                                    <a class="btn btn-default" asp-controller="User" asp-action="ChangeAvatar"><i class="fa fa-camera" aria-hidden="true" style="padding-right:5px"></i>Upload</a>
                                 }
                                 else
                                 {
-                                    <p style="text-align: center">No comments from user @User.Identity.Name available</p>
+                                    <a class="btn btn-default" asp-controller="User" asp-action="ChangeAvatar"><i class="fa fa-camera" aria-hidden="true" style="padding-right:5px"></i>Change</a>
                                 }
-                                <tbody>
-                                    @foreach (var comment in Model.Comments)
-            {
-                                        <tr class="info">
-
-                                            <td>@comment.Content</td>
-                                            <td>@comment.Date</td>
-                                            <td>@comment.Likes.Count</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                            <i class="fa fa-heart" aria-hidden="false"></i><strong style="padding-left:5px">User favorites</strong>
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapse4" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <table class="table table-hover">
-                            @if (Model.Favs.Any())
-                            {
-                                <thead>
-                                    <tr>
-                                        <th>Song</th>
-                                        <th>Artist</th>
-                                        <th>Date added</th>
-                                        <th>Category</th>
-                                        <th>Favorited</th>
-                                        <th>Uploader</th>
-                                        <th>Audio</th>
-                                    </tr>
-                                </thead>
-                            }
-                            else
-                            {
-                                <p style="text-align: center">No favorites of user @User.Identity.Name available</p>
-                            }
-                            <tbody>
-                                @foreach (var fav in Model.FavSongs)
-            {
-                                    <tr class="info">
-                                        <td><a asp-controller="Song" asp-action="Details" asp-route-songId="@fav.Id" style="margin:3px">@fav.Name</a></td>
-                                        <td><a asp-controller="Artist" asp-action="Artist" asp-route-artistName="@fav.ArtistName" style="margin:3px">@fav.ArtistName</a></td>
-                                        <td>@fav.DateUploaded.ToString("d")</td>
-                                        <td>@fav.Category.Name</td>
-                                        <td>@fav.Favorites.Count times</td>
-                                        <td>@fav.UploaderName</td>
-                                        <td>
-                                            <audio controls preload="none">
-                                                <source src="~/uploads/@fav.fileAdress" type="audio/ogg">
-                                                Your browser does not support the audio element.
-                                            </audio>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-
-                    </div>
-                </div>
-            
         </div>
-        <div class="col-md-3">
-            <div class="thumbnail">
-               @if (Model.fileAdress == null)
-               {
-                <img src="~/images/default.jpg" alt="Default avatar" style="width: 100%">
-               }
-               else
-               {
-                <a href="~/avatars/@Model.fileAdress" target="_blank">
-                    <img src="~/avatars/@Model.fileAdress" alt="User picture" style="width: 100%">
-                </a>
-               }
-                
-                <div class="caption">
-                    <p><strong>Username: @Model.UserName</strong></p>
-                    <p><strong>Email: @Model.Email</strong></p>
-                </div>
-                @if (User.Identity.IsAuthenticated && Model.UserName == User.Identity.Name)
-                {
-                <div class="row">
-                    <div class="col-lg-10 col-lg-offset-2">
-                        <a asp-action="DeleteAvatar" asp-controller="User" class="btn btn-primary"><i class="fa fa-trash" aria-hidden="true" style="padding-right:5px"></i>Remove</a>
-                        @if (Model.fileAdress == null)
-                        {
-                            <a class="btn btn-default" asp-controller="User" asp-action="ChangeAvatar"><i class="fa fa-camera" aria-hidden="true" style="padding-right:5px"></i>Upload</a>
-                        }
-                        else
-                        {
-                            <a class="btn btn-default" asp-controller="User" asp-action="ChangeAvatar"><i class="fa fa-camera" aria-hidden="true" style="padding-right:5px"></i>Change</a>
-                        }
-                    </div>
-                </div>
-                }
-            </div>
+    }
+    else
+    {
+        <div class="col-md-offset-1 col-md-10" style="text-align:center">
+            <h3>You are not allowed to view this page.</h3>
+            <h3>Please, log in to continue!</h3>
+            <span><a class="btn btn-success btn-lg" asp-controller="User" asp-action="Login"><i class="fa fa-user fa-2x"> Login</i></a></span>
         </div>
-    </div>
+    }
 </div>
