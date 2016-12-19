@@ -50,18 +50,18 @@
             </div>
         <div class="col-md-6 text-center">
             <h2>Categories:</h2>
-            <div class="list-group">
+            <ul class="pager">
                 @try
                 {
                     @foreach (var category in ViewData["categories"] as IEnumerable<GitGud.Models.Category>)
                     {
-                        <a asp-controller="App" asp-action="SearchByCategory" asp-route-strCategoryId="@category.Id" class="list-group-item">@category.Name</a>
+                        <li><a asp-controller="App" asp-action="SearchByCategory" asp-route-strCategoryId="@category.Id" style="margin:5px"><strong>@category.Name</strong></a></li>
                     }
                 }
                 catch (Exception exception)
                 {
                 }
-            </div>
+            </ul>
             <div class="well panel-info" style="text-align:center;">
                 <a href="#" style="color:black"><strong>Facebook </strong><i class="fa fa-facebook-square fa-2x"></i></a>
                 <a href="https://github.com/GitGud-SoftUni/GitGudDevelopment" style="color:black"><strong>GitHub </strong><i class="fa fa-github fa-2x"></i></a>
