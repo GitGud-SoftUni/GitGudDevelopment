@@ -129,6 +129,7 @@ namespace GitGud.Models
         {
             Song currentSong = _context.Songs
                 .Where(x => x.Id == songId)
+                .Include(x => x.Category)
                 .Include(x => x.Tags)
                 .Include(x => x.Favorites)
                 .Include("Comments.Likes")
