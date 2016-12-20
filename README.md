@@ -1,12 +1,4 @@
 # GitGudDevelopment
-The GitGud Project...
-First check if you have LocalDb. Go to VS->View->SQL Server Object Explorer. You have to have something like: (localdb)\MSSQLLocalDB.
-If you have LocalDb, create DB for GitGud project: in VS go to src folder->GitGud and use keyboard combination: Alt + Space.
-You will open cmd and enter this commands: 
-dotnet ef database update
+Music Catalog from Team GitGud.
 
-
-default admin:
-username: Admin,
-password: admin,
-email: admin@test.bg
+This is our team project for SoftUni's Software Technologies course October 2016. Made using DotNet Core, Entity Framework, Razor View Engine, jQuery, JavaScript, Bootstrap, Google Charts API.
