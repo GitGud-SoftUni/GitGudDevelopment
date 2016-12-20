@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace GitGud.Models
 {
     public class GitGudRepository : IGitGudRepository
     {
         private GitGudContext _context;
+        private IHostingEnvironment _enviroment;
 
-        public GitGudRepository(GitGudContext context)
+        public GitGudRepository(GitGudContext context, IHostingEnvironment enviroment)
         {
             _context = context;
+            _enviroment = enviroment;
         }
 
         public IEnumerable<Song> GetAllSongs()
@@ -550,11 +553,25 @@ namespace GitGud.Models
 
             _context.Tags.RemoveRange(oldTags);
 
+            var directory = Path.Combine(_enviroment.WebRootPath, "uploads");
+
+            var oldFileName = song.fileAdress;
+            var newFileName = $"{songName} - {artistName}.mp3";
+
+            var oldPath = Path.Combine(directory, oldFileName);
+            var newPath = Path.Combine(directory, newFileName);
+
+            if (File.Exists(newPath))
+            {
+                File.Delete(newPath);
+            }
+            File.Move(oldPath, newPath);
+
             song.Tags = newTags;
             song.ArtistName = artistName;
             song.Name = songName;
             song.Category = category;
-
+            song.fileAdress = newFileName;
             _context.Entry(song).State = EntityState.Modified;
 
             _context.SaveChanges();
