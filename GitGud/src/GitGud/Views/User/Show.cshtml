@@ -125,7 +125,7 @@
                                     }
                                     else
                                     {
-                                        <p style="text-align: center">No songs from user @User.Identity.Name available</p>
+                                        <p style="text-align: center">No songs from user <strong>@Model.UserName</strong> available</p>
                                     }
                                     <tbody>
                                         @foreach (var song in Model.Songs)
@@ -178,7 +178,7 @@
                                     }
                                     else
                                     {
-                                        <p style="text-align: center">No comments from user @User.Identity.Name available</p>
+                                        <p style="text-align: center">No comments from user <strong>@Model.UserName</strong> available</p>
                                     }
                                     <tbody>
                                         @foreach (var comment in Model.Comments)
@@ -223,7 +223,7 @@
                                 }
                                 else
                                 {
-                                    <p style="text-align: center">No favorites of user @User.Identity.Name available</p>
+                                    <p style="text-align: center">No favorites of user <strong>@Model.UserName</strong> available</p>
                                 }
                                 <tbody>
                                     @foreach (var fav in Model.FavSongs)
