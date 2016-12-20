@@ -40,5 +40,6 @@ namespace GitGud.Models
         bool SongDuplicateExists(string songName, string artistName);
         User GetUserByUsername(string uploaderName);
         void EditSong(int songId, string artistName, string songName, string categoryId, string tags);
+        bool DuplicateIsThisSong(int songId, string songName, string artistName);
     }
 }

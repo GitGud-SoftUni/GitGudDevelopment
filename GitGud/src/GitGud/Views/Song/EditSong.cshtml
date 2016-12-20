@@ -76,5 +76,12 @@
                 </div>
             </form>
         </div>
+        @if (ViewBag.InputFields != null)
+            {
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>
+                <strong>@ViewBag.InputFields</strong>
+            </div>
+        }
     </div>
 </div>

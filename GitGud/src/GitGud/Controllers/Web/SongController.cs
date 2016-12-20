@@ -160,8 +160,33 @@ namespace GitGud.Controllers.Web
                 {
                     if (ModelState.IsValid)
                     {
-                        _repository.EditSong(songId, model.Artist, model.SongName, model.Category, model.Tags);
-                        return RedirectToAction("Details", new { songId = songId });
+                        if (_repository.SongDuplicateExists(model.SongName, model.Artist) && _repository.DuplicateIsThisSong(songId, model.SongName, model.Artist))
+                        {
+                            _repository.EditSong(songId, model.Artist, model.SongName, model.Category, model.Tags);
+                            return RedirectToAction("Details", new { songId = songId });
+                        }
+                        else if (!_repository.SongDuplicateExists(model.SongName, model.Artist))
+                        {
+                            _repository.EditSong(songId, model.Artist, model.SongName, model.Category, model.Tags);
+                            return RedirectToAction("Details", new { songId = songId });
+                        }
+                        else
+                        {
+                            ModelState.Clear();
+                            var categories = _repository.GetAllCategories();
+                            ViewData["categories"] = categories;
+                            ViewData["songId"] = songId;
+
+                            var song = _repository.GetSongById(songId);
+
+                            ViewData["artist"] = song.ArtistName;
+                            ViewData["songName"] = song.Name;
+                            ViewData["category"] = song.Category.Name;
+                            ViewData["tags"] = string.Join(", ", song.Tags.Select(x => x.Name.ToString()));
+
+                            ViewBag.InputFields = "Such a song already exists in the Database";
+                            return View();
+                        }
                     }
                     return RedirectToAction("Browse", "App");
                 }

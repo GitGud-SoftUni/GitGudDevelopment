@@ -522,6 +522,30 @@ namespace GitGud.Models
             return songAlreadyExists;
         }
 
+        public bool DuplicateIsThisSong(int songId, string songName, string artistName)
+        {
+            var songs = GetAllSongs();
+
+            var songDuplicate = songs.Where(x => x.Name.ToLower() == songName.ToLower()
+                &&
+                x.ArtistName.ToLower() == artistName.ToLower()
+                ).FirstOrDefault();
+
+            if (songDuplicate == null)
+            {
+                return false;
+            }
+
+            if (songDuplicate.Id == songId)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public User GetUserByUsername(string userName)
         {
             return _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
@@ -558,14 +582,19 @@ namespace GitGud.Models
             var oldFileName = song.fileAdress;
             var newFileName = $"{songName} - {artistName}.mp3";
 
-            var oldPath = Path.Combine(directory, oldFileName);
-            var newPath = Path.Combine(directory, newFileName);
-
-            if (File.Exists(newPath))
+            if (oldFileName != newFileName)
             {
-                File.Delete(newPath);
+                var oldPath = Path.Combine(directory, oldFileName);
+                var newPath = Path.Combine(directory, newFileName);
+
+                if (File.Exists(newPath))
+                {
+                    File.Delete(newPath);
+                }
+                File.Move(oldPath, newPath);
             }
-            File.Move(oldPath, newPath);
+
+
 
             song.Tags = newTags;
             song.ArtistName = artistName;
