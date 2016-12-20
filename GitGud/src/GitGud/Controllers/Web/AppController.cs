@@ -42,7 +42,7 @@ namespace GitGud.Controllers.Web
 
         public IActionResult Browse(int? page)
         {
-            var songs = _repository.GetAllSongs();
+            var songs = _repository.GetAllSongs().OrderByDescending(x => x.DateUploaded).ThenBy(x => x.Name);
 
             int pageSize = 10;//NUMBER OF RESULTS PER PAGE
             ViewData["PagerIsNeeded"] = songs.Count() > pageSize;
