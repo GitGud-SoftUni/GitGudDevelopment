@@ -10,13 +10,7 @@ namespace GitGud.Models
     {
         public int Id { get; set; }
         public string UserName { get; set; }
-        public DateTime Date
-        {
-            get
-            {
-                return DateTime.Now;
-            }
-        }
+        public DateTime Date { get; set; }
         public string Content { get; set; }
         public ICollection<Like> Likes { get; set; }
 

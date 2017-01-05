@@ -152,6 +152,7 @@ namespace GitGud.Models
         {
             Song songCommented = GetSongById(songId);
             Comment comment = new Comment();
+            comment.Date = DateTime.Now;
             comment.Content = content;
             comment.UserName = userName;
             songCommented.Comments.Add(comment);
